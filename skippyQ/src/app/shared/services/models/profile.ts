@@ -1,10 +1,10 @@
 export class Profile {
     userID: string;
     isAdmin: boolean;
+    email: string;
     phoneNumber: number;
     name: string;
     password: string;
-    email: string;
     ageRange: string;
     bio?: string;
     shippingAddress?: string;
@@ -14,10 +14,10 @@ export class Profile {
     constructor(
         userID: string,
         isAdmin: boolean,
+        email: string,
         phoneNumber: number,
         name: string,
         password: string,
-        email: string,
         ageRange: string,
         bio?: string,
         shippingAddress?: string,
@@ -26,10 +26,10 @@ export class Profile {
     ) {
         this.userID = userID;
         this.isAdmin = isAdmin;
+        this.email = email;
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.password = password;
-        this.email = email;
         this.ageRange = ageRange;
         this.bio = bio!;
         this.shippingAddress = shippingAddress!;
