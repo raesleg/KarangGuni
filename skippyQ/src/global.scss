@@ -34,5 +34,19 @@ ion-title, ion-label, h1, h2, h3, h4 {
 }
 
 ion-content {
-    padding: 30px;
+    --padding-start: 30px;
+    --padding-end: 30px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+}
+
+ion-item {
+    --inner-border-width: 0px;
+    margin-bottom: 10px;
+}
+
+.inline-btn-ctn {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
 }

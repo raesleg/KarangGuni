@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-item class="top">
+    <h4>Create an account</h4>
+  </ion-item>
+  <form [formGroup]="registerForm">
+    <ion-item>
+      <ion-input label="Full Name" formControlName="name" label-placement="floating" fill="outline" placeholder="Enter your full name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input label="Email" type="email" formControlName="email" label-placement="floating" fill="outline" placeholder="Enter your email address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Phone Number</ion-label>
+      <ion-input type="phone" formControlName="phone" label-placement="floating" fill="solid" placeholder="Enter your phone number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input type="password" formControlName="password" label-placement="floating" fill="solid" placeholder="Enter your password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Confirm Password</ion-label>
+      <ion-input type="password" formControlName="password" label-placement="floating" fill="solid" placeholder="Confirm your password"></ion-input>
+    </ion-item>
+    <div class="inline-btn-ctn">
+      <ion-button id="btn" expand="block" color="primary" type="submit" fill="outline">
+        Cancel
+      </ion-button>
+      <ion-button id="btn" expand="block" color="primary" type="submit">
+        Create Account
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

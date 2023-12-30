@@ -3,15 +3,10 @@ p {
     color: grey;
 }
 
-ion-item {
-    --inner-border-width: 0px;
-    padding: 0px 20px;
-    margin-bottom: 10px;
-    
-    ion-label {
-        color: rgb(151, 169, 124);
-    }
+ion-label {
+    color: rgb(151, 169, 124);
 }
+
 
 .top-btm {
     margin: 30px 0px;
@@ -20,12 +15,11 @@ ion-item {
     }
 }
 
-ion-button {
-    width: 150px;
-}
-
-.btn-ctn {
-    margin-bottom: 30px;
+.inline-btn-ctn {
+    ion-button {
+        width: 150px;
+        font-size: small;
+    }
 }
 
 h6 {
