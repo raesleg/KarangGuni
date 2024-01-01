@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content>
+  <div class="top-btm">
+    <ion-item>
+      <img src="assets/app-logo.png"/>
+      <h4>Welcome Karang Guni</h4>
+      <p>Login to take a step into building a greener world!</p>
+    </ion-item>
+  </div>
+  <form [formGroup]="loginForm">
+    <ion-item>
+      <ion-label position="stacked">Email</ion-label>
+      <ion-input type="email" formControlName="email" fill="solid" placeholder="Enter your email address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input type="password" formControlName="password" fill="solid" placeholder="Enter your password"></ion-input>
+    </ion-item>
+    <div class="inline-btn-ctn">
+      <ion-button id="btn" color="primary" type="submit" fill="outline">
+        Forgot Password?
+      </ion-button>
+      <ion-button id="btn" color="primary" type="submit" (click)="login()">
+        Log In
+      </ion-button>
+    </div>
+    <ion-item>
+      <h6>Don't have any account? <a routerLink="/register">Sign Up Now!</a> </h6>
+    </ion-item>
+  </form>
+</ion-content>
+

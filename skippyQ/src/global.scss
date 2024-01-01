@@ -24,3 +24,29 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+ion-content, ion-title, ion-item, ion-label, h1, h2, h3, h4, h5, h6, p, ion-text, ion-input, ion-button, ion-select-option {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+ion-title, ion-label, h1, h2, h3, h4 {
+    color: rgb(151, 169, 124);
+}
+
+ion-content {
+    --padding-start: 30px;
+    --padding-end: 30px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+}
+
+ion-item {
+    --inner-border-width: 0px;
+    margin-bottom: 10px;
+}
+
+.inline-btn-ctn {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+}
