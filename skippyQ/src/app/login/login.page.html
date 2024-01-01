@@ -12,11 +12,11 @@
   <form [formGroup]="loginForm">
     <ion-item>
       <ion-label position="stacked">Email</ion-label>
-      <ion-input type="email" formControlName="email" label-placement="floating" fill="solid" placeholder="Enter your email address"></ion-input>
+      <ion-input type="email" formControlName="email" fill="solid" placeholder="Enter your email address"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Password</ion-label>
-      <ion-input type="password" formControlName="password" label-placement="floating" fill="solid" placeholder="Enter your password"></ion-input>
+      <ion-input type="password" formControlName="password" fill="solid" placeholder="Enter your password"></ion-input>
     </ion-item>
     <div class="inline-btn-ctn">
       <ion-button id="btn" color="primary" type="submit" fill="outline">
@@ -27,7 +27,7 @@
       </ion-button>
     </div>
     <ion-item>
-      <h6>Don't have any account? Sign Up Now!</h6>
+      <h6>Don't have any account? <a routerLink="/register">Sign Up Now!</a> </h6>
     </ion-item>
   </form>
 </ion-content>

@@ -7,28 +7,76 @@
   </ion-item>
   <form [formGroup]="registerForm">
     <ion-item>
-      <ion-input label="Full Name" formControlName="name" label-placement="floating" fill="outline" placeholder="Enter your full name"></ion-input>
+      <ion-label position="stacked">Full Name</ion-label>
+      <ion-input formControlName="name" fill="outline" placeholder="Enter your full name"></ion-input>
+      <ion-text *ngIf="registerForm.get('name')?.hasError('required') && submitted" color="danger">
+        Name is Required
+      </ion-text>      
     </ion-item>
     <ion-item>
-      <ion-input label="Email" type="email" formControlName="email" label-placement="floating" fill="outline" placeholder="Enter your email address"></ion-input>
+      <ion-label position="stacked">Email Address</ion-label>
+      <ion-input type="email" formControlName="email" fill="outline" placeholder="Enter your email address"></ion-input>
+      <ion-text *ngIf="registerForm.get('email')?.hasError('required') && submitted" color="danger">
+        Email is Required
+      </ion-text>
+      <ion-text *ngIf="registerForm.get('email')?.hasError('email') && !registerForm.get('email')?.hasError('required') && submitted" color="danger">
+        Enter a valid email address
+      </ion-text>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Phone Number</ion-label>
-      <ion-input type="phone" formControlName="phone" label-placement="floating" fill="solid" placeholder="Enter your phone number"></ion-input>
+      <ion-input type="phone" formControlName="phone" fill="solid" placeholder="Enter your phone number"></ion-input>
+      <ion-text *ngIf="registerForm.get('phone')?.hasError('required') && submitted" color="danger">
+        Phone is Required
+      </ion-text>
+      <ion-text *ngIf="registerForm.get('phone')?.hasError('invalidPhone') && !registerForm.get('phone')?.hasError('required') && submitted" color="danger">
+        Enter a valid phone number
+      </ion-text>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Password</ion-label>
-      <ion-input type="password" formControlName="password" label-placement="floating" fill="solid" placeholder="Enter your password"></ion-input>
+      <ion-input type="password" formControlName="password" fill="solid" placeholder="Enter your password"></ion-input>
+      <ion-text *ngIf="registerForm.get('password')?.hasError('required') && submitted" color="danger">
+        Password is Required
+      </ion-text>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Confirm Password</ion-label>
-      <ion-input type="password" formControlName="password" label-placement="floating" fill="solid" placeholder="Confirm your password"></ion-input>
+      <ion-input type="password" formControlName="cfmpassword" fill="solid" placeholder="Confirm your password"></ion-input>
+      <ion-text *ngIf="registerForm.get('cfmpassword')?.hasError('required') && submitted" color="danger">
+        Please confirm your password
+      </ion-text>
+    </ion-item>
+    <!-- Error message for weak password -->
+    <ion-text *ngIf="registerForm.get('password')?.hasError('weakPassword')" color="danger" class="ion-text-wrap">
+      Password is too weak. Password must have at least: <br>
+      &bull; 8 characters<br>
+      &bull; 1 special character<br>
+      &bull; 1 digit<br>
+      &bull; 1 uppercase letter<br>
+      &bull; 1 lowercase letter<br>
+    </ion-text>
+    <!-- Error message for password mismatch -->
+    <ion-text *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('cfmpassword')?.dirty" color="danger">
+      Passwords do not match.
+    </ion-text>
+    <ion-item>
+      <ion-label>Age Range</ion-label>
+      <ion-select formControlName="ageRange">
+        <ion-select-option *ngFor="let option of ageranges"
+          [value]="option">
+          {{option}}
+        </ion-select-option>
+      </ion-select>
+      <ion-text *ngIf="registerForm.get('ageRange')?.hasError('required') && submitted" color="danger">
+        Please enter your age range
+      </ion-text>
     </ion-item>
     <div class="inline-btn-ctn">
-      <ion-button id="btn" expand="block" color="primary" type="submit" fill="outline">
+      <ion-button id="btn" expand="block" color="primary" type="submit" fill="outline" routerLink="/login">
         Cancel
       </ion-button>
-      <ion-button id="btn" expand="block" color="primary" type="submit">
+      <ion-button id="btn" expand="block" color="primary" type="submit" (click)="register()">
         Create Account
       </ion-button>
     </div>
