@@ -35,7 +35,7 @@ export class RegisterPage implements OnInit {
       { validators: this.validService.matchPasswords }
     );
 
-    this.ageranges = ['20-29', '30-39', '40-49', '50-59', '60 And Above'];
+    this.ageranges = ['13-17', '18-29', '30-39', '40-49', '50-59', '60 And Above'];
   }
 
   ngOnInit() {
