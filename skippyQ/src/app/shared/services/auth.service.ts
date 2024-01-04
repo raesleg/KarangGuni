@@ -18,6 +18,37 @@ export class AuthService {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
 
+  logout() {
+    return firebase.auth().signOut();
+  }
+
+  getCurrentUser(): firebase.User | null {
+    return firebase.auth().currentUser;
+  }
+
+  getUserProfile(email: string): Promise<Profile> {
+    const profileCollection = this.profileRef;
+  
+    return profileCollection.doc(email).get().then((doc) => {
+      if (doc.exists) {
+        const data = doc.data() as Profile;
+        return data;
+      } else {
+        console.log(`User with email ${email} not found in the "profile" collection`);
+        // Returning an empty Profile object
+        return {} as Profile;
+        // Alternatively, you can throw an error
+        // throw new Error(`User with userID ${uid} not found in the "profile" collection`);
+      }
+    }).catch((error) => {
+      console.error('Error getting user info:', error);
+      // You might want to throw an error here as well
+      throw error;
+    });
+  }
+  
+  
+
   async register(profile: Profile) {
     try {
       // Step 1: Create user in Firebase Authentication
@@ -27,10 +58,9 @@ export class AuthService {
       );
   
       // Step 2: Save additional user details in Firestore
-      this.profileRef.add ( {
+      this.profileRef.doc(profile.email).set ( {
         userID: userCredential.user?.uid,
         isAdmin: profile.isAdmin,
-        email: profile.email,
         phoneNumber: profile.phoneNumber,
         name: profile.name,
         ageRange: profile.ageRange
@@ -39,6 +69,46 @@ export class AuthService {
       return userCredential;
     } catch (error) {
       console.error('Registration error:', error);
+      throw error; // Rethrow the error for the caller to handle
+    }
+  }
+  
+  async updateProfile(profile: Profile) {
+    try {
+      const currentUser = await this.getCurrentUser();
+  
+      if (currentUser) {
+        if (profile.password !== "") {
+          await currentUser.updatePassword(profile.password);
+        }
+  
+        // Prepare the updated fields
+        const updatedProfile: any = {
+          name: profile.name,
+          phoneNumber: profile.phoneNumber,
+          ageRange: profile.ageRange
+        };
+        // Add bio to updatedProfile only if it's defined
+        if (profile.bio !== undefined) {
+          updatedProfile.bio = profile.bio;
+        }
+        // Add shippingAddress to updatedProfile only if it's defined
+        if (profile.shippingAddress !== undefined) {
+          updatedProfile.shippingAddress = profile.shippingAddress;
+        }
+  
+        // Check if currentUser.email is not null before updating the document
+        if (currentUser.email) {
+          await this.profileRef.doc(currentUser.email).update(updatedProfile);
+          return updatedProfile;
+        } else {
+          throw new Error('User email is null');
+        }
+      }
+    // If currentUser is null, you might want to throw an error or handle the case accordingly
+    throw new Error('Current user is null');
+    } catch (error) {
+      console.error('Profile update error:', error);
       throw error; // Rethrow the error for the caller to handle
     }
   }
