@@ -1,16 +1,35 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
     </ion-toolbar>
   </ion-header>
+  
+  <div class="top-ctn">
+    <ion-item>
+      <ion-avatar>
+        <img [src]="" id="profile-img">
+      </ion-avatar>
+    </ion-item>
+    <ion-item>
+      <h4>{{userName}}</h4>
+    </ion-item>
+  </div>
 
+  <div class="btn-ctn">
+        <ion-button expand="block" type="submit" fill="outline" routerLink="/user-info">
+          <ion-icon name="person"></ion-icon>
+          User Info
+        </ion-button>
+        <ion-button expand="block" type="submit" fill="outline" routerLink="">
+          <ion-icon name="trophy"></ion-icon>
+          Rewards
+        </ion-button>
+        <ion-button expand="block" type="submit" fill="outline" routerLink="">
+          <ion-icon name="analytics"></ion-icon>
+          Dashboard
+        </ion-button>
+  </div>
 </ion-content>
