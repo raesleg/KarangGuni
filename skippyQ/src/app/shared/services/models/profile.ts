@@ -21,7 +21,6 @@ export class Profile {
         ageRange: string,
         bio?: string,
         shippingAddress?: string,
-        image?: string,
         imagePath?: string
     ) {
         this.userID = userID;
@@ -33,7 +32,6 @@ export class Profile {
         this.ageRange = ageRange;
         this.bio = bio!;
         this.shippingAddress = shippingAddress!;
-        this.image = image!;
         this.imagePath = imagePath!;
     }
 }
