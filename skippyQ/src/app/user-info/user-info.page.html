@@ -1,0 +1,103 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <h5 size="medium">Your Profile</h5>
+  </ion-header>
+
+  <div class="top-ctn">
+    <ion-item>
+      <ion-avatar>
+        <img [src]="image" id="profile-img">
+      </ion-avatar>
+    </ion-item>
+  </div>
+
+  <form [formGroup]="userInfoForm">
+    <ion-item>
+      <ion-input formControlName="file" type="file" (change)="onFileChange($event)"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Full Name</ion-label>
+      <ion-input formControlName="name" fill="outline" placeholder="Enter your full name"></ion-input>
+      <ion-text *ngIf="userInfoForm.get('name')?.hasError('required') && submitted" color="danger">
+        Name is Required
+      </ion-text>      
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Email Address</ion-label>
+      <ion-input type="email" formControlName="email" fill="outline" placeholder="Enter your email address" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Phone Number</ion-label>
+      <ion-input type="phone" formControlName="phone" fill="solid" placeholder="Enter your phone number"></ion-input>
+      <ion-text *ngIf="userInfoForm.get('phone')?.hasError('required') && submitted" color="danger">
+        Phone is Required
+      </ion-text>
+      <ion-text *ngIf="userInfoForm.get('phone')?.hasError('invalidPhone') && !userInfoForm.get('phone')?.hasError('required') && submitted" color="danger">
+        Enter a valid phone number
+      </ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Bio</ion-label>
+      <ion-input formControlName="bio" fill="solid" placeholder="Write something about yourself"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Shipping Address</ion-label>
+      <ion-input formControlName="shippingAddress" fill="solid" placeholder="Enter your shipping address"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Age Range</ion-label>
+      <ion-select formControlName="ageRange">
+        <ion-select-option *ngFor="let option of ageranges"
+          [value]="option">
+          {{option}}
+        </ion-select-option>
+      </ion-select>
+      <ion-text *ngIf="userInfoForm.get('ageRange')?.hasError('required') && submitted" color="danger">
+        Please enter your age range
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Change Password?</ion-label>
+      <ion-toggle [(ngModel)]="togglePswd" formControlName="changepwtoggle" (click)="onTogglePswdChange()"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="userInfoForm.value?.changepwtoggle === true">
+      <ion-label position="stacked">Password</ion-label>
+      <ion-input type="password" formControlName="password" fill="solid" placeholder="Enter your password"></ion-input>
+      <ion-text *ngIf="userInfoForm.get('password')?.hasError('required') && submitted && userInfoForm.value?.changepwtoggle" color="danger">
+        Password is Required
+      </ion-text>
+    </ion-item>
+    <ion-item  *ngIf="userInfoForm.value?.changepwtoggle === true">
+      <ion-label position="stacked">Confirm Password</ion-label>
+      <ion-input type="password" formControlName="cfmpassword" fill="solid" placeholder="Confirm your password"></ion-input>
+      <ion-text *ngIf="userInfoForm.get('cfmpassword')?.hasError('required') && submitted && userInfoForm.value?.changepwtoggle" color="danger">
+        Please confirm your password
+      </ion-text>
+    </ion-item>
+    <!-- Error message for weak password -->
+    <ion-text *ngIf="userInfoForm.get('password')?.hasError('weakPassword')" color="danger" class="ion-text-wrap">
+      Password is too weak. Password must have at least: <br>
+      &bull; 8 characters<br>
+      &bull; 1 special character<br>
+      &bull; 1 digit<br>
+      &bull; 1 uppercase letter<br>
+      &bull; 1 lowercase letter<br>
+    </ion-text>
+    <!-- Error message for password mismatch -->
+    <ion-text *ngIf="userInfoForm.hasError('passwordMismatch') && userInfoForm.get('cfmpassword')?.dirty" color="danger">
+      Passwords do not match.
+    </ion-text>
+    <ion-button id="btn" expand="block" color="primary" type="submit" (click)="updateProfile()">
+      Save
+    </ion-button>
+  </form>
+</ion-content>

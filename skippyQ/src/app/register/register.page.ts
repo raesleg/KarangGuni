@@ -50,17 +50,6 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  async presentToast(msg: string, color: string) {
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: 3000, // Display for 3 seconds
-      position: 'top',
-      color: color,
-      cssClass: 'custom-toast', // Add a custom class for further styling if needed
-    });
-
-    toast.present();
-  }
 
   register() {
     this.submitted = true;
@@ -75,9 +64,7 @@ export class RegisterPage implements OnInit {
         this.registerForm.value.ageRange
       );
 
-      this.authService
-        .register(newProfile)
-        .then((userCredential) => {
+      this.authService.register(newProfile).then((userCredential) => {
           // Extract UID from the userCredential
           const uid = userCredential.user?.uid;
 
@@ -89,7 +76,7 @@ export class RegisterPage implements OnInit {
         .catch((error) => {
           // Handle registration errors
           console.error('Registration error:', error);
-          this.presentToast(error.message, 'danger');
+          this.validService.presentToast(error.message, 'danger');
         });
     }
   }

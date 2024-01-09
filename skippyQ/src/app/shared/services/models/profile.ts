@@ -8,7 +8,7 @@ export class Profile {
     ageRange: string;
     bio?: string;
     shippingAddress?: string;
-    image?: string;
+    image;
     imagePath?: string;
 
     constructor(
@@ -21,8 +21,7 @@ export class Profile {
         ageRange: string,
         bio?: string,
         shippingAddress?: string,
-        image?: string,
-        imagePath?: string
+        image?: any
     ) {
         this.userID = userID;
         this.isAdmin = isAdmin;
@@ -34,6 +33,5 @@ export class Profile {
         this.bio = bio!;
         this.shippingAddress = shippingAddress!;
         this.image = image!;
-        this.imagePath = imagePath!;
     }
 }
