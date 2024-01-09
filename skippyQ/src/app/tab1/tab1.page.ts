@@ -11,7 +11,9 @@ import { Profile } from '../shared/services/models/profile';
 export class Tab1Page {
 userName: string | undefined;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  async ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
     if (currentUser && currentUser.email) {
       try {
@@ -30,6 +32,7 @@ userName: string | undefined;
     } else {
       console.log('Could not get current user');
     }}
+
 
   logout() {
     this.authService.logout();

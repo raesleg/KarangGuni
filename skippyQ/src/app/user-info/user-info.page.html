@@ -14,14 +14,14 @@
   <div class="top-ctn">
     <ion-item>
       <ion-avatar>
-        <img [src]="" id="profile-img">
+        <img [src]="image" id="profile-img">
       </ion-avatar>
     </ion-item>
   </div>
 
   <form [formGroup]="userInfoForm">
     <ion-item>
-      <ion-input type="file"></ion-input>
+      <ion-input formControlName="file" type="file" (change)="onFileChange($event)"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="stacked">Full Name</ion-label>
@@ -72,14 +72,14 @@
     <ion-item *ngIf="userInfoForm.value?.changepwtoggle === true">
       <ion-label position="stacked">Password</ion-label>
       <ion-input type="password" formControlName="password" fill="solid" placeholder="Enter your password"></ion-input>
-      <ion-text *ngIf="userInfoForm.get('password')?.hasError('required') && submitted" color="danger">
+      <ion-text *ngIf="userInfoForm.get('password')?.hasError('required') && submitted && userInfoForm.value?.changepwtoggle" color="danger">
         Password is Required
       </ion-text>
     </ion-item>
     <ion-item  *ngIf="userInfoForm.value?.changepwtoggle === true">
       <ion-label position="stacked">Confirm Password</ion-label>
       <ion-input type="password" formControlName="cfmpassword" fill="solid" placeholder="Confirm your password"></ion-input>
-      <ion-text *ngIf="userInfoForm.get('cfmpassword')?.hasError('required') && submitted" color="danger">
+      <ion-text *ngIf="userInfoForm.get('cfmpassword')?.hasError('required') && submitted && userInfoForm.value?.changepwtoggle" color="danger">
         Please confirm your password
       </ion-text>
     </ion-item>

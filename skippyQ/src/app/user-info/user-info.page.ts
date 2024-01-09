@@ -20,7 +20,6 @@ ageranges: string[];
 
 userProfile!: Profile;
 image: string | undefined;
-// private file: File;
 
   constructor(private router: Router,
     private authService: AuthService,
@@ -53,8 +52,6 @@ image: string | undefined;
       try {
         this.userProfile = await this.authService.getUserProfile(currentUser.email);
         console.log('User Profile:', this.userProfile);
-  
-        // Move the code that depends on userProfile inside the try block
         this.image = this.userProfile.image;
         console.log(this.image);
         this.userInfoForm.controls['name'].setValue(this.userProfile.name);
@@ -82,15 +79,6 @@ image: string | undefined;
     });
   }
 
-  // onFileChange(fileChangeEvent){
-  //   this.file = fileChangeEvent.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(this.file);
-  //   reader.onload = () => {
-  //     this.image = reader.result as string;
-  //   };
-  // }
-
   updateProfile() {
     this.submitted = true;
     if (this.userInfoForm.valid) {
@@ -103,12 +91,13 @@ image: string | undefined;
         this.userInfoForm.value.password,
         this.userInfoForm.value.ageRange,
         this.userInfoForm.value.bio,
-        this.userInfoForm.value.shippingAddress,
+        this.userInfoForm.value.shippingAddress
       );
 
-      this.authService.updateProfile(updatedProfile).then(() => {
+      this.authService.updateProfile(updatedProfile, this.userInfoForm.value.file).then(() => {
         console.log('Profile updated successfully');
         this.validService.presentToast('Profile updated successfully', 'success');
+        this.router.navigate(['/tabs/tab3']);
       })
       .catch((error) => {
         // Handle registration errors
@@ -116,6 +105,15 @@ image: string | undefined;
         this.validService.presentToast(error.message, 'danger');
       });
     }
+  }
+
+  onFileChange(event: any){
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.image = reader.result as string;
+    };
   }
 
   onTogglePswdChange() {
