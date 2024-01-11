@@ -70,7 +70,7 @@ export class RegisterPage implements OnInit {
 
           // Do anything else you need with the UID
           console.log('User ID:', uid);
-
+          this.validService.presentToast('Account created successfully', 'danger');
           this.router.navigate(['login']);
         })
         .catch((error) => {

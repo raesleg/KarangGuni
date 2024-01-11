@@ -20,6 +20,7 @@ ageranges: string[];
 
 userProfile!: Profile;
 image: string | undefined;
+selectedImageFile: { file: File, fileName: string } | undefined;
 
   constructor(private router: Router,
     private authService: AuthService,
@@ -28,6 +29,7 @@ image: string | undefined;
   ) {
     this.userInfoForm = new FormGroup(
       {
+        file: new FormControl(''),
         name: new FormControl('', [Validators.required]),
         email: new FormControl(''),
         phone: new FormControl('', [Validators.required, this.validService.validPhoneNo]),
@@ -94,27 +96,52 @@ image: string | undefined;
         this.userInfoForm.value.shippingAddress
       );
 
-      this.authService.updateProfile(updatedProfile, this.userInfoForm.value.file).then(() => {
-        console.log('Profile updated successfully');
-        this.validService.presentToast('Profile updated successfully', 'success');
-        this.router.navigate(['/tabs/tab3']);
-      })
-      .catch((error) => {
-        // Handle registration errors
-        console.error('Update Profile error:', error);
-        this.validService.presentToast(error.message, 'danger');
-      });
+      if (this.userInfoForm.value.file) {
+        // Assuming 'image' is the correct form control name
+        const selectedImage = this.userInfoForm.value.image;
+        this.authService.uploadProfilePhoto(selectedImage).then((downloadUrl) => {
+          console.log('Image uploaded. Download URL:', downloadUrl);
+  
+          // Add the photoURL to the updatedProfile
+          updatedProfile.image = downloadUrl;
+  
+          // Continue with updating the profile
+          this.authService.updateProfile(updatedProfile).then(() => {
+            console.log('Profile updated successfully');
+            this.validService.presentToast('Profile updated successfully', 'success');
+            this.router.navigate(['/tabs/tab3']);
+          })
+          .catch((error) => {
+            // Handle registration errors
+            console.error('Update Profile error:', error);
+            this.validService.presentToast(error.message, 'danger');
+          });
+        }).catch((error) => {
+          // Handle image upload error
+          console.error('Image upload error:', error);
+          this.validService.presentToast('Error uploading image', 'danger');
+        });
+      } else {
+        // Continue without updating the image
+        this.authService.updateProfile(updatedProfile).then(() => {
+          console.log('Profile updated successfully');
+          this.validService.presentToast('Profile updated successfully', 'success');
+          this.router.navigate(['/tabs/tab3']);
+        })
+        .catch((error) => {
+          // Handle registration errors
+          console.error('Update Profile error:', error);
+          this.validService.presentToast(error.message, 'danger');
+        });
+      }
     }
   }
 
-  onFileChange(event: any){
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.image = reader.result as string;
-    };
+  onFileChange(event: any) {
+    this.image = event.target.files[0];
   }
+  
+  
 
   onTogglePswdChange() {
     this.userInfoForm.controls['password'].setValue(null);

@@ -78,7 +78,7 @@ export class AuthService {
     }
   }
   
-  async updateProfile(profile: Profile, photoFile?: File) {
+  async updateProfile(profile: Profile) {
     try {
       const currentUser = await this.getCurrentUser();
   
@@ -102,15 +102,17 @@ export class AuthService {
           updatedProfile.shippingAddress = profile.shippingAddress;
         }
 
-        // Check if a photo file is provided
-        if (photoFile) {
-          // Upload the photo and get the download URL
-          const photoURL = await this.uploadProfilePhoto(currentUser.uid, photoFile);
+        // // Check if a photo file is provided
+        // if (profile.image) {
+        //   // Upload the photo and get the download URL
+        //   await this.uploadProfilePhoto(updatedProfile.image).then((downloadUrl) => {
+        //     console.log('Image uploaded. Download URL: ', downloadUrl);
 
-          // Add the photoURL to the updatedProfile
-          updatedProfile.imagePath = photoURL;
-        }
-  
+        //     // Add the photoURL to the updatedProfile
+        //     updatedProfile.imagePath = downloadUrl;
+        //   });
+        // }
+
         // Check if currentUser.email is not null before updating the document
         if (currentUser.email) {
           await this.profileRef.doc(currentUser.email).update(updatedProfile);
@@ -134,19 +136,11 @@ export class AuthService {
     return downloadURL;
   }
 
-  private async uploadProfilePhoto(uid: string, photoFile: File): Promise<string> {
-    try {
-      console.log('Before uploading file to storage');
-      const storageRef = firebase.storage().ref(`profilePhotos/${uid}`);
-      const photoSnapshot = await storageRef.put(photoFile);
-      console.log('File uploaded to storage');
-      const photoURL = await photoSnapshot.ref.getDownloadURL();
-      console.log('Download URL retrieved');
-      return photoURL;
-    } catch (error) {
-      console.error('Error uploading profile photo:', error);
-      throw error;
-    }
+  uploadProfilePhoto(image: File): Promise<string> {
+    const storageRef = firebase.storage().ref(`profilePhotos/${image}`);
+    return storageRef.put(image).then(() => storageRef.getDownloadURL());
   }
+  
+  
   
 }

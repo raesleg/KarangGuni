@@ -12,7 +12,7 @@ image: string | undefined;
 
   constructor(private authService: AuthService) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
     if (currentUser && currentUser.email) {
       try {
