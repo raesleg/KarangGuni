@@ -6,6 +6,8 @@ import { Profile } from '../shared/services/models/profile';
 import { ToastController } from '@ionic/angular';
 import { ValidatorsService } from '../shared/services/validators.service';
 import { startWith } from 'rxjs';
+import { RewardService } from '../shared/services/reward.service';
+import { Reward } from '../shared/services/models/reward';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +23,7 @@ export class RegisterPage implements OnInit {
     private router: Router,
     private authService: AuthService,
     private validService: ValidatorsService,
+    private rewardService: RewardService,
     private toastController: ToastController
   ) {
     this.registerForm = new FormGroup(
@@ -64,13 +67,22 @@ export class RegisterPage implements OnInit {
         this.registerForm.value.ageRange
       );
 
+      const newReward = new Reward(
+        '',
+        this.registerForm.value.email,
+        0,
+        []
+      )
+
       this.authService.register(newProfile).then((userCredential) => {
           // Extract UID from the userCredential
           const uid = userCredential.user?.uid;
 
-          // Do anything else you need with the UID
+          // Create empty reward doc for new user w their email
+          this.rewardService.createReward(newReward);
+
           console.log('User ID:', uid);
-          this.validService.presentToast('Account created successfully', 'danger');
+          this.validService.presentToast('Account created successfully', 'success');
           this.router.navigate(['login']);
         })
         .catch((error) => {

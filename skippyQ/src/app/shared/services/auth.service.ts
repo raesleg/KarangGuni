@@ -7,6 +7,7 @@ import { Profile } from './models/profile';
 })
 export class AuthService {
   private profileRef = firebase.firestore().collection('profile');
+  private storageRef = firebase.storage().ref();
 
   constructor() { }
   observeAuthState(func: firebase.Observer<any, Error> | ((a: firebase.User | null) => any))
@@ -27,30 +28,36 @@ export class AuthService {
   }
 
   async getUserProfile(email: string): Promise<Profile> {
-    const profileCollection = this.profileRef;
-  
-    return profileCollection.doc(email).get().then(async (doc) => {
+    try {
+      const doc = await this.profileRef.doc(email).get();
+
       if (doc.exists) {
         const data = doc.data() as Profile;
 
         if (data['imagePath']) {
-          const imageDownloadURL = await this.getImageDownloadURL(data['imagePath']);
-          data.image = imageDownloadURL; // Add the imageURL to the profile data
+          const imageRef = this.storageRef.child(data['imagePath']);
+
+          // Check if the image exists before trying to get its download URL
+          try {
+            await imageRef.getMetadata();
+            const url = await imageRef.getDownloadURL();
+            data['imagePath'] = url;
+          } catch (err) {
+            console.log('Error: Read image fail ' + err);
+          }
         }
+
         return data;
       } else {
         console.log(`User with email ${email} not found in the "profile" collection`);
         // Returning an empty Profile object
         return {} as Profile;
-        // Alternatively, you can throw an error
-        // throw new Error(`User with userID ${uid} not found in the "profile" collection`);
       }
-    }).catch((error) => {
+    } catch (error) {
       console.error('Error getting user info:', error);
-      // You might want to throw an error here as well
       throw error;
-    });
-  }
+    }
+}
   
   
 
@@ -70,15 +77,15 @@ export class AuthService {
         name: profile.name,
         ageRange: profile.ageRange
       });
-      // Optionally, you can return the userCredential or user object if needed
+  
       return userCredential;
     } catch (error) {
       console.error('Registration error:', error);
-      throw error; // Rethrow the error for the caller to handle
+      throw error;
     }
   }
   
-  async updateProfile(profile: Profile) {
+  async updateProfile(profile: Profile, file: File | undefined) {
     try {
       const currentUser = await this.getCurrentUser();
   
@@ -102,16 +109,11 @@ export class AuthService {
           updatedProfile.shippingAddress = profile.shippingAddress;
         }
 
-        // // Check if a photo file is provided
-        // if (profile.image) {
-        //   // Upload the photo and get the download URL
-        //   await this.uploadProfilePhoto(updatedProfile.image).then((downloadUrl) => {
-        //     console.log('Image uploaded. Download URL: ', downloadUrl);
-
-        //     // Add the photoURL to the updatedProfile
-        //     updatedProfile.imagePath = downloadUrl;
-        //   });
-        // }
+        if (file) {
+          const filePath = `${'profilePhotos/' + file.name}`;
+          this.storageRef.child(filePath).put(file);
+          updatedProfile.imagePath = filePath;
+        }
 
         // Check if currentUser.email is not null before updating the document
         if (currentUser.email) {
@@ -121,19 +123,11 @@ export class AuthService {
           throw new Error('User email is null');
         }
       }
-    // If currentUser is null, you might want to throw an error or handle the case accordingly
     throw new Error('Current user is null');
     } catch (error) {
       console.error('Profile update error:', error);
-      throw error; // Rethrow the error for the caller to handle
+      throw error; 
     }
-  }
-  
-  // Function to get the image download URL from Firebase Storage
-  private async getImageDownloadURL(imagePath: string): Promise<string> {
-    const storageRef = firebase.storage().ref(imagePath);
-    const downloadURL = await storageRef.getDownloadURL();
-    return downloadURL;
   }
 
   uploadProfilePhoto(image: File): Promise<string> {

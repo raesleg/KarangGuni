@@ -10,7 +10,7 @@
   <div class="top-ctn">
     <ion-item>
       <ion-avatar>
-        <img [src]="image" id="profile-img">
+        <img [src]="imageUrl" id="profile-img">
       </ion-avatar>
     </ion-item>
     <ion-item>
@@ -19,17 +19,17 @@
   </div>
 
   <div class="btn-ctn">
-        <ion-button expand="block" type="submit" fill="outline" routerLink="/user-info">
+        <ion-label expand="block" type="submit" fill="outline" routerLink="/user-info">
           <ion-icon name="person"></ion-icon>
           User Info
-        </ion-button>
-        <ion-button expand="block" type="submit" fill="outline" routerLink="">
+        </ion-label>
+        <ion-label expand="block" type="submit" fill="outline" routerLink="/rewards">
           <ion-icon name="trophy"></ion-icon>
           Rewards
-        </ion-button>
-        <ion-button expand="block" type="submit" fill="outline" routerLink="">
+        </ion-label>
+        <ion-label expand="block" type="submit" fill="outline" routerLink="">
           <ion-icon name="analytics"></ion-icon>
           Dashboard
-        </ion-button>
+        </ion-label>
   </div>
 </ion-content>
