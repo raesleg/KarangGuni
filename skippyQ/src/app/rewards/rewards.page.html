@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content *ngIf="userRewards" [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <h5 size="medium">Your Rewards</h5>
+  </ion-header>
+
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-item class="pt-ctn">
+    <img src="assets/reward-coin.png"/>
+    <h4>{{userRewards.points}} points</h4>
+  </ion-item>
+
+  <ion-segment (ionChange)="segmentChanged($event)" value="allVouchers">
+    <ion-segment-button value="allVouchers">
+      <ion-label>
+        Vouchers
+      </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="myVouchers">
+      <ion-label>
+        My Vouchers
+      </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="segment === 'allVouchers'">
+    <!-- All post Card-->
+    <ion-list class="vouchers" *ngFor="let voucher of vouchers">
+      <ion-item>
+        <img class="img" src="{{voucher.image}}">
+            <ion-label>
+              <h3>{{voucher.brand}}</h3>
+              <h3>${{voucher.value}} voucher</h3>
+            </ion-label>
+            <ion-label>
+              <h3>{{voucher.pointsRequired}}pts</h3>
+              <ion-button (click)="addVoucher(voucher.voucherID, voucher.brand, voucher.value, voucher.pointsRequired)">Redeem</ion-button>
+            </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="segment === 'myVouchers'">
+    <!-- All post Card-->
+    <ion-list class="vouchers" *ngFor="let voucher of myVouchers">
+      <ion-item>
+        <img class="img" src="{{voucher.image}}">
+            <ion-label>
+              <h3>{{voucher.brand}}</h3>
+              <h3>${{voucher.value}} voucher</h3>
+            </ion-label>
+            <ion-label>
+              <h3>{{voucher.pointsRequired}}pts</h3>
+              <ion-button>Redeem</ion-button>
+            </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>
