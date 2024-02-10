@@ -7,7 +7,7 @@ export class Profile {
     password: string;
     ageRange: string;
     bio?: string;
-    shippingAddress?: string;
+    shippingAddress: string;
     image;
     imagePath?: string;
 
@@ -19,8 +19,8 @@ export class Profile {
         name: string,
         password: string,
         ageRange: string,
+        shippingAddress: string,
         bio?: string,
-        shippingAddress?: string,
         image?: any
     ) {
         this.userID = userID;
@@ -30,8 +30,8 @@ export class Profile {
         this.name = name;
         this.password = password;
         this.ageRange = ageRange;
+        this.shippingAddress = shippingAddress;
         this.bio = bio!;
-        this.shippingAddress = shippingAddress!;
         this.image = image!;
     }
 }

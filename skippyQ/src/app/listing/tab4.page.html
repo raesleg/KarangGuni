@@ -1,0 +1,118 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-item>
+      <img src="assets/logo.png" width="70" height="50" style="margin: 10px 0px 0px 0px"/>
+    </ion-item>
+
+
+    <ion-buttons slot="end">
+      <ion-button color="primary" [routerLink]="['/seller']"> 
+        <ion-icon slot="icon-only" name="add"></ion-icon> 
+      </ion-button>
+
+      <ion-button color="primary" (click)="openCart()" style="position: relative;">
+        <ion-icon slot="icon-only" name="cart" style="position: relative; z-index: 1;">
+        </ion-icon>
+        <ion-badge item-end style="position: absolute; top: -5px; right: -5px; font-size: 10px; min-width: 15px; min-height: 15px;">{{buyercart.length}}</ion-badge>
+      </ion-button>
+      
+      <ion-button color="primary" (click)="openNotification()" style="position: relative;">
+        <ion-icon slot="icon-only" name="notifications" style="position: relative; z-index: 1;">
+        <ion-icon name="notifications"></ion-icon>
+        </ion-icon>
+        <ion-badge item-end *ngIf="unopenedNotifCount > 0"style="position: absolute; top: -5px; right: -5px; font-size: 10px; min-width: 15px; min-height: 15px;">{{unopenedNotifCount}}</ion-badge>
+      </ion-button>
+
+      <ion-button color="primary" (click)="logout()">
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+  </ion-header>
+
+    <ion-toolbar>
+      <ion-segment value="favorites">
+        <ion-segment-button value="all" (click)="yourlisting()">
+          <ion-label>Your listings</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="favorites" (click)="navigateback()">
+          <ion-label>Marketplace</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="marketplace" (click)="navigateback2()">
+          <ion-label>My Orders</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+
+<ion-content [fullscreen]="true" >
+
+  <ion-searchbar #searchBar (ionChange)=search($event)></ion-searchbar>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="main">
+  <div class="wrapper" *ngFor="let item of filteredProducts">
+      <div class="container">
+        <div class="top">
+          <img [src]="item.image">
+        </div>
+
+        <div class="bottom">
+          <div class="left">
+            <div class="details">
+              <h2>{{item.name}}</h2>
+              <p>{{item.price | currency }}</p>
+            </div>
+            <div class="buy">
+              <ion-icon size="large" style="margin-right:10px;" name="create-outline" [routerLink] = "['/edit-product', item.id]"></ion-icon>
+              <ion-icon size="large" name="trash-outline" (click)="delete(item)"></ion-icon>
+              <!-- if its in marketplace then its cart if its own account listing then edit and trash -->
+              <!-- <ion-icon size="large" name="cart" (click)=addToCart(item)></ion-icon> -->
+            </div>
+        </div>
+
+    <div class="inside">
+      <div class="icon">
+        <ion-icon size="large" name="information-circle-outline"></ion-icon>
+      </div>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>Product Model</th>
+          </tr>
+          <tr>
+            <td>{{item.model}}</td>
+          </tr>
+          <tr>
+            <th>Product Condition</th>
+          </tr>
+          <tr>
+            <td>{{item.conditions}}</td>
+          </tr>
+          <tr>
+            <th>Product Description</th>
+          </tr>
+          <tr>
+            <td>{{item.details}}</td>
+          </tr>
+          <tr>
+            <th>Listed By -- {{item.sellername}}</th>
+          </tr>
+          <tr>
+          </tr>
+        </table>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</ion-content>
+
+  
+
+

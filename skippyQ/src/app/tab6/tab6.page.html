@@ -1,0 +1,105 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-item>
+      <img src="assets/logo.png" width="70" height="50" style="margin: 10px 0px 0px 0px"/>
+    </ion-item>
+
+    <ion-buttons slot="end">
+      <!-- <ion-button color="primary" [routerLink]="['/seller']"> 
+        <ion-icon slot="icon-only" name="add"></ion-icon> 
+      </ion-button> -->
+
+      <!-- <ion-button color="primary" (click)="openCart()">
+        <ion-icon slot="icon-only" name="cart"></ion-icon>
+      </ion-button> -->
+
+      <!-- <ion-button color="primary" (click)="openCart()" style="position: relative;">
+        <ion-icon slot="icon-only" name="cart" style="position: relative; z-index: 1;">
+        </ion-icon>
+        <ion-badge item-end style="position: absolute; top: -5px; right: -5px; font-size: 10px; min-width: 15px; min-height: 15px;">{{buyercart.length}}</ion-badge>
+      </ion-button>       -->
+
+      <ion-button color="primary" (click)="logout()"> 
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+
+      <div class="container-fluid">
+        <div class="row">
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">
+            <div class="card-list">
+              <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                  <div class="card red">
+                    <div class="title">Total Transaction [24h]</div>
+                    <i class="zmdi zmdi-upload"></i>
+                    <div class="value">{{transtoday.length}}</div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                  <div class="card orange">
+                    <div class="title">revenue generated [24h]</div>
+                    <i class="zmdi zmdi-upload"></i>
+                    <div class="value">{{getSumToday() | currency}}</div>
+                    <div class="title">total revenue generated</div>
+                    <div class="value">{{getSum() | currency}}</div>
+                    <div class="stat">10% of sales per transaction</div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ion-searchbar #searchBar (ionChange)=search($event)></ion-searchbar>
+  
+            <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+              <ion-refresher-content></ion-refresher-content>
+            </ion-refresher>
+          
+            <div class="projects mb-4">
+              <div class="projects-inner">
+                <header class="projects-header">
+                  <div class="title">Order Management</div>
+                  <div class="count">| {{trans.length}} Total Transactions</div>
+                  <i class="zmdi zmdi-download"></i>
+                </header>
+                <table class="projects-table">
+                  <thead>
+                    <tr>
+                      <th>Trans ID</th>
+                      <th>Customer ID</th>
+                      <th>Date</th>
+                      <th>Amount</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tr *ngFor="let item of trans">
+                    <td>
+                      <p>{{item.id}}</p>
+                    </td>
+                    <td [routerLink]="['/adminlisting', item.buyeruserid]">
+                      <p>{{item.buyeruserid}}</p>
+                    </td>
+                    <td>
+                      {{item.create_time}}
+                    </td>
+                    <td>
+                      <p>{{item.currency}}{{item.amount | currency}}</p>
+                    </td>  
+                    <td>                 
+                      <ion-icon name="eye" slot="icon-only" [routerLink] = "['/admintrans', item.id]"></ion-icon>
+                    </td>  
+                  </tr>
+                  
+                </table>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </ion-content>

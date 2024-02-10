@@ -1,0 +1,85 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-item>
+      <img src="assets/logo.png" width="70" height="50" style="margin: 10px 0px 0px 0px"/>
+    </ion-item>
+
+
+    <ion-buttons slot="end">
+      <ion-button color="primary" [routerLink]="['/seller']"> 
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+
+      <ion-button color="primary" (click)="openCart()">
+        <ion-icon slot="icon-only" name="cart"></ion-icon>
+      </ion-button>
+
+      <ion-button color="primary">
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+  </ion-header>
+
+    <ion-toolbar>
+      <ion-segment value="all">
+        <ion-segment-button value="all" [routerLink] = "['/listings']">
+          <ion-label>Your listings</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="favorites">
+          <ion-label>Marketplace</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+
+<ion-content [fullscreen]="true">
+  <div class="main">
+  <div class="wrapper" *ngFor="let item of products">
+      <div class="container">
+        <div class="top">
+          <img [src]="item.image">
+        </div>
+
+        <div class="bottom">
+          <div class="left">
+            <div class="details">
+              <h2>{{item.name}}</h2>
+              <p>{{item.price | currency }}</p>
+            </div>
+            <div class="buy">
+              <ion-icon size="large" style="margin-right:10px;" name="create-outline" [routerLink] = "['/edit-product', item.id]"></ion-icon>
+              <ion-icon size="large" name="trash-outline" (click)="delete(item)"></ion-icon>
+            </div>
+        </div>
+
+    <div class="inside">
+      <div class="icon">
+        <ion-icon size="large" name="information-circle-outline"></ion-icon>
+      </div>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>Product Description</th>
+          </tr>
+          <tr>
+            <td>{{item.details}}</td>
+          </tr>
+          <tr>
+            <th>Listed By -- {{item.userid}}</th>
+          </tr>
+          <tr>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+</ion-content>
+
+  
+
+ -->

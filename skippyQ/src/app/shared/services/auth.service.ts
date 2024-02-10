@@ -8,7 +8,7 @@ import { Profile } from './models/profile';
 export class AuthService {
   private profileRef = firebase.firestore().collection('profile');
 
-  constructor() { }
+  constructor() {}
   observeAuthState(func: firebase.Observer<any, Error> | ((a: firebase.User | null) => any))
     {
       return firebase.auth().onAuthStateChanged(func);
@@ -20,6 +20,18 @@ export class AuthService {
 
   logout() {
     return firebase.auth().signOut();
+  }
+
+  setUserData(email: string){
+    localStorage.setItem('email', email)
+  }
+
+  getUserData(): string | null {
+    return localStorage.getItem('email')
+  }
+
+  clearUserData(){
+    localStorage.removeItem('email')
   }
 
   getCurrentUser(): firebase.User | null {
@@ -41,9 +53,9 @@ export class AuthService {
       } else {
         console.log(`User with email ${email} not found in the "profile" collection`);
         // Returning an empty Profile object
-        return {} as Profile;
+        // return {} as Profile;
         // Alternatively, you can throw an error
-        // throw new Error(`User with userID ${uid} not found in the "profile" collection`);
+        throw new Error(`Account does not exist`);
       }
     }).catch((error) => {
       console.error('Error getting user info:', error);
@@ -68,7 +80,8 @@ export class AuthService {
         isAdmin: profile.isAdmin,
         phoneNumber: profile.phoneNumber,
         name: profile.name,
-        ageRange: profile.ageRange
+        ageRange: profile.ageRange,
+        shippingAddress: ''
       });
       // Optionally, you can return the userCredential or user object if needed
       return userCredential;
@@ -77,7 +90,30 @@ export class AuthService {
       throw error; // Rethrow the error for the caller to handle
     }
   }
+
+  // anna's code
+  async updateShippingAddress(email: string, newShippingAddress : string) {
+    try {
+      // Check if the document exists
+      const profileDoc = await this.profileRef.doc(email).get();
   
+      if (profileDoc.exists) {
+        // Document exists, update the shippingAddress field
+        await this.profileRef.doc(email).update({
+          shippingAddress: newShippingAddress
+        });
+        console.log(newShippingAddress);
+        console.log('Shipping address updated successfully');
+      } else {
+        console.log(`User with email ${email} not found in the "profile" collection`);
+      }
+    } catch (error) {
+      console.error('Error updating shipping address:', error);
+      throw error;
+    }
+  }
+  // end
+
   async updateProfile(profile: Profile, photoFile?: File) {
     try {
       const currentUser = await this.getCurrentUser();
@@ -148,5 +184,6 @@ export class AuthService {
       throw error;
     }
   }
+  
   
 }

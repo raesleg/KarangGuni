@@ -61,7 +61,8 @@ export class RegisterPage implements OnInit {
         this.registerForm.value.phone,
         this.registerForm.value.name,
         this.registerForm.value.password,
-        this.registerForm.value.ageRange
+        this.registerForm.value.ageRange,
+        ''
       );
 
       this.authService.register(newProfile).then((userCredential) => {
