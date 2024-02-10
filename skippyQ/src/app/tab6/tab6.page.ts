@@ -53,7 +53,7 @@ export class Tab6Page {
   logout() {
     this.canDismiss().then((confirmed) => {
       if (confirmed) {
-        this.authService.clearUserData()
+        // this.authService.clearUserData()
         console.log('cleared')
         this.authService.logout();
         this.router.navigate(['login']);

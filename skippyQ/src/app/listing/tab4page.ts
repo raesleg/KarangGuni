@@ -255,7 +255,7 @@ export class Tab4Page {
     this.canDismissLogout().then((confirmed) => {
       if (confirmed) {
         this.authService.logout();
-        this.authService.clearUserData()
+        // this.authService.clearUserData()
         this.router.navigate(['login']);
           }
     });

@@ -162,7 +162,7 @@ export class Tab5Page {
   logout() {
     this.canDismissLogOut().then((confirmed) => {
       if (confirmed) {
-        this.authService.clearUserData()
+        // this.authService.clearUserData()
         console.log('cleared')
         this.authService.logout();
         this.router.navigate(['login']);
