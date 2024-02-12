@@ -8,31 +8,29 @@ import { AuthService } from '../shared/services/auth.service';
 })
 export class Tab3Page {
 userName: string | undefined;
-image: string | undefined;
+imageUrl: string | undefined;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    const currentUser = this.authService.getCurrentUser();
-    if (currentUser && currentUser.email) {
-      try {
+    this.authService.observeAuthState(currentUser => {
+      if (currentUser && currentUser.email) {
         this.authService.getUserProfile(currentUser.email).then((profile) => {
           // Use the retrieved profile to get the name
           if (profile) {
             this.userName = profile.name;
             console.log('User Name:', this.userName);
-            this.image = profile.image;
-            console.log(this.image);
+            this.imageUrl = profile.imagePath;
+            console.log(this.imageUrl);
           } else {
             console.log('User profile not found');
           }
-        });
-      } catch (error) {
+        }).catch (error => {
         console.error('Error fetching user profile:', error);
-      }
+      });
     } else {
       console.log('Could not get current user');
     }
+    });
   }
-  
 }

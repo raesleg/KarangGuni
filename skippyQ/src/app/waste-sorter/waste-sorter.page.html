@@ -1,0 +1,26 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-title size="large">Waste Sorter</ion-title>
+  </ion-header>
+  <ion-item>
+    <h4>Having trouble sorting your waste?</h4>
+  </ion-item>
+  <div class="center-row">
+    <div [routerLink]="['/text-sort']">
+      <ion-icon name="search" size="large"></ion-icon>
+      <h2>Search</h2>
+    </div>
+    <h1>OR</h1>
+    <div [routerLink]="['/image-sort']">
+      <ion-icon name="image" size="large"></ion-icon>
+      <h2>Image</h2>
+    </div></div>
+</ion-content>

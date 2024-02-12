@@ -3,14 +3,15 @@
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar>
-    </ion-toolbar>
   </ion-header>
   
   <div class="top-ctn">
     <ion-item>
-      <ion-avatar>
-        <img [src]="image" id="profile-img">
+      <!-- Full-body avatar image -->
+      <img src="assets/avatarRecycle.png" alt="Full Body Avatar" class="full-body-avatar">
+      <!-- Ion-avatar for the head -->
+      <ion-avatar class="head-avatar">
+        <img [src]="imageUrl" id="profile-img">
       </ion-avatar>
     </ion-item>
     <ion-item>
@@ -18,18 +19,52 @@
     </ion-item>
   </div>
 
-  <div class="btn-ctn">
-        <ion-button expand="block" type="submit" fill="outline" routerLink="/user-info">
-          <ion-icon name="person"></ion-icon>
-          User Info
-        </ion-button>
-        <ion-button expand="block" type="submit" fill="outline" routerLink="">
-          <ion-icon name="trophy"></ion-icon>
-          Rewards
-        </ion-button>
-        <ion-button expand="block" type="submit" fill="outline" routerLink="">
-          <ion-icon name="analytics"></ion-icon>
-          Dashboard
-        </ion-button>
-  </div>
+  <!-- <div class="btn-ctn"> -->
+    <!-- <ion-label expand="block" type="submit" fill="outline" routerLink="/user-info">
+      <ion-icon name="person"></ion-icon>
+      User Info
+    </ion-label>
+    <ion-label expand="block" type="submit" fill="outline" routerLink="/rewards">
+      <ion-icon name="trophy"></ion-icon>
+      Rewards
+    </ion-label>
+    <ion-label expand="block" type="submit" fill="outline" routerLink="">
+      <ion-icon name="analytics"></ion-icon>
+      Dashboard
+    </ion-label> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <!-- Image 1 -->
+          <div class="item-container" routerLink="/user-info">
+            <ion-label expand="block" type="submit" fill="outline">
+              User Info
+            </ion-label>
+            <ion-icon name="person" size="large"></ion-icon>
+          </div>
+        </ion-col>
+    
+        <ion-col size="4">
+          <!-- Image 2 -->
+          <div class="item-container" routerLink="/rewards">
+            <ion-label expand="block" type="submit" fill="outline">
+              Rewards
+            </ion-label>
+            <ion-icon name="trophy" size="large"></ion-icon>
+          </div>
+        </ion-col>
+    
+        <ion-col size="4">
+          <!-- Image 3 -->
+          <div class="item-container" routerLink="">
+            <ion-label expand="block" type="submit" fill="outline">
+              Dashboard
+            </ion-label>
+            <ion-icon name="analytics" size="large"></ion-icon>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+  <!-- </div> -->
 </ion-content>
