@@ -73,7 +73,11 @@ const routes: Routes = [
   {
     path: 'notif',
     loadChildren: () => import('./notif/notif.module').then( m => m.NotifPageModule)
+  },  {
+    path: 'qrcode',
+    loadChildren: () => import('./qrcode/qrcode.module').then( m => m.QrcodePageModule)
   }
+
 ];
 @NgModule({
   imports: [
