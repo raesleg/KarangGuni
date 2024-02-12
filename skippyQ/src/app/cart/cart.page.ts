@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../shared/services/models/product';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductService } from '../shared/services/product.service';
 import { AlertController, ModalController, ToastController, ActionSheetController } from '@ionic/angular';
 import { AuthService } from '../shared/services/auth.service';
-import { Profile } from '../shared/services/models/profile';
 
 @Component({
   selector: 'app-cart',
@@ -66,7 +65,6 @@ export class CartPage implements OnInit {
               this.cart = data;
               this.buyercart = this.cart.filter(item => item.buyeruserid === this.buyeruserid);
               console.log(this.buyercart)
-              // console.log('cart', this.cart)
             })
         
             } else {
@@ -79,31 +77,6 @@ export class CartPage implements OnInit {
         console.log('No user logged in');
       }
     });
-
-    // try {
-    //   const profile = await this.authService.getUserProfile(this.user);
-          
-    //     if (profile) {
-    //       this.shippingAddress = profile.shippingAddress;
-    //       this.buyeruserid = profile.userID;
-    //       this.buyeruserName = profile.name;
-    //       console.log('details1', this.shippingAddress, this.buyeruserid, this.buyeruserName);
-    //     } else {
-    //       console.log('User profile not found');
-    //     }
-
-    // } catch (error) {
-    //   console.error('Error fetching user profile:', error);
-    // }
-
-    // this.productService.getCart()
-    // .subscribe(data => {
-    //   this.cart = data;
-    //   this.buyercart = this.cart.filter(item => item.buyeruserid === this.buyeruserid);
-    //   console.log(this.buyercart)
-    //   // console.log('cart', this.cart)
-    // })
-
   }
 
   canDismiss = async () => {
@@ -135,11 +108,6 @@ export class CartPage implements OnInit {
         console.log('item', item)
         console.log('item2', item['productid'])
         console.log(this.buyercart['productid'])
-        // this.productService.removeCart(item['productid']);
-
-
-        // this.buyeruserid = ""
-        // this.buyeruserName = ""
       }
     });
   }
@@ -242,8 +210,6 @@ export class CartPage implements OnInit {
   }
 
   async checkout() {
-    // Perfom PayPal or Stripe checkout process
-
     if (this.shippingAddress && this.shippingAddress != ""){
       const total = this.getTotal();
       const user = this.buyeruserid
@@ -251,15 +217,6 @@ export class CartPage implements OnInit {
       this.router.navigate(['payment', {total, user}]).then(() => {
         this.modalCtrl.dismiss()
       })
-
-      // let alert = await this.alertCtrl.create({
-      //   header: 'Thanks for your Order!',
-      //   message: 'We will deliver your food as soon as possible',
-      //   buttons: ['OK']
-      // });
-      // alert.present().then(() => {
-      //   this.modalCtrl.dismiss();
-      // });
     } else {
       let alert = await this.alertCtrl.create({
         header: 'Shipping Address',

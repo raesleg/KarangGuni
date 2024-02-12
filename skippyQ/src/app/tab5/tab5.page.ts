@@ -54,12 +54,13 @@ export class Tab5Page {
   search(event){
     const text = event.target.value;
     this.adminService.getProfile().subscribe((allProfile: Profile[]) => {
+      this.profile = allProfile.filter(item => item.isAdmin !== true);
       if (text && text.trim() !== '') {
         this.filteredusers = this.profile.filter(
           item => item.email.toLowerCase().includes(text.toLowerCase())
         );
       } else {
-        this.filteredusers = this.profile
+        this.filteredusers = allProfile.filter(item => item.isAdmin !== true);
       }
     });  
     
@@ -67,11 +68,18 @@ export class Tab5Page {
 
   refresh($event){
     this.searchBar.value = '';
+    this.selectedCategory = null
     $event.target.complete();
     this.adminService.getProfile().subscribe((allProfile: Profile[]) => {
-        this.filteredusers = this.profile
+      this.filteredusers = allProfile.filter(item => item.isAdmin !== true);
       })
     }
+  
+  clearSearch() {
+    this.adminService.getProfile().subscribe((allProfile: Profile[]) => {
+      this.filteredusers = allProfile.filter(item => item.isAdmin !== true);
+    })
+  }
 
   canDismiss = async () => {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -191,7 +199,6 @@ export class Tab5Page {
     });
   }
 
-
   async ngOnInit() {
 
     this.adminService.getProfile()
@@ -208,7 +215,6 @@ export class Tab5Page {
       this.bannedusers = this.profile
       console.log(this.bannedusers)
     })
-
 
     this.authService.observeAuthState(user => {
       if (user && user.email) {
@@ -227,9 +233,5 @@ export class Tab5Page {
         console.log('No user logged in');
       }
     });
-
-
-
   }
-  
 }

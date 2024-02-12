@@ -38,9 +38,7 @@
     "moment-timezone": "^0.5.44",
     "ngx-echarts": "^17.1.0",
     "rxjs": "^7.8.1",
-    "stripe-pwa-elements": "^2.1.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.14.2"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.0.0",

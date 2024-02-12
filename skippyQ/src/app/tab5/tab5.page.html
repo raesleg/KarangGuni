@@ -28,7 +28,7 @@
     </ion-select>
   </ion-item>
 
-  <ion-searchbar #searchBar (ionChange)=search($event)></ion-searchbar>
+  <ion-searchbar #searchBar (ionChange)=search($event) (ionClear)="clearSearch()"></ion-searchbar>
   
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -53,8 +53,12 @@
                   <th>Shipping Address</th>
                   <th>Age Range</th>
                   <th>About</th>
-                  <th></th>
-                  <th></th>
+                  <ng-container *ngIf="selectedCategory === 'Banned'">
+                    <th>Reason</th>
+                    <th>Banned By</th>
+                  </ng-container>
+                  <!-- <th>Reason</th>
+                  <th>Banned By</th> -->
                   <th></th>
                 </tr>
               </thead>
@@ -78,10 +82,20 @@
                 <td>
                   <p>{{item.bio}}</p>
                 </td>
-                <td>
-                  <ion-icon name="eye" slot="icon-only" [routerLink] = "['/adminlisting', item.userID]"></ion-icon>
-                  <ion-icon name="ban" slot="icon-only" style="margin-left:10px" (click)="delete(item)"></ion-icon>
-                </td>
+                <ng-container *ngIf="selectedCategory !== 'Banned'">
+                  <td>
+                    <ion-icon name="eye" slot="icon-only" [routerLink] = "['/adminlisting', item.userID]"></ion-icon>
+                    <ion-icon name="ban" slot="icon-only" style="margin-left:10px" (click)="delete(item)"></ion-icon>  
+                  </td>
+                </ng-container>
+                <ng-container *ngIf="selectedCategory === 'Banned'">
+                  <td>
+                    <p>{{item.reasons}}</p>
+                  </td>
+                  <td>
+                    <p>{{item.Banned_By}}</p>
+                  </td>
+                </ng-container>
 
               </tr>
               

@@ -39,7 +39,10 @@ export class AdminService {
         let profile: Profile[] = [];
         querySnapShot.forEach((doc) => {
           let data = doc.data();
-          let p = new Profile(data['userID'], data['isAdmin'],  doc['id'], data['phoneNumber'], data['name'], data["password"], data['ageRange'],data['shippingAddress'], data['bio'], data['image'], data['status']);
+          let p = new Profile(doc['id'], data['isAdmin'], data['email'] , data['phoneNumber'], data['name'], data["password"], data['ageRange'],data['shippingAddress'], data['image']);
+          if (data['bio']) p.bio = data['bio'];
+          if (data['reasons']) p.reasons = data['reasons'];
+          if (data['Banned_By']) p.Banned_By = data['Banned_By'];
           console.log('banned',p)
           profile.push(p);
         });
