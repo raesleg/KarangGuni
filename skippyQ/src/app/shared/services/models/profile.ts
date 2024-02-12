@@ -11,6 +11,8 @@ export class Profile {
     image;
     imagePath?: string;
     status?:string;
+    reasons?:string;
+    Banned_By?: string;
 
     constructor(
         userID: string,
@@ -23,7 +25,8 @@ export class Profile {
         shippingAddress: string,
         bio?: string,
         image?: any,
-        status?: string
+        reasons?: string,
+        Banned_By?: string
     ) {
         this.userID = userID;
         this.isAdmin = isAdmin;
@@ -35,6 +38,7 @@ export class Profile {
         this.shippingAddress = shippingAddress;
         this.bio = bio!;
         this.image = image!;
-        this.status = status!;
+        this.reasons = reasons!;
+        this.Banned_By = Banned_By!;
     }
 }

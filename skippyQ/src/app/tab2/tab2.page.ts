@@ -18,8 +18,12 @@ import { NotifPage } from '../notif/notif.page';
 })
 export class Tab2Page {
 
+  public segment = 'marketplace'
+
   products: Product[] = [];
   cart: Product[] = [];
+  myorders: Product[] = [];
+  listedproducts: Product[] = [];
   categories: string[];
   notification: Product[] = [];
   user: string | undefined;
@@ -29,15 +33,12 @@ export class Tab2Page {
 
   cartItemCount = 0
   userName: string | undefined;
-  segmentValue: string = 'all';
-
+  
   shippingAddress: string | undefined;
   buyeruserid: string;
   buyeruserName: string;
   unopenedNotifCount: number = 0;
-
   productidarray = []
-
 
   @ViewChild('searchBar', {static: false}) searchBar: IonSearchbar;
 
@@ -128,11 +129,9 @@ export class Tab2Page {
             }
           }
         }
-          
           } else {
           console.log('id invalid')
         }
-    
       } 
 
   async openCart() {
@@ -141,8 +140,6 @@ export class Tab2Page {
       cssClass: 'cart-modal'
     });
     modal.onWillDismiss().then(() => {
-      // this.fab.nativeElement.classList.remove('animated', 'bounceOutLeft')
-      // this.animateCSS('bounceInLeft');
     });
     modal.present();
   }
@@ -172,7 +169,6 @@ export class Tab2Page {
         this.filteredProducts = this.products;
       }
     });  
-    
   }
 
   refresh($event){
@@ -183,6 +179,17 @@ export class Tab2Page {
         this.filteredProducts = this.products
       })
     }
+
+  clearSearch() {
+    this.productService.getProducts().subscribe((allProducts: Product[]) => {
+      this.filteredProducts = this.products
+    })
+  }
+  
+    
+  segmentChanged(event: any) {
+    this.segment = event.detail.value;
+  }
   
   async ngOnInit() {
 
@@ -198,11 +205,13 @@ export class Tab2Page {
 
             this.productService.getProducts()
             .subscribe(data => {
+              this.myorders = data.filter(item => item.buyeruserid === this.buyeruserid && item.status == "Sold");
+              this.listedproducts = data.filter(item => item.selleruserid === this.buyeruserid && item.status == "Available");
               this.products = data.filter(item => item.selleruserid !== this.buyeruserid && item.status == "Available");
               this.notification = data.filter(item => item.selleruserid === this.buyeruserid && item.status == "Sold" && item.isShipped !== "True");
               this.unopenedNotifCount = this.notification.length;
               this.filteredProducts = this.products
-              
+              console.log(this.listedproducts)
               console.log(this.products)
             })
         
@@ -212,7 +221,6 @@ export class Tab2Page {
               console.log('cart og', this.cart)
               this.buyercart = this.cart.filter(item => item.buyeruserid === this.buyeruserid);
               console.log('bueyrcart',this.buyercart)
-              // console.log('cart', this.cart)
             })
         
 
@@ -226,70 +234,10 @@ export class Tab2Page {
         console.log('No user logged in');
       }
     });
-
-    // try {
-    //   const profile = await this.authService.getUserProfile(this.user);
-          
-    //     if (profile) {
-    //       this.shippingAddress = profile.shippingAddress;
-    //       this.buyeruserid = profile.userID;
-    //       this.buyeruserName = profile.name;
-    //       console.log('details1', this.shippingAddress, this.buyeruserid, this.buyeruserName);
-    //     } else {
-    //       console.log('User profile not found');
-    //     }
-
-    // } catch (error) {
-    //   console.error('Error fetching user profile:', error);
-    // }
-
-    // this.productService.getProducts()
-    // .subscribe(data => {
-    //   this.products = data.filter(item => item.selleruserid !== this.buyeruserid && item.status != "Sold");
-    //   this.filteredProducts = this.products
-      
-    //   console.log(this.products)
-    // })
-
-    // this.productService.getCart()
-    // .subscribe(data => {
-    //   this.cart = data;
-    //   console.log('cart og', this.cart)
-    //   this.buyercart = this.cart.filter(item => item.buyeruserid === this.buyeruserid);
-    //   console.log('bueyrcart',this.buyercart)
-    //   // console.log('cart', this.cart)
-    // })
   }
-
 
   delete(item: Product){
     this.productService.delete(item)
-  }
-
-  // yourlisting(){
-  //   this.router.navigate(['tabs/listing']);
-  // }
-
-  // navigateback(){
-  //   this.router.navigate(['tabs/tab2']);
-  // }
-
-  yourlisting() {
-    setTimeout(() => {
-      this.router.navigate(['tabs/listing']);
-    }, 50); // Adjust the delay time as needed
-  }
-  
-  navigateback() {
-    setTimeout(() => {
-      this.router.navigate(['tabs/tab2']);
-    }, 50); // Adjust the delay time as needed
-  }
-
-  navigateback2() {
-    setTimeout(() => {
-      this.router.navigate(['tabs/myorders']);
-    }, 50); // Adjust the delay time as needed
   }
 
   canDismiss = async () => {
@@ -313,6 +261,43 @@ export class Tab2Page {
 
     return role === 'confirm';
   };
+
+  canDismissListing = async () => {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Are you sure to delete listing?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'confirm',
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    actionSheet.present();
+    const { role } = await actionSheet.onWillDismiss();
+    return role === 'confirm';
+  };
+
+  deletelisting(item: Product){
+    this.canDismissListing().then(async (confirmed) => {
+      if (confirmed) {
+        this.productService.delete(item)
+
+        const toast = await this.toastController.create({
+          message: item.name + ' has been removed',
+          duration: 2000,
+          position: 'top',
+          color: 'primary'
+        });
+        toast.present();
+
+      }
+    });
+  }
 
   logout() {
     this.canDismiss().then((confirmed) => {
