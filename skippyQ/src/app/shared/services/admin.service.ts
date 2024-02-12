@@ -13,7 +13,6 @@ export class AdminService {
   private profileRef = firebase.firestore().collection('profile');
   private productsRef = firebase.firestore().collection("products") // reading products collection in db to store it as a property
   private bannedRef = firebase.firestore().collection("banned");
-  private transRef = firebase.firestore().collection("transaction");
 
   constructor() { }
 
@@ -188,65 +187,6 @@ export class AdminService {
     });
   }
 
-  // async getUserProfile(email: string): Promise<Profile> {
-  //   const profileCollection = this.profileRef;
-  
-  //   return profileCollection.doc(email).get().then(async (doc) => {
-  //     if (doc.exists) {
-  //       const data = doc.data() as Profile;
-
-  //       if (data['imagePath']) {
-  //         const imageDownloadURL = await this.getImageDownloadURL(data['imagePath']);
-  //         data.image = imageDownloadURL; // Add the imageURL to the profile data
-  //       }
-  //       return data;
-  //     } else {
-  //       console.log(`User with email ${email} not found in the "profile" collection`);
-  //       // Returning an empty Profile object
-  //       // return {} as Profile;
-  //       // Alternatively, you can throw an error
-  //       throw new Error(`Account does not exist`);
-  //     }
-  //   }).catch((error) => {
-  //     console.error('Error getting user info:', error);
-  //     // You might want to throw an error here as well
-  //     throw error;
-  //   });
-  // }
-
-
-  // getUserProfile(userID: string) {
-  //   // Use a query to find documents with the specified buyeruserid
-
-  //   const query = this.profileRef.where('userID', '==', userID);
-  
-  //   // Get the documents based on the query
-  //   query.get().then((querySnapshot) => {
-  //     // Iterate through the documents and delete each one
-  //     querySnapshot.forEach((doc) => {
-
-  //       const cartData = doc.data() as { userID: string };
-  //       const userID = cartData.userID;
-
-  //       return cartData
-
-  //     //   const profileRef = this.profileRef.doc(userID)
-  //     //   productRef.update({ status: 'Sold' }).then(() => {
-  //     //     console.log('Product status successfully updated!');
-  //     //   doc.ref.delete().then(() => {
-  //     //     console.log('Document successfully deleted!');
-  //     //   }).catch((error) => {
-  //     //     console.error('Error removing document: ', error);
-  //     //   });
-  //     // }).catch((error) => {
-  //     //   console.error('Error updating product status: ', error);
-  //     // });
-  //     });
-  //   }).catch((error) => {
-  //     console.error('Error getting documents: ', error);
-  //   });
-  // }
-
   getUserProfile(userID: string): Observable<any> {
     // Use a query to find documents with the specified buyeruserid
     const query = this.profileRef.where('userID', '==', userID);
@@ -265,17 +205,4 @@ export class AdminService {
       });
     });
   }
-  
-
-
-  // getListingByID(selleruserid: string): Observable<any>{
-  //   return new Observable((observer) => {
-  //     this.productsRef.doc(selleruserid).get().then((doc) => {
-  //         let data = doc.data();
-  //         let p = new Product(data!['model'], data!['name'], data!['price'], data!['image'], data!['conditions'], data!['details'], data!['category'], data!['status'], data!['sellername'], data!['selleruserid'], data!['buyeruserid'], doc!['id']);
-  //         observer.next(p); // Notify observers with the retrieved product
-  //     })
-  //   })
-  //}
-
 }

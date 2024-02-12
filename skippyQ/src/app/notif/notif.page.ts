@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ProductService } from '../shared/services/product.service';
 import { AuthService } from '../shared/services/auth.service';
 import { ModalController, ToastController } from '@ionic/angular';
@@ -16,7 +15,6 @@ import { Trans } from '../shared/services/models/trans';
 export class NotifPage implements OnInit {
 
   sold: Product[] = [];
-  // notification: Product[] = [];
   profile: Profile[] = [];
   buyprofiles: Profile[] = [];
   trans: Trans[] = [];
@@ -26,10 +24,7 @@ export class NotifPage implements OnInit {
 
   constructor(
     private productService: ProductService,
-    // private alertCtrl: AlertController, 
-    // private actionSheetCtrl: ActionSheetController,
     private authService: AuthService,
-    private router: Router,
     private modalCtrl: ModalController,
     private adminService: AdminService
   ) {

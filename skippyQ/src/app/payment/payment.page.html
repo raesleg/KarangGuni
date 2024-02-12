@@ -1,9 +1,8 @@
 <ion-content [fullscreen]="true">
   <div class="paypal-container">
-    <ion-item>
-      <ion-spinner name="circular"></ion-spinner>
-    </ion-item>
     <div class="info">Please do not refresh the browser while the transaction is processing</div>
+    <div style="margin-bottom: 20px;">Select Payment Method</div>
+
     <div #paymentRef></div>
     <div class="back" (click)="cancel()">Cancel</div>
   </div>

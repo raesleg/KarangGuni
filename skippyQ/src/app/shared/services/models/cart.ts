@@ -28,7 +28,7 @@ export class Cart {
                 selleruserid: string | undefined,
                 buyeruserid: string | undefined,
                 productid: string,
-                id: string) {   // optional parameters with ? in constructor parameter   
+                id: string) {   
             this.model = model
             this.name = name;         
             this.price = price;         

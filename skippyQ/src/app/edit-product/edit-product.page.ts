@@ -45,47 +45,6 @@ export class EditProductPage implements OnInit {
       details: new FormControl('', [Validators.required]), //VALIDATORS REQUIRED
       category: new FormControl('None', [Validators.required])
     })
-
-    // const currentUser = this.authService.getCurrentUser();
-    // if (currentUser && currentUser.email) {
-    //   try {
-    //     this.authService.getUserProfile(currentUser.email).then((profile) => {
-    //       // Use the retrieved profile to get the name
-    //       if (profile) {
-    //         this.selleruserid = profile.userID
-    //         this.selleruserName = profile.name;
-    //         console.log('Seller User Name:', this.selleruserName);
-    //       } else {
-    //         console.log('User profile not found');
-    //       }
-    //       return {
-    //         selleruserid : this.selleruserid,
-    //         sellerusername : this.selleruserName
-    //       }
-
-    //     });
-    //   } catch (error) {
-    //     console.error('Error fetching user profile:', error);
-    //   }
-    // } else {
-    //   console.log('Could not get current user');
-    // }
-
-
-    // this.productService.getProductByID(this.productId)
-    // .subscribe(data => {
-    //   this.product = data;
-
-    //   console.log(data)
-    //   if (this.product) {
-    //     this.updateForm.controls['model'].setValue(this.product.model)
-    //     this.updateForm.controls['name'].setValue(this.product.name);
-    //     this.updateForm.controls['price'].setValue(this.product.price);
-    //     this.updateForm.controls['image'].setValue(this.product.image)
-    //     this.updateForm.controls['conditions'].setValue(this.product.conditions)
-    //     this.updateForm.controls['details'].setValue(this.product.details);
-    //     this.updateForm.controls['category'].setValue(this.product.category);
-    //   }});
    }
 
    async ngOnInit() {
@@ -201,7 +160,8 @@ export class EditProductPage implements OnInit {
           this.productId); //p.id needs to be defined
         
         this.productService.update(prod);
-        this.router.navigate(['tabs/listing']);
+        // this.router.navigate(['tabs/tab2']);
+        this.router.navigate(['tabs/tab2'], { queryParams: { segment: 'listing' } }); // Pass segment as a parameter
 
         console.log(prod)
 

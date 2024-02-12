@@ -1,19 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Product Sale Confirmation</ion-title>
-
     <ion-buttons slot="end">
       <ion-button (click)="close()" fill="clear" color="dark"> <!--functionality to route page-->
         <ion-icon slot="icon-only" name="close"></ion-icon> <!--icon UI-->
       </ion-button>
     </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <div class="ion-padding"> -->
-
     <div *ngIf="sold.length === 0">
       <p class="no-cart"><ion-icon name="sad-outline" slot="icon-only" class="large-icon"></ion-icon></p>
       <p class="no-cart"><strong>No sales</strong></p>
@@ -32,9 +28,6 @@
                 <b>{{ item.model }} {{item.name}} | {{item.category}}</b>
                 <p>{{ item.price | currency }}</p>
                 <p>About: {{item.details}}</p>
-                <!-- <p *ngFor="let item of profile">Customer: {{item.name}}</p>
-                <p *ngFor="let item of profile">Contact: {{item.phoneNumber}}</p>
-                <p *ngFor="let item of profile">Address: {{item.shippingAddress}}</p> -->
                 <p *ngIf="buyprofiles[i]">Customer: {{buyprofiles[i][0].name}}</p>
                 <p *ngIf="buyprofiles[i]">Contact: {{buyprofiles[i][0].phoneNumber}}</p>
                 <p *ngIf="buyprofiles[i]">Address: {{buyprofiles[i][0].shippingAddress}}</p>

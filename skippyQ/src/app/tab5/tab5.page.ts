@@ -4,8 +4,6 @@ import { AdminService } from '../shared/services/admin.service';
 import { Profile } from '../shared/services/models/profile';
 import { ActionSheetController, AlertController, IonSearchbar, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Product } from '../shared/services/models/product';
-import { ProductService } from '../shared/services/product.service';
 
 @Component({
   selector: 'app-tab5',
@@ -50,7 +48,6 @@ export class Tab5Page {
     }
   }
 
-
   search(event){
     const text = event.target.value;
     this.adminService.getProfile().subscribe((allProfile: Profile[]) => {
@@ -63,7 +60,6 @@ export class Tab5Page {
         this.filteredusers = allProfile.filter(item => item.isAdmin !== true);
       }
     });  
-    
   }
 
   refresh($event){
@@ -102,7 +98,6 @@ export class Tab5Page {
 
     return role === 'confirm';
   };
-
 
   async delete(item: Profile){
 
@@ -164,7 +159,6 @@ export class Tab5Page {
   });
   }
 
-
   canDismissLogOut = async () => {
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Are you sure to Log Out?',
@@ -186,7 +180,6 @@ export class Tab5Page {
 
     return role === 'confirm';
   };
-
 
   logout() {
     this.canDismissLogOut().then((confirmed) => {

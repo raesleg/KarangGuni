@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../shared/services/models/product';
 import { PaymentService } from '../shared/services/payment.service';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController} from '@ionic/angular';
 import { ProductService } from '../shared/services/product.service';
 import { Trans } from '../shared/services/models/trans';
 import { Cart } from '../shared/services/models/cart';
@@ -32,8 +32,7 @@ export class PaymentPage implements OnInit {
     private authService: AuthService,
     private router: Router, 
     private route: ActivatedRoute,
-    private alertCtrl: AlertController, 
-    private toastController: ToastController
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit(): void {

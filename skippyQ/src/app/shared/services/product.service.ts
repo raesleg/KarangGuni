@@ -5,9 +5,7 @@ import 'firebase/firestore';
 import 'firebase/storage';
 import { Observable} from 'rxjs';
 import { Cart } from './models/cart';
-
 import * as moment from 'moment-timezone';
-import { Trans } from './models/trans';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +26,6 @@ export class ProductService {
         let products: Product[] = [];
         querySnapShot.forEach((doc) => {
           let data = doc.data();
-          // let p = new Product(data['name'], data['price'], data['image'], data["details"], data['category'], data["userid"],doc['id']);
-          // let p = new Product(data['model'], data['name'], data['price'], data['image'], data['conditions'], data['details'], data['category'], data['status'], data['sellername'], data['selleruserid'], data['buyeruserid'], data['productid'], doc['id']);
           let p = new Product(data['model'], data['name'], data['price'], data['image'], data['conditions'], data['details'], data['category'], data['status'], data['isShipped'], data['sellername'], data['selleruserid'], data['buyeruserid'], doc['id']);
           console.log('all',p)
           products.push(p);
@@ -43,8 +39,6 @@ export class ProductService {
     return new Observable((observer) => {
       this.productsRef.doc(id).get().then((doc) => {
           let data = doc.data();
-          // let p = new Product(data!['name'], data!['price'], data!['image'], data!["details"], data!['category'], data!['userid'], doc!['id']);
-          // let p = new Product(data!['model'], data!['name'], data!['price'], data!['image'], data!['conditions'], data!['details'], data!['category'], data!['status'], data!['sellername'], data!['selleruserid'], data!['buyeruserid'], data!['productid'], doc!['id']);
           let p = new Product(data!['model'], data!['name'], data!['price'], data!['image'], data!['conditions'], data!['details'], data!['category'], data!['status'],  data!['isShipped'], data!['sellername'], data!['selleruserid'], data!['buyeruserid'], doc!['id']);
           observer.next(p); // Notify observers with the retrieved product
       })
@@ -110,22 +104,9 @@ export class ProductService {
 
       const transactionDocRef = this.transRef.doc(transactionid);
 
-      // const createTimeDate = new Date(create_time);
-      // const formattedCreateTime = createTimeDate.toLocaleString('en-US', {
-      //   timeZone: 'Asia/Singapore',
-      //   year: 'numeric',
-      //   month: '2-digit',
-      //   day: '2-digit',
-      //   hour: '2-digit',
-      //   minute: '2-digit',
-      //   second: '2-digit'
-      // });
-
       // Set the data for the "transaction" document
       await transactionDocRef.set({
         create_time: (moment.utc(create_time)).tz("Asia/Singapore").format("YYYY-MM-DDTHH:mm:ss"),
-        // create_time: formattedCreateTime,
-        // create_time: create_time,
         currency: currency,
         amount: amount,
         buyeruserid: buyeruserid
@@ -186,29 +167,6 @@ export class ProductService {
     });
   }
 
-  // updateBuyer(p: Product, buyeruserid: string) {  
-  //   // Get the documents based on the query
-  //   this.productsRef.get().then((querySnapshot) => {
-  //     // Iterate through the documents and delete each one
-  //     querySnapshot.forEach((doc) => {
-
-  //       const Data = doc.data() as { productid: string };
-  //       const productId = Data.productid;
-  //       console.log(productId)
-
-  //       const productRef = this.productsRef.doc(productId)
-  //       productRef.update({ buyeruserid: buyeruserid }).then(() => {
-  //         console.log('Buyer status successfully updated!');
-  //     }).catch((error) => {
-  //       console.error('Error updating buyer status: ', error);
-  //     });
-  //     });
-  //   }).catch((error) => {
-  //     console.error('Error getting documents: ', error);
-  //   });
-  // }
-
-
   delete(p: Product) {
     const ref = this.productsRef.doc(p.id);
     ref.get().then(doc => {
@@ -245,12 +203,9 @@ export class ProductService {
     return new Observable((observer) => {
       this.cartsRef.onSnapshot((querySnapShot) => {
         let cart: Cart[] = [];
-        // let cart: Product[] = [];
-
         querySnapShot.forEach((doc) => {
           let data = doc.data();
           let p = new Cart(data['model'], data['name'], data['price'], data['image'], data['conditions'], data['details'], data['category'], data['status'], data['isShipped'], data['sellername'], data['selleruserid'], data['buyeruserid'], data['productid'],doc['id']);
-          // let p = new Product(data['model'], data['name'], data['price'], data['image'], data['conditions'], data['details'], data['category'], data['status'], data['sellername'], data['selleruserid'], data['buyeruserid'], doc['id']);
           console.log('cart',p)
 
           cart.push(p);

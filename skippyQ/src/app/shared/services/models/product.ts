@@ -12,7 +12,6 @@ export class Product {
     sellername: string | undefined;
     selleruserid: string | undefined;
     buyeruserid : string | undefined;
-    // productid : string | undefined;
     id: string;  
 
     constructor(model: string,
@@ -27,9 +26,8 @@ export class Product {
                 sellername: string | undefined,
                 selleruserid: string | undefined,
                 buyeruserid: string | undefined,
-                // productid: string | undefined,
                 id?: string,
-                ) {   // optional parameters with ? in constructor parameter   
+                ) {      
             this.model = model
             this.name = name;         
             this.price = price;         
@@ -42,7 +40,6 @@ export class Product {
             this.sellername = sellername;
             this.selleruserid = selleruserid;
             this.buyeruserid = buyeruserid;
-            // this.productid = productid;
             this.id = id!;     
         }  
 } 

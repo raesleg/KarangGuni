@@ -16,13 +16,11 @@ export class AdminTransPage implements OnInit {
   transID: string="";
   trans: Trans;
   products: Product[] = [];
-  // trans: Trans[] = [];
 
   constructor(
     private route: ActivatedRoute, 
     private adminService: AdminService,
-    private productService: ProductService,
-    private toastController: ToastController
+    private productService: ProductService
   ) {
     this.transID = this.route.snapshot.params['id'];
     console.log('id',this.transID)
@@ -36,8 +34,6 @@ export class AdminTransPage implements OnInit {
         console.log(productId)
         this.productService.getProductByID(productId)
         .subscribe(data => {
-        //  this.products = data;
-        //  console.log(this.products)
         this.products.push(data);
         console.log(this.products)
       });

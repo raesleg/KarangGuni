@@ -57,23 +57,21 @@
                <h2>{{item.name}}</h2>
                <p>{{item.price | currency }}</p>
              </div>
-             <div class="buy">
-               <ion-button *ngIf="item.isShipped === 'True'" color="success" class="shipping">
-                 <ion-icon size="large" name="checkmark-circle" style="margin-right: 5px;"></ion-icon>
+             <div class="buyorder">
+               <ion-button *ngIf="item.isShipped === 'True'" color="success" size="small">
                  Ready
                </ion-button>
-               <ion-button *ngIf="item.isShipped === 'False'" color="warning">
-                 <ion-icon name="help-circle" style="margin-right: 5px;"></ion-icon>
+               <ion-button *ngIf="item.isShipped === 'False'" color="warning" size="small">
                  Pending
                </ion-button>
              </div>
          </div>
  
      <div class="inside">
-       <div class="icon">
-         <ion-icon size="large" name="information-circle-outline"></ion-icon>
-       </div>
-       <div class="contents">
+      <div class="icon">
+        <ion-icon size="large" name="information-circle-outline"></ion-icon>
+      </div>
+      <div class="contents">
          <table>
            <tr>
              <th>Product Model</th>
@@ -201,9 +199,11 @@
               <h2>{{item.name}}</h2>
               <p>{{item.price | currency }}</p>
             </div>
-            <div class="buy">
-              <ion-icon size="large" style="margin-right:10px;" name="create-outline" [routerLink] = "['/edit-product', item.id]"></ion-icon>
-              <ion-icon size="large" name="trash-outline" (click)="deletelisting(item)"></ion-icon>
+            <div class="buylist">
+              <div class="icon">
+                <ion-icon class="custom-icon" style="margin-right:10px;" name="create-outline" [routerLink] = "['/edit-product', item.id]"></ion-icon>
+                <ion-icon class="custom-icon" name="trash-outline" (click)="deletelisting(item)"></ion-icon>  
+              </div>
             </div>
         </div>
 

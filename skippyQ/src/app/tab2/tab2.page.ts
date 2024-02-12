@@ -1,14 +1,10 @@
-import { Component, ElementRef, NgZone, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { positiveNumber } from '../shared/services/positiveNumber';
+import { Component, ViewChild } from '@angular/core';
 import { Product } from '../shared/services/models/product';
 import { ProductService } from '../shared/services/product.service';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ActionSheetController, IonSearchbar, ModalController, ToastController } from '@ionic/angular';
 import { AuthService } from '../shared/services/auth.service';
 import { CartPage } from '../cart/cart.page';
-import { Profile } from '../shared/services/models/profile';
-import { Cart } from '../shared/services/models/cart';
 import { NotifPage } from '../notif/notif.page';
 
 @Component({
@@ -101,8 +97,6 @@ export class Tab2Page {
   
         console.log(productidarray)
         console.log('buyeruserid', this.buyeruserid)
-        // console.log('productid', productid)
-        // console.log('itemid', item.id)
 
         const itemExistsInCart = this.buyercart.some((i) => i['productid'] === item.id);
         if (!itemExistsInCart){
@@ -302,7 +296,6 @@ export class Tab2Page {
   logout() {
     this.canDismiss().then((confirmed) => {
       if (confirmed) {
-        // this.authService.clearUserData()
         console.log('cleared')
         this.authService.logout();
         this.router.navigate(['login']);

@@ -1,19 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Cart</ion-title>
-
     <ion-buttons slot="end">
-      <ion-button (click)="close()" fill="clear" color="dark"> <!--functionality to route page-->
-        <ion-icon slot="icon-only" name="close"></ion-icon> <!--icon UI-->
+      <ion-button (click)="close()" fill="clear" color="dark"> 
+        <ion-icon slot="icon-only" name="close"></ion-icon> 
       </ion-button>
     </ion-buttons>
-
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <div class="ion-padding"> -->
-
     <div *ngIf="buyercart.length === 0">
       <p class="no-cart"><ion-icon name="sad-outline" slot="icon-only" class="large-icon"></ion-icon></p>
       <p class="no-cart"><strong>No Item Added</strong></p>

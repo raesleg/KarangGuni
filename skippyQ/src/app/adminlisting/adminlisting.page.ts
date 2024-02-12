@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ActionSheetController, AlertController, ToastController } from '@ionic/angular';
-import { AuthService } from '../shared/services/auth.service';
+import { ActivatedRoute} from '@angular/router';
+import { ActionSheetController, ToastController } from '@ionic/angular';
 import { Product } from '../shared/services/models/product';
 import { AdminService } from '../shared/services/admin.service';
 import { ProductService } from '../shared/services/product.service';
@@ -25,10 +24,7 @@ export class AdminlistingPage implements OnInit {
     private route: ActivatedRoute, 
     private adminService: AdminService,
     private productService: ProductService,
-    private router: Router, 
     private toastController: ToastController,
-    private authService: AuthService,
-    private alertCtrl: AlertController,
     private actionSheetCtrl: ActionSheetController
   ) {
     this.userID = this.route.snapshot.params['userID'];

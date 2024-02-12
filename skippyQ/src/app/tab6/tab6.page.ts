@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { Trans } from '../shared/services/models/trans';
 import { EChartsOption } from 'echarts';
 import * as moment from 'moment-timezone';
-import { h } from 'ionicons/dist/types/stencil-public-runtime';
 
 @Component({
   selector: 'app-tab6',
@@ -105,9 +104,7 @@ export class Tab6Page {
     this.adminService.getAllTrans().subscribe((allTrans: Trans[]) => {
       this.trans = allTrans
     });
-
   }
-
 
   refresh($event){
     this.searchBar.value = '';
@@ -266,16 +263,6 @@ export class Tab6Page {
         
           return tooltip;
         }
-        // formatter: (params) => {
-        //   let tooltip = ''; // Initialize tooltip string
-        //   params.forEach((param) => {
-        //     tooltip += `${param.name}: SGD ${param.value.toFixed(2)}<br/>`; // Add basic tooltip info for each data point
-        //   });
-        //   const month = params[0].name; // Get the month from the first parameter
-        //   const count = this.monthlyTransactionCounts[month]; // Get the count of transactions for the month
-        //   tooltip += `Total Transactions in ${month}: ${count}`; // Add count info to the tooltip
-        //   return tooltip;
-        // }
       },
       xAxis: {
         type: 'category',
@@ -283,14 +270,14 @@ export class Tab6Page {
         name: 'Time',
         axisLabel: {
           interval: 0, // Show all labels
-          rotate: 45, // Rotate labels for better readability
+          rotate: 45, 
           rich: {
             value: {
-              lineHeight: 25, // Line height for value
+              lineHeight: 25, 
             },
             text: {
-              lineHeight: 15, // Line height for additional text
-              color: '#999', // Color of additional text
+              lineHeight: 15,
+              color: '#999', 
             },
           }
         }
@@ -310,10 +297,6 @@ export class Tab6Page {
 
   }
 
-  // getHourlyXAxisData(): string[] {
-  //   return Object.keys(this.hoursData);
-  // }
-
   getHourlyXAxisData(): string[] {
     return Object.keys(this.hoursData).sort((a, b) => {
       const dateA = moment(a, 'h:mm A');
@@ -327,11 +310,6 @@ export class Tab6Page {
     return sortedHours.map(hour => this.hoursData[hour]); // Map sorted hours to corresponding y-axis data
   }
   
-  
-  // getHourlyYAxisData(): number[] {
-  //   return Object.values(this.hoursData);
-  // }
-
   getDailyXAxisData(): string[] {
     return Object.keys(this.dailyData);
   }
