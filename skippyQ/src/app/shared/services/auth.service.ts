@@ -9,7 +9,7 @@ export class AuthService {
   private profileRef = firebase.firestore().collection('profile');
   private storageRef = firebase.storage().ref();
 
-  constructor() { }
+  constructor() {}
   observeAuthState(func: firebase.Observer<any, Error> | ((a: firebase.User | null) => any))
     {
       return firebase.auth().onAuthStateChanged(func);
@@ -51,7 +51,9 @@ export class AuthService {
       } else {
         console.log(`User with email ${email} not found in the "profile" collection`);
         // Returning an empty Profile object
-        return {} as Profile;
+        // return {} as Profile;
+        // Alternatively, you can throw an error
+        throw new Error(`Account does not exist`);
       }
     } catch (error) {
       console.error('Error getting user info:', error);
@@ -75,7 +77,8 @@ export class AuthService {
         isAdmin: profile.isAdmin,
         phoneNumber: profile.phoneNumber,
         name: profile.name,
-        ageRange: profile.ageRange
+        ageRange: profile.ageRange,
+        shippingAddress: ''
       });
   
       return userCredential;
@@ -84,6 +87,12 @@ export class AuthService {
       throw error;
     }
   }
+
+  // anna's code
+  async updateShippingAddress(email: string, newShippingAddress : string) {
+    try {
+      // Check if the document exists
+      const profileDoc = await this.profileRef.doc(email).get();
   
   async updateProfile(profile: Profile, file: File | undefined) {
     try {
@@ -115,9 +124,15 @@ export class AuthService {
           updatedProfile.imagePath = filePath;
         }
 
+         // Add shippingAddress to updatedProfile only if it's defined
+        if (profile.shippingAddress !== undefined) {
+          updatedProfile.shippingAddress = profile.shippingAddress;
+        }
+
         // Check if currentUser.email is not null before updating the document
         if (currentUser.email) {
           await this.profileRef.doc(currentUser.email).update(updatedProfile);
+          console.log(updatedProfile);
           return updatedProfile;
         } else {
           throw new Error('User email is null');

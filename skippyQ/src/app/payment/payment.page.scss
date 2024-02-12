@@ -1,0 +1,28 @@
+.paypal-container{
+    text-align:center;
+    justify-content:center;
+    margin: auto;
+}
+
+.info{
+    margin: 50px 0px 50px 0px;
+    text-align: center;
+}
+
+.back {
+    cursor: pointer;
+    margin-top: 20px; 
+    color: blue;
+}
+  
+.back:hover {
+text-decoration: underline;
+}
+
+ion-spinner {
+    width: 100px;
+    height: 100px;
+    --color: #15708c;
+    margin: auto;
+    margin-top: 150px;
+}

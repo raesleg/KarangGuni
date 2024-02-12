@@ -1,0 +1,120 @@
+
+@import "https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/dashboard.scss";
+$bg: #1b2431;
+$light-text: #738297;
+$dark-text: #273142;
+$light-bg: #313D4F;
+$green-bg: #009879;
+$green-lightbg: #a9dea0;
+$yellow: #d4e89e;
+$blue: #d8f2e9;
+
+// global stuff
+body {
+  background-color: $bg;
+  color: #202020;
+  font-family: "Montserrat", "Helvetica", "Open Sans", "Arial";
+  font-size: 13px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+p,
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin clear() {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  
+  &:after {
+    clear: both;
+  }
+}
+
+.projects {
+  background-color: $green-lightbg;
+  border: 5px solid $green-bg;
+  border-radius: 50px;
+  overflow-x: auto;
+  width: 100%;
+  margin-top: 20px;
+  
+  &-inner {
+    border-radius: 4px;
+  }
+}
+
+.projects-header {
+  color: $bg;
+  padding: 22px;
+
+  .count,
+  .title {
+    display: inline-block;
+  }
+  
+  .count {
+    color: $light-bg;
+    font-size: 18px;
+  }
+  
+  .zmdi {
+    cursor: pointer;
+    float: right;
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .title {
+    font-size: 28px;
+    margin-left: 20px;
+    
+    + .count {
+      margin-left: 5px;
+    }
+  }
+}
+
+.projects-table {
+  background: white;
+  width: 100%;
+  
+  td,
+  th {
+    color: $bg;
+    padding: 10px 22px;
+    // vertical-align: middle;
+    text-align: center;
+  }
+  
+  td p {
+    font-size: 13px;
+    
+    &:first-of-type {
+      color: $dark-text;
+      font-size: 17px;
+    }
+  }
+  
+  th {
+    background-color: $blue;
+  }
+  
+  tr {
+    &:hover {
+      background-color: lighten($green-lightbg, 5%);
+    }
+    
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $light-bg;
+    }
+  }
+}

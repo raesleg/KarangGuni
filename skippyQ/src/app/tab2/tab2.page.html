@@ -1,16 +1,173 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-item>
+      <img src="assets/logo.png" width="70" height="50" style="margin: 10px 0px 0px 0px"/>
+    </ion-item>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="primary" [routerLink]="['/seller']"> <!--functionality to route page-->
+        <ion-icon slot="icon-only" name="add"></ion-icon> <!--icon UI-->
+      </ion-button>
+
+      <ion-button color="primary" (click)="openCart()" style="position: relative;">
+        <ion-icon slot="icon-only" name="cart" style="position: relative; z-index: 1;">
+        </ion-icon>
+        <ion-badge item-end style="position: absolute; top: -5px; right: -5px; font-size: 10px; min-width: 15px; min-height: 15px;">{{buyercart.length}}</ion-badge>
+      </ion-button>
+      
+      <ion-button color="primary" (click)="openNotification()" style="position: relative;">
+        <ion-icon slot="icon-only" name="notifications" style="position: relative; z-index: 1;">
+        <ion-icon name="notifications"></ion-icon>
+        </ion-icon>
+        <ion-badge item-end *ngIf="unopenedNotifCount > 0"style="position: absolute; top: -5px; right: -5px; font-size: 10px; min-width: 15px; min-height: 15px;">{{unopenedNotifCount}}</ion-badge>
+      </ion-button>
+
+      <ion-button color="primary" (click)="logout()"> <!--functionality to route page-->
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
   </ion-header>
 
+    <ion-toolbar>
+      <ion-segment value="marketplace">
+        <ion-segment-button value="listing" (click)="yourlisting()">
+          <ion-label>Your listings</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="marketplace" (click)="navigateback()">
+          <ion-label>Marketplace</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="marketplace" (click)="navigateback2()">
+          <ion-label>My Orders</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+
+    <!-- <ion-toolbar>
+      <ion-segment (ionChange)="segmentChanged($event)" value="">
+        <ion-segment-button value="listing">
+          <ion-label>Your listings</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="marketplace">
+          <ion-label>Marketplace</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar> -->
+
+
+<ion-content [fullscreen]="true">
+
+  <ion-item>
+    <ion-buttons slot="start">
+      <ion-icon slot="icon-only" name="funnel-outline"></ion-icon>
+    </ion-buttons>
+    <ion-select (ionChange)="filterProducts($event)" [(ngModel)]="selectedCategory">
+      <ion-select-option *ngFor="let option of categories"
+        [value]="option">
+        {{option}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-searchbar #searchBar (ionChange)=search($event)></ion-searchbar>
+  
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="main">
+   <div class="wrapper" *ngFor="let item of filteredProducts">
+      <div class="container">
+        <div class="top">
+          <img [src]="item.image">
+        </div>
+
+        <div class="bottom">
+          <div class="left">
+            <div class="details">
+              <h2>{{item.name}}</h2>
+              <p>{{item.price | currency }}</p>
+            </div>
+            <div class="buy">
+              <ion-icon size="large" name="cart" (click)="addToCart(item, item.id)"></ion-icon>
+            </div>
+        </div>
+
+    <div class="inside">
+      <div class="icon">
+        <ion-icon size="large" name="information-circle-outline"></ion-icon>
+      </div>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>Product Model</th>
+          </tr>
+          <tr>
+            <td>{{item.model}}</td>
+          </tr>
+          <tr>
+            <th>Product Condition</th>
+          </tr>
+          <tr>
+            <td>{{item.conditions}}</td>
+          </tr>
+          <tr>
+            <th>Product Description</th>
+          </tr>
+          <tr>
+            <td>{{item.details}}</td>
+          </tr>
+          <tr>
+            <th>Listed By -- {{item.sellername}}</th>
+          </tr>
+          <tr>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
 </ion-content>
+
+  
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">MarketPlace</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <!-- <div class="banner-container">
+    <img src="assets/marketplace.png"/>
+  </div>
+ -->
+  <!-- <ion-list>
+    <ion-item *ngFor="let item of products"> 
+      <ion-thumbnail slot="start"> 
+          <img [src]="item.image">
+      </ion-thumbnail>
+      <ion-label [routerLink] = "['/edit-product', item.id]">
+        <h2>{{item.name}}</h2>
+        <p>{{item.price | currency }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+
+  <!-- latest -->
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col size="6" *ngFor="let item of products">
+        <div class="product-card">
+          <img [src]="item.image" class="image-card" [routerLink] = "['/details', item.id]">
+          <div style="padding: 10px 0px 0px 10px;">{{item.name}}</div>
+          <div style="padding: 0px 0px 0px 10px"><strong>{{item.price | currency}}</strong></div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+
+

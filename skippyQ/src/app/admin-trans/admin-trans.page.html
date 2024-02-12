@@ -1,0 +1,77 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div class="container-fluid">
+    <div class="row">
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">
+        <div class="projects mb-4">
+          <div class="projects-inner">
+            <header class="projects-header">
+              <div class="title">Product Information</div>
+              <div class="count">| {{products.length}} Items Purchased</div>
+              <i class="zmdi zmdi-download"></i>
+            </header>
+            <table class="projects-table">
+              <thead>
+                <tr>
+                  <tr>
+                    <th>Seller</th>
+                    <th>Model</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Condition</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+              </thead>
+              <tr *ngFor="let item of products">
+                <td  [routerLink]="['/adminlisting', item.selleruserid]">
+                  <p>{{item.sellername}}</p>
+                  <p>{{item.selleruserid}}</p>
+                </td>
+                <td>
+                  <p><img [src]="item.image" style="width:80px; height:130px"></p>
+                </td>
+                <td>
+                  <p>{{item.name}}</p>
+                  <p>{{item.model}}</p>
+                </td>
+                <td>
+                  <p>{{item.price | currency}}</p>
+                </td>
+                <td>
+                  <p>{{item.category}}</p>
+                </td>
+                <td>
+                  <p>{{item.conditions}}</p>
+                </td>
+                <td>
+                  <p>{{item.details}}</p>
+                </td>
+                <td>
+                  <p>{{item.isShipped}}</p>
+                </td>
+                <td>
+                </td>
+
+              </tr>
+              
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+</ion-content>

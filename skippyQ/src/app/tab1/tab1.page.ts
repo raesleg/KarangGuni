@@ -13,22 +13,24 @@ userName: string | undefined;
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {
-    this.authService.observeAuthState(currentUser => {
-      if (currentUser && currentUser.email) {
-          this.authService.getUserProfile(currentUser.email).then((profile) => {
-            // Use the retrieved profile to get the name
-            if (profile) {
-              this.userName = profile.name;
-              console.log('User Name:', this.userName);
-            } else {
-              console.log('User profile not found');
-            }
-          }).catch (error => {
+
+  async ngOnInit() {
+
+    this.authService.observeAuthState(user => {
+      if (user && user.email) {
+        // If a user is logged in, get the user profile
+        this.authService.getUserProfile(user.email).then((profile) => {
+          if (profile) {
+            this.userName = profile.name;
+            console.log('User Name:', this.userName);
+          } else {
+            console.log('User profile not found');
+          }
+        }).catch(error => {
           console.error('Error fetching user profile:', error);
         });
       } else {
-        console.log('Could not get current user');
+        console.log('No user logged in');
       }
     });
   }

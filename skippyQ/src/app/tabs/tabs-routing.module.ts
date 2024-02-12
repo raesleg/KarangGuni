@@ -20,6 +20,22 @@ const routes: Routes = [
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
       },
       {
+        path: 'tab5',
+        loadChildren: () => import('../tab5/tab5.module').then(m => m.Tab5PageModule)
+      },
+      {
+        path: 'tab6',
+        loadChildren: () => import('../tab6/tab6.module').then(m => m.Tab6PageModule)
+      },     
+      {
+        path: 'listing',
+        loadChildren: () => import('../listing/tab4.module').then(m => m.Tab4PageModule)
+      },
+      {
+        path: 'myorders',
+        loadChildren: () => import('../my-orders/my-orders.module').then( m => m.MyOrdersPageModule)
+      },    
+      {
         path: '',
         redirectTo: '/login',
         pathMatch: 'full'

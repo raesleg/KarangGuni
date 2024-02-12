@@ -45,8 +45,35 @@ const routes: Routes = [
   {
     path: 'recycle-examples',
     loadChildren: () => import('./recycle-examples/recycle-examples.module').then( m => m.RecycleExamplesPageModule)
-  }
+  },
 
+    path: 'seller',
+    loadChildren: () => import('./seller/seller.module').then( m => m.SellerPageModule)
+  },
+  {
+    path: 'edit-product/:id',
+    loadChildren: () => import('./edit-product/edit-product.module').then( m => m.EditProductPageModule)
+  },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
+  },
+  {
+    path: 'adminlisting/:userID',
+    loadChildren: () => import('./adminlisting/adminlisting.module').then( m => m.AdminlistingPageModule)
+  },   
+  {
+    path: 'admintrans/:id',
+    loadChildren: () => import('./admin-trans/admin-trans.module').then( m => m.AdminTransPageModule)
+  },
+  {
+    path: 'notif',
+    loadChildren: () => import('./notif/notif.module').then( m => m.NotifPageModule)
+  }
 ];
 @NgModule({
   imports: [

@@ -1,0 +1,99 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Product Sale Confirmation</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="close()" fill="clear" color="dark"> <!--functionality to route page-->
+        <ion-icon slot="icon-only" name="close"></ion-icon> <!--icon UI-->
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <div class="ion-padding"> -->
+
+    <div *ngIf="sold.length === 0">
+      <p class="no-cart"><ion-icon name="sad-outline" slot="icon-only" class="large-icon"></ion-icon></p>
+      <p class="no-cart"><strong>No sales</strong></p>
+    </div>
+  
+    <ion-list>
+      <ion-item *ngFor="let item of sold; let i = index" class="ion-text-wrap">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="5" size-lg="5">
+            <img [src]="item.image" class="responsive-image">
+            </ion-col>
+            <ion-col size-md="7" size-lg="7">
+            <ion-row class="ion-align-items-center">
+              <ion-col size="12" class="ion-text-wrap">
+                <b>{{ item.model }} {{item.name}} | {{item.category}}</b>
+                <p>{{ item.price | currency }}</p>
+                <p>About: {{item.details}}</p>
+                <!-- <p *ngFor="let item of profile">Customer: {{item.name}}</p>
+                <p *ngFor="let item of profile">Contact: {{item.phoneNumber}}</p>
+                <p *ngFor="let item of profile">Address: {{item.shippingAddress}}</p> -->
+                <p *ngIf="buyprofiles[i]">Customer: {{buyprofiles[i][0].name}}</p>
+                <p *ngIf="buyprofiles[i]">Contact: {{buyprofiles[i][0].phoneNumber}}</p>
+                <p *ngIf="buyprofiles[i]">Address: {{buyprofiles[i][0].shippingAddress}}</p>
+              </ion-col>
+                <ion-button *ngIf="item.isShipped === 'False'" color="warning" (click)="shipped(item)" class="trash-btn">
+                  Pending Shipment
+                </ion-button>
+
+                <ion-button *ngIf="item.isShipped === 'True'" color="success" class="trash-btn">
+                  Shipped
+                </ion-button>
+            </ion-row>
+          </ion-col>
+          </ion-row>
+
+          <ion-item-divider class="custom-divider"></ion-item-divider>
+
+        </ion-grid>
+      </ion-item>
+      <ion-item>
+        <ion-grid *ngIf="sold.length != 0">
+          <!-- <ion-row>
+            <ion-col size="8">
+              SubTotal:
+            </ion-col>
+            <ion-col size="4" class="ion-text-end">
+              {{ getSubTotal() | currency}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="8">
+              Shipping:
+              <ion-label class="ion-text-wrap">($1 per item)</ion-label>
+            </ion-col>
+            <ion-col size="4" class="ion-text-end">
+              {{ getShipping() | currency}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="8">
+              Total:
+              <ion-label class="ion-text-wrap">(GST included)</ion-label>
+            </ion-col>
+            <ion-col size="4" class="ion-text-end">
+              {{ getTotal() | currency}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label color="danger">Please Confirm Your Address. We are not responsible for any address mistake</ion-label>
+            </ion-col>
+          </ion-row> -->
+
+
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+
+</ion-content>

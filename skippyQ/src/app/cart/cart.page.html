@@ -1,0 +1,104 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Cart</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="close()" fill="clear" color="dark"> <!--functionality to route page-->
+        <ion-icon slot="icon-only" name="close"></ion-icon> <!--icon UI-->
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- <div class="ion-padding"> -->
+
+    <div *ngIf="buyercart.length === 0">
+      <p class="no-cart"><ion-icon name="sad-outline" slot="icon-only" class="large-icon"></ion-icon></p>
+      <p class="no-cart"><strong>No Item Added</strong></p>
+    </div>
+
+    <div *ngIf="buyercart.length != 0" class="address-container">
+    <strong><ion-item>
+      <ion-button (click)="edit()" fill="clear" color="dark">
+        <ion-icon name="create-outline"></ion-icon>
+      </ion-button>
+      {{shippingAddress}}</ion-item></strong>
+    <strong><ion-item>{{getShipping()}} ITEM | {{getSubTotal() | currency}}</ion-item></strong>
+    <ion-item-divider class="custom-divider"></ion-item-divider>
+    </div>
+  
+    <ion-list>
+      <ion-item *ngFor="let item of buyercart" class="ion-text-wrap">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="5" size-lg="5">
+            <img [src]="item.image" class="responsive-image">
+            </ion-col>
+            <ion-col size-md="7" size-lg="7">
+            <ion-row class="ion-align-items-center">
+              <ion-col size="12" class="ion-text-wrap">
+                <b><ion-icon name="storefront" slot="icon-only" class="store-icon"></ion-icon>{{ item.sellername }}</b>
+                <p>{{ item.name }}</p>
+                <p>{{ item.price | currency }}</p>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                <ion-button color="medium" fill="clear" (click)="removeCartItem(item)" class="trash-btn">
+                  <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+          </ion-row>
+
+          <ion-item-divider class="custom-divider"></ion-item-divider>
+
+        </ion-grid>
+      </ion-item>
+      <ion-item>
+        <ion-grid *ngIf="buyercart.length != 0">
+          <ion-row>
+            <ion-col size="8">
+              SubTotal:
+            </ion-col>
+            <ion-col size="4" class="ion-text-end">
+              {{ getSubTotal() | currency}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="8">
+              Shipping:
+              <ion-label class="ion-text-wrap">($1 per item)</ion-label>
+            </ion-col>
+            <ion-col size="4" class="ion-text-end">
+              {{ getShipping() | currency}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="8">
+              Total:
+              <ion-label class="ion-text-wrap">(GST included)</ion-label>
+            </ion-col>
+            <ion-col size="4" class="ion-text-end">
+              {{ getTotal() | currency}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col>
+              <ion-label color="danger">Please Confirm Your Address. We are not responsible for any address mistake</ion-label>
+            </ion-col>
+          </ion-row>
+
+
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="full" (click)="checkout()" *ngIf="buyercart.length != 0">
+      Checkout
+    </ion-button>
+
+</ion-content>

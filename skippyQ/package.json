@@ -31,8 +31,11 @@
     "@ionic/pwa-elements": "^3.2.2",
     "@tensorflow/tfjs": "^4.16.0",
     "@teachablemachine/image": "^0.8.5",
+    "@firebase/storage": "^0.12.0",
     "ionicons": "^7.0.0",
-    "rxjs": "~7.8.0",
+    "moment-timezone": "^0.5.44",
+    "rxjs": "^7.8.1",
+    "stripe-pwa-elements": "^2.1.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },
@@ -51,6 +54,7 @@
     "@types/jasmine": "~5.1.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "cordova-plugin-stripe": "^1.5.3",
     "eslint": "^7.26.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
@@ -65,5 +69,10 @@
     "ts-node": "^8.3.0",
     "typescript": "~5.2.2"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-stripe": {}
+    }
+  }
 }

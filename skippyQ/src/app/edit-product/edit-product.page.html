@@ -1,0 +1,100 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button> <!--BACK BUTTON-->
+    </ion-buttons>
+
+    <ion-title size="large">Edit Products</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Edit Products</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="updateForm">
+
+    <ion-item>
+      <ion-label position="stacked">Model</ion-label>
+      <ion-input formControlName="model" fill="solid" placeholder="Enter your product model"></ion-input>
+      <ion-text *ngIf="updateForm.get('model')?.hasError('required') && submitted" color="danger">
+        Product Model Required
+      </ion-text>      
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Name</ion-label>
+      <ion-input formControlName="name" fill="solid" placeholder="Enter your product name"></ion-input>
+      <ion-text *ngIf="updateForm.get('name')?.hasError('required') && submitted" color="danger">
+        Product Name Required
+      </ion-text>      
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Price</ion-label>
+      <ion-input type="number" formControlName="price" fill="solid" placeholder="Enter product price"></ion-input>
+      <ion-text *ngIf="updateForm.get('price')?.hasError('required') && submitted" color="danger">
+        Pricing is Required
+      </ion-text>
+      <ion-text *ngIf="updateForm.get('price')?.hasError('price') && !updateForm.get('price')?.hasError('required') && submitted" color="danger">
+        Enter a valid positive number
+      </ion-text>
+    </ion-item>
+    
+    <ion-item>
+      <!-- <ng-container *ngIf="product"></ng-container> -->
+      <ion-thumbnail style="width:100px;height:100px" slot="start" *ngIf="product"> <!--THUMBNAIL image insert-->
+        <!-- <ion-avatar slot="start"> AVATAR IMAGE -->
+          <img [src]="product.image">     
+          <!-- </ion-avatar> -->
+      </ion-thumbnail>
+
+      <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      <!-- <ion-input formControlName="file" type="file" (change)="onFileChange($event)"></ion-input> -->
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Description</ion-label>
+      <ion-input formControlName="details" fill="solid" placeholder="Enter product description"></ion-input>
+      <ion-text *ngIf="updateForm.get('details')?.hasError('required') && submitted" color="danger">
+        Short Description is Required
+      </ion-text>      
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Product Condition</ion-label>
+      <ion-select formControlName="conditions">
+        <ion-select-option *ngFor="let option of conditions"
+          [value]="option">
+          {{option}}
+        </ion-select-option>
+      </ion-select>
+      <ion-text *ngIf="updateForm.get('conditions')?.hasError('required') && submitted" color="danger">
+        Please state product condition
+      </ion-text>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Category</ion-label>
+      <ion-select formControlName="category">
+        <ion-select-option *ngFor="let option of category"
+          [value]="option">
+          {{option}}
+        </ion-select-option>
+      </ion-select>
+      <ion-text *ngIf="updateForm.get('category')?.hasError('required') && submitted" color="danger">
+        Please select category
+      </ion-text>
+    </ion-item>
+  </form>
+
+  <ion-button expand="block" color="secondary" (click)="update()">
+    Update
+  </ion-button>
+
+
+</ion-content>
+
