@@ -5,20 +5,6 @@
     </ion-item>
 
     <ion-buttons slot="end">
-      <!-- <ion-button color="primary" [routerLink]="['/seller']"> 
-        <ion-icon slot="icon-only" name="add"></ion-icon> 
-      </ion-button> -->
-
-      <!-- <ion-button color="primary" (click)="openCart()">
-        <ion-icon slot="icon-only" name="cart"></ion-icon>
-      </ion-button> -->
-
-      <!-- <ion-button color="primary" (click)="openCart()" style="position: relative;">
-        <ion-icon slot="icon-only" name="cart" style="position: relative; z-index: 1;">
-        </ion-icon>
-        <ion-badge item-end style="position: absolute; top: -5px; right: -5px; font-size: 10px; min-width: 15px; min-height: 15px;">{{buyercart.length}}</ion-badge>
-      </ion-button>       -->
-
       <ion-button color="primary" (click)="logout()"> 
         <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
       </ion-button>
@@ -32,31 +18,25 @@
       <div class="container-fluid">
         <div class="row">
           <main role="main" class="col-md-9 ml-sm-auto col-lg-10 my-3">
-            <div class="card-list">
-              <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-                  <div class="card red">
-                    <div class="title">Total Transaction [24h]</div>
-                    <i class="zmdi zmdi-upload"></i>
-                    <div class="value">{{transtoday.length}}</div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-                  <div class="card orange">
-                    <div class="title">revenue generated [24h]</div>
-                    <i class="zmdi zmdi-upload"></i>
-                    <div class="value">{{getSumToday() | currency}}</div>
-                    <div class="title">total revenue generated</div>
-                    <div class="value">{{getSum() | currency}}</div>
-                    <div class="stat">10% of sales per transaction</div>
 
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ion-segment [(ngModel)]="selectedTimeRange" (ionChange)="updateChart()">
+              <ion-segment-button value="hours" checked>
+                Last 24 hours
+              </ion-segment-button>
+              <ion-segment-button value="daily" checked>
+                Daily
+              </ion-segment-button>
+              <ion-segment-button value="monthly">
+                Monthly
+              </ion-segment-button>
+              <ion-segment-button value="yearly">
+                Yearly
+              </ion-segment-button>
+            </ion-segment>
+            <div echarts [options]="chartOption" style="margin-top:20px"></div>
 
-            <ion-searchbar #searchBar (ionChange)=search($event)></ion-searchbar>
-  
+            <ion-searchbar #searchBar (ionChange)=search($event) (ionClear)="clearSearch()"></ion-searchbar>
+
             <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
               <ion-refresher-content></ion-refresher-content>
             </ion-refresher>

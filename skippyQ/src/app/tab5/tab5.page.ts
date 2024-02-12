@@ -16,19 +16,40 @@ export class Tab5Page {
 
   profile: Profile[] = [];
   filteredusers: Profile[] = [];
+  userslist: Profile[] = [];
+  bannedusers: Profile[] = [];
   userName: string | undefined;
+  selectedCategory: string;
+  categories=[]
 
   @ViewChild('searchBar', {static: false}) searchBar: IonSearchbar;
 
   constructor(
     private adminService : AdminService,
-    private productService: ProductService,
     private alertCtrl: AlertController, 
     private actionSheetCtrl: ActionSheetController,
     private authService: AuthService,
     private toastController: ToastController,
     private router: Router
-  ) {}
+  ) {
+    this.categories = ['All','Banned']
+  }
+
+  filterUsers(event: any) {
+    const selectedCategory = event.detail.value;
+    console.log(selectedCategory)
+
+    if (selectedCategory && selectedCategory !== null && selectedCategory === 'Banned') {
+      // this.filteredusers = this.bannedusers.filter(product => product.status === selectedCategory);
+      this.filteredusers = this.bannedusers
+      console.log('yes')
+    } else if (selectedCategory === null || selectedCategory === 'All'){
+      this.filteredusers = this.userslist;
+    } else {
+      this.filteredusers = this.userslist
+    }
+  }
+
 
   search(event){
     const text = event.target.value;
@@ -176,9 +197,18 @@ export class Tab5Page {
     this.adminService.getProfile()
     .subscribe(data => {
       this.profile = data.filter(item => item.isAdmin !== true);
-      this.filteredusers = this.profile
-      console.log(this.filteredusers)
+      this.userslist = this.profile
+      this.filteredusers = this.userslist
+      console.log(this.userslist)
     })
+
+    this.adminService.getBanned()
+    .subscribe(data => {
+      this.profile = data.filter(item => item.isAdmin !== true);
+      this.bannedusers = this.profile
+      console.log(this.bannedusers)
+    })
+
 
     this.authService.observeAuthState(user => {
       if (user && user.email) {

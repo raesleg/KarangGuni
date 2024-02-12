@@ -47,14 +47,9 @@ export class Tab2Page {
     private toastController: ToastController, 
     private router: Router, 
     private modalCtrl: ModalController, 
-    private zone: NgZone, 
     private actionSheetCtrl: ActionSheetController) {
     
     this.categories = ['All','Price (High - Low)','Price (Low - High)','Electronics', 'Home Appliances', 'Beauty', 'Healthcare', 'Furniture', 'Toys & Games', 'Sports', 'Books', 'Clothing', 'Others']; //add category seelct options use *ngFor in html
-    console.log(this.categories)
-
-    // this.user = this.authService.getUserData();
-    // console.log('email in marketplace', this.user)
   }
 
   filterProducts(event: any) {

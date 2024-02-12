@@ -33,6 +33,22 @@ export class AdminService {
     })
   }
 
+  getBanned(): Observable<any>{
+    return new Observable((observer) => {
+      this.bannedRef.onSnapshot((querySnapShot) => {
+        let profile: Profile[] = [];
+        querySnapShot.forEach((doc) => {
+          let data = doc.data();
+          let p = new Profile(data['userID'], data['isAdmin'],  doc['id'], data['phoneNumber'], data['name'], data["password"], data['ageRange'],data['shippingAddress'], data['bio'], data['image'], data['status']);
+          console.log('banned',p)
+          profile.push(p);
+        });
+        observer.next(profile);
+      })
+    })
+  }
+
+
   getProfileByID(id: string): Observable<any>{
     return new Observable((observer) => {
       this.profileRef.doc(id).get().then((doc) => {

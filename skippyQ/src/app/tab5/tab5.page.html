@@ -16,6 +16,18 @@
 
 <ion-content [fullscreen]="true">
 
+  <ion-item>
+    <ion-buttons slot="start">
+      <ion-icon slot="icon-only" name="funnel-outline"></ion-icon>
+    </ion-buttons>
+    <ion-select (ionChange)="filterUsers($event)" [(ngModel)]="selectedCategory">
+      <ion-select-option *ngFor="let option of categories"
+        [value]="option">
+        {{option}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <ion-searchbar #searchBar (ionChange)=search($event)></ion-searchbar>
   
   <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
@@ -29,7 +41,7 @@
           <div class="projects-inner">
             <header class="projects-header">
               <div class="title">User Management</div>
-              <div class="count">| {{profile.length}} Users</div>
+              <div class="count">| {{filteredusers.length}} Users</div>
               <i class="zmdi zmdi-download"></i>
             </header>
             <table class="projects-table">
@@ -41,6 +53,8 @@
                   <th>Shipping Address</th>
                   <th>Age Range</th>
                   <th>About</th>
+                  <th></th>
+                  <th></th>
                   <th></th>
                 </tr>
               </thead>

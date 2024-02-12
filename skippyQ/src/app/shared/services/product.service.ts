@@ -110,9 +110,21 @@ export class ProductService {
 
       const transactionDocRef = this.transRef.doc(transactionid);
 
+      // const createTimeDate = new Date(create_time);
+      // const formattedCreateTime = createTimeDate.toLocaleString('en-US', {
+      //   timeZone: 'Asia/Singapore',
+      //   year: 'numeric',
+      //   month: '2-digit',
+      //   day: '2-digit',
+      //   hour: '2-digit',
+      //   minute: '2-digit',
+      //   second: '2-digit'
+      // });
+
       // Set the data for the "transaction" document
       await transactionDocRef.set({
         create_time: (moment.utc(create_time)).tz("Asia/Singapore").format("YYYY-MM-DDTHH:mm:ss"),
+        // create_time: formattedCreateTime,
         // create_time: create_time,
         currency: currency,
         amount: amount,

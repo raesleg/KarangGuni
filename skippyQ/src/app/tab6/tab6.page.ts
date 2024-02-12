@@ -4,6 +4,9 @@ import { AdminService } from '../shared/services/admin.service';
 import { ActionSheetController, IonSearchbar } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Trans } from '../shared/services/models/trans';
+import { EChartsOption } from 'echarts';
+import * as moment from 'moment-timezone';
+import { h } from 'ionicons/dist/types/stencil-public-runtime';
 
 @Component({
   selector: 'app-tab6',
@@ -13,9 +16,19 @@ import { Trans } from '../shared/services/models/trans';
 export class Tab6Page {
 
   trans: Trans[] = [];
-  transtoday: Trans[] = [];
-  sum: number;
-  sumtoday: number;
+
+  hourlyTransactionCounts: { [hours: string]: number } = {};
+  dailyTransactionCounts: { [daily: string]: number } = {};
+  monthlyTransactionCounts: { [month: string]: number } = {};
+  yearlyTransactionCounts: { [yearly: string]: number } = {};
+
+  hoursData: { [hours: string]: number } = {};
+  dailyData: { [daily: string]: number } = {};
+  monthData: { [month: string]: number } = {};
+  yearData: { [yearly: string]: number } = {};
+
+  selectedTimeRange: string = 'hours'; // Default to daily
+  chartOption: EChartsOption = {}; // Initialize with empty chart options
 
   @ViewChild('searchBar', {static: false}) searchBar: IonSearchbar;
 
@@ -53,7 +66,6 @@ export class Tab6Page {
   logout() {
     this.canDismiss().then((confirmed) => {
       if (confirmed) {
-        // this.authService.clearUserData()
         console.log('cleared')
         this.authService.logout();
         this.router.navigate(['login']);
@@ -64,7 +76,7 @@ export class Tab6Page {
   isWithinToday(createTime: string): boolean {
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0); // Set to the beginning of the day
-    console.log(todayStart)
+    console.log('start',todayStart)
   
     const todayEnd = new Date();
     todayEnd.setHours(23, 59, 59, 999); // Set to the end of the day
@@ -74,16 +86,6 @@ export class Tab6Page {
     console.log(createTimeDate)
     
     return createTimeDate >= todayStart && createTimeDate <= todayEnd;
-  }
-
-  getSum(){
-    const sum = this.sum
-    return sum
-  }
-
-  getSumToday(){
-    const sumtoday = this.sumtoday
-    return sumtoday
   }
 
   search(event){
@@ -97,8 +99,15 @@ export class Tab6Page {
         this.trans = allTrans
       }
     });  
-    
   }
+
+  clearSearch() {
+    this.adminService.getAllTrans().subscribe((allTrans: Trans[]) => {
+      this.trans = allTrans
+    });
+
+  }
+
 
   refresh($event){
     this.searchBar.value = '';
@@ -113,28 +122,238 @@ export class Tab6Page {
 
     this.adminService.getAllTrans()
     .subscribe(data => {
-      // this.profile = data.filter(item => item.isAdmin !== true);
-      // this.filteredusers = this.profile
       this.trans = data
       console.log(this.trans)
 
-      this.sum = this.trans.reduce((accumulator, item) => accumulator + (item.amount * 0.1), 0);
-      console.log(this.sum)
-  
+      const currentYear = moment().tz("Asia/Singapore").format("YYYY");
+      const currentMonth = moment().tz("Asia/Singapore").format("MMM-YYYY");
+
+
+      this.trans.forEach(item => {
+        const hours = moment.utc(item.create_time).tz("Asia/Singapore").add(16, 'hours').format("h:mm A"); 
+        console.log(hours)
+        const daily = moment.utc(item.create_time).tz("Asia/Singapore").format("DD-MMM-YYYY"); 
+        const month = moment.utc(item.create_time).tz("Asia/Singapore").format("MMM-YYYY"); 
+        const yearly = moment.utc(item.create_time).tz("Asia/Singapore").format("YYYY");
+        console.log(item.create_time)
+        console.log(this.isWithinToday)
+
+        if (this.isWithinToday(item.create_time)) {
+          if (!this.hoursData[hours]) {
+            this.hoursData[hours] = 0;
+            this.hourlyTransactionCounts[hours] = 0;
+          }
+          this.hoursData[hours] += item.amount * 0.1; 
+          this.hourlyTransactionCounts[hours]++;
+        } else {
+          console.log('no')
+        }
+
+        //daily and monthly of that current year
+        if (yearly === currentYear) {
+          if (month === currentMonth) {
+          if (!this.dailyData[daily]) {
+            this.dailyData[daily] = 0;
+            this.dailyTransactionCounts[daily] = 0;
+          }
+          this.dailyData[daily] += item.amount * 0.1;
+          this.dailyTransactionCounts[daily]++;
+          }
+
+          if (!this.monthData[month]) {
+            this.monthData[month] = 0;
+            this.monthlyTransactionCounts[month] = 0;
+          }
+            this.monthData[month] += item.amount * 0.1; // Add amount to sum for the month
+            this.monthlyTransactionCounts[month]++;
+        }
+
+        if (!this.yearData[yearly]) {
+          this.yearData[yearly] = 0;
+          this.yearlyTransactionCounts[yearly] = 0;
+        }
+        this.yearData[yearly] += item.amount * 0.1;
+        this.yearlyTransactionCounts[yearly]++
+        
+      });
+
+      this.updateChart(); // Update chart after data extraction  
     })
+  }
 
-    this.adminService.getAllTrans()
-    .subscribe(data => {
-      this.transtoday = data.filter(item => this.isWithinToday(item.create_time));
-      console.log('today',this.transtoday);
+  updateChart() {
+    // Calculate data based on selected time range
+    let xAxisData: string[] = [];
+    let yAxisData: number[] = [];
 
-      this.sumtoday = this.transtoday.reduce((accumulator, item) => accumulator + (item.amount * 0.1), 0);
-      console.log(this.sumtoday)
+    switch (this.selectedTimeRange) {
+      case 'hours':
+        xAxisData = this.getHourlyXAxisData();
+        yAxisData = this.getHourlyYAxisData();
+        break;
+      case 'daily':
+        xAxisData = this.getDailyXAxisData();
+        yAxisData = this.getDailyYAxisData();
+        break;
+      case 'monthly':
+        xAxisData = this.getMonthlyXAxisData();
+        yAxisData = this.getMonthlyYAxisData();
+        break;
+      case 'yearly':
+        xAxisData = this.getYearlyXAxisData();
+        yAxisData = this.getYearlyYAxisData();
+        break;
+      default:
+        break;
+    }
 
-    });
-
+    const graphic = {
+      type: 'group',
+      width: '100%',
+      height: '100%',
+      children: [
+        {
+          type: 'text',
+          left: 'center',
+          top: 'top',
+          style: {
+            fill: '#333', // Text color
+            text: `Total Transactions: ${this.trans.length}`,
+            font: 'bold 14px Arial'
+          }
+        }
+      ]
+    };
     
+    this.chartOption = {
+      tooltip: { // Tooltip for displaying exact amount on hover
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        },
+        formatter: (params) => {
+          let tooltip = ''; // Initialize tooltip string
+          params.forEach((param) => {
+            tooltip += `Total Revenue on ${param.name}: SGD ${param.value.toFixed(2)}<br/>`; // Add basic tooltip info for each data point
+          });
+        
+          // Determine the time range and retrieve the corresponding count
+          let count;
+          switch (this.selectedTimeRange) {
+            case 'hours':
+              const hours = params[0].name; 
+              count = this.hourlyTransactionCounts[hours]; 
+              tooltip += `Total Transactions on ${hours}: ${count}`; 
+              break;
+            case 'daily':
+              const day = params[0].name; 
+              count = this.dailyTransactionCounts[day]; 
+              tooltip += `Total Transactions on ${day}: ${count}`; 
+              break;
+            case 'monthly':
+              const month = params[0].name; 
+              count = this.monthlyTransactionCounts[month]; 
+              tooltip += `Total Transactions in ${month}: ${count}`; 
+              break;
+            case 'yearly':
+              const year = params[0].name; 
+              count = this.yearlyTransactionCounts[year]; 
+              tooltip += `Total Transactions in ${year}: ${count}`; 
+              break;
+            default:
+              break;
+          }
+        
+          return tooltip;
+        }
+        // formatter: (params) => {
+        //   let tooltip = ''; // Initialize tooltip string
+        //   params.forEach((param) => {
+        //     tooltip += `${param.name}: SGD ${param.value.toFixed(2)}<br/>`; // Add basic tooltip info for each data point
+        //   });
+        //   const month = params[0].name; // Get the month from the first parameter
+        //   const count = this.monthlyTransactionCounts[month]; // Get the count of transactions for the month
+        //   tooltip += `Total Transactions in ${month}: ${count}`; // Add count info to the tooltip
+        //   return tooltip;
+        // }
+      },
+      xAxis: {
+        type: 'category',
+        data: xAxisData,
+        name: 'Time',
+        axisLabel: {
+          interval: 0, // Show all labels
+          rotate: 45, // Rotate labels for better readability
+          rich: {
+            value: {
+              lineHeight: 25, // Line height for value
+            },
+            text: {
+              lineHeight: 15, // Line height for additional text
+              color: '#999', // Color of additional text
+            },
+          }
+        }
+      },
+      yAxis: {
+        type: 'value',
+        name: '10% Revenue of Total sales (SGD)'
+      },
+      series: [
+        {
+          data: yAxisData,
+          type: 'line',
+        },
+      ],
+      graphic: [graphic], // Add the custom graphic element
+    };
 
   }
+
+  // getHourlyXAxisData(): string[] {
+  //   return Object.keys(this.hoursData);
+  // }
+
+  getHourlyXAxisData(): string[] {
+    return Object.keys(this.hoursData).sort((a, b) => {
+      const dateA = moment(a, 'h:mm A');
+      const dateB = moment(b, 'h:mm A');
+      return dateA.valueOf() - dateB.valueOf();
+    });
+  }
+
+  getHourlyYAxisData(): number[] {
+    const sortedHours = this.getHourlyXAxisData(); // Get sorted hours
+    return sortedHours.map(hour => this.hoursData[hour]); // Map sorted hours to corresponding y-axis data
+  }
   
+  
+  // getHourlyYAxisData(): number[] {
+  //   return Object.values(this.hoursData);
+  // }
+
+  getDailyXAxisData(): string[] {
+    return Object.keys(this.dailyData);
+  }
+  
+  getDailyYAxisData(): number[] {
+    return Object.values(this.dailyData);
+  }
+  
+  getMonthlyXAxisData(): string[] {
+    return Object.keys(this.monthData);
+  }
+  
+  getMonthlyYAxisData(): number[] {
+    console.log(this.monthData)
+    return Object.values(this.monthData);
+  }
+  
+  getYearlyXAxisData(): string[] {
+    return Object.keys(this.yearData);
+  }
+  
+  getYearlyYAxisData(): number[] {
+    return Object.values(this.yearData);
+  }    
 }

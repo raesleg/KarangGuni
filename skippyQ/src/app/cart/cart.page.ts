@@ -306,6 +306,7 @@ export class CartPage implements OnInit {
               // Update the shipping address using authService
               await this.authService.updateShippingAddress(this.user, newShippingAddress);
               console.log(newShippingAddress)
+              this.fetchUserProfile();
             } catch (error) {
               console.error('Failed to update shipping address:', error);
             }
