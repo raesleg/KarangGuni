@@ -17,7 +17,7 @@ export class EventsapprovalPage implements OnInit {
   constructor(private groupService: FirebaseGroupsService, private navCtrl: NavController) {
     this.groupService.getEvents().subscribe(data =>{this.events =data; 
       });
-   }
+  }
 
   ngOnInit() {
   }
@@ -42,7 +42,7 @@ export class EventsapprovalPage implements OnInit {
 
       
     } else {
- 
+
     this.filteredEvents = this.events.filter((event) => event.status === this.selectedStatusFilter);
     
   }
@@ -55,4 +55,4 @@ export class EventsapprovalPage implements OnInit {
     
   }
 
- }
+}
