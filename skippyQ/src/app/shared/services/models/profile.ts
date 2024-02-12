@@ -6,8 +6,8 @@ export class Profile {
     name: string;
     password: string;
     ageRange: string;
-    bio?: string;
-    shippingAddress: string;
+    bio!: string;
+    shippingAddress!: string;
     image;
     imagePath?: string;
     status?:string;

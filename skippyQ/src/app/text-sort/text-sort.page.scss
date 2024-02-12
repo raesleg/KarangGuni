@@ -1,0 +1,36 @@
+ion-list {
+    margin: 20px 0px;
+
+    ion-item {
+        --background: rgb(243, 243, 243);
+        border-radius: 20px;
+        overflow: hidden; /* Clip overflow for the shadow effect */
+    
+        /* Add shadow for 3D effect */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+        /* Add perspective to create a 3D effect */
+        perspective: 1000px;
+    
+        /* Apply a transform to the card to create a 3D effect */
+        transform-style: preserve-3d;
+        transition: transform 0.3s ease;
+    }
+
+    img {
+        /* Add shadow for 3D effect */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        width: 100px;
+        height: 80px;
+    }
+
+    h2 {
+        margin-left: 30px;
+        font-weight: 500;
+    }
+}
+
+ion-list:hover {
+    transform: rotateY(20deg); /* Adjust the rotation angle for the 3D effect on hover */
+    }

@@ -1,0 +1,38 @@
+<ion-header [translucent]="true">
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/waste-sorter"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-title size="large">Image Search</ion-title>
+  </ion-header>
+
+  <div class="select-btn">
+    <ion-button *ngIf="isLiveCtnSelected || !img" (click)="selectImage()">Select Capture</ion-button>
+  </div>
+
+  <ion-item *ngIf="!isLiveCtnSelected">
+    <ion-img [src]="img" *ngIf="img !== ''"></ion-img>
+  </ion-item>
+
+  <div class="live-ctn">
+    <div class="cam-ctn">
+      <ion-item>
+        <div #webcamContainer></div>
+      </ion-item>
+      <ion-item *ngIf="webcam" class="cam-btn">
+        <ion-icon name="camera" size="large" (click)="capturePrediction()"></ion-icon>
+      </ion-item>
+    </div>
+    <ion-item>
+      <div #labelContainer></div>
+    </ion-item>
+  </div>
+
+</ion-content>

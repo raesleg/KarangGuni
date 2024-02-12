@@ -1,0 +1,85 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/text-sort"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-title size="large">{{category}}</ion-title>
+  </ion-header>
+
+  <div *ngIf="info">
+    <ion-item class="disclaimer-ctn">
+      <h4>Disclaimers:</h4>
+      <ion-item *ngFor="let i of info.disclaimer; let index = index">
+        {{index + 1}}. {{i}}
+      </ion-item>
+    </ion-item>
+
+    <ion-item class="slideshow-container" *ngIf="info.images">
+      <ion-button class="prev-btn" (click)="prevSlide()" fill="clear">
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-button> 
+      <div *ngIf="info.images.length > 0">
+        <img [src]="info.images[currentIndex]" alt="Image {{ currentIndex + 1 }}">
+      </div>      
+      <ion-button class="next-btn" (click)="nextSlide()" fill="clear">
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    <!-- <ion-item class="ypes-ctn">
+      <h6>Common examples: </h6>
+      <ion-item>
+        <p>{{ info.types.join(', ') }}</p>
+      </ion-item>
+    </ion-item>
+
+    <ion-item class="notOk-ctn">
+      <h6>NOT OK: </h6>
+      <ion-item>
+        <p>{{ info.notOk.join(', ') }}</p>
+      </ion-item>
+    </ion-item> -->
+
+    <ion-item>
+      <h5>See list waste of examples:</h5>
+      <div class="example-ctn types-ctn" (click)="openModal('ok', info.types)">
+        <img src="assets/ok.png" alt="types">
+        <h6> Oks </h6>
+      </div>
+      <div class="example-ctn notOk-ctn" (click)="openModal('notOk', info.notOk)">
+        <img src="assets/not-ok.png" alt="notOk">
+        <h6> NotOks </h6>
+      </div>
+    </ion-item>
+    <!-- <ion-item class="types-ctn">
+      <ion-item>
+        <h6>Common examples:</h6>
+      </ion-item>
+      <ion-list *ngIf="info.types && info.types.length > 0">
+        <ion-item *ngFor="let type of info.types">
+          <p>- {{ type }}</p>
+        </ion-item>
+      </ion-list>
+      <p *ngIf="!info.types || info.types.length === 0">No common examples available.</p>
+    </ion-item>
+  
+
+    <ion-item class="notOk-ctn">
+      <ion-item>
+        <h6>NOT OK:</h6>
+      </ion-item>
+      <ion-list *ngIf="info.notOk && info.notOk.length > 0">
+        <ion-item *ngFor="let notOkItem of info.notOk">
+          <p>- {{ notOkItem }}</p>
+        </ion-item>
+      </ion-list>
+      <p *ngIf="!info.notOk || info.notOk.length === 0">No NOT OK examples available.</p>
+    </ion-item> -->
+    
+  </div>
+</ion-content>

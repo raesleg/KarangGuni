@@ -6,8 +6,11 @@
     <ion-item>
       <ion-icon name="exit-outline" (click)="logout()"></ion-icon>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="userName">
       <h4>Welcome back {{userName}}!</h4>
     </ion-item>
   </ion-header>
+    <ion-button class="waste-sorter-btn" [routerLink]="['/waste-sorter']">
+      Waste Sorter
+    </ion-button>
 </ion-content>

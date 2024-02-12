@@ -1,0 +1,39 @@
+.pt-ctn {
+    margin: 30px;
+    padding: 10px;
+    border-radius: 20px;
+    /* Add shadow for 3D effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    /* Add perspective to create a 3D effect */
+    perspective: 1000px;
+
+    /* Apply a transform to the card to create a 3D effect */
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+
+    img {
+        width: 80px;
+        margin-right: 20px;
+    }
+}
+
+ion-list {
+    margin: 20px 0px;
+
+    img {
+        /* Add shadow for 3D effect */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 0.1px solid black;
+        border-radius: 20px;
+        width: 100px;
+        height: 80px;
+    }
+
+    .list-labels {
+        background-color: rgb(204, 204, 204);;
+    }
+    ion-label {
+        margin-left: 10px;
+    }
+}

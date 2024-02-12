@@ -44,6 +44,5 @@ export class Product {
             this.buyeruserid = buyeruserid;
             // this.productid = productid;
             this.id = id!;     
-           }  
-           
+        }  
 } 

@@ -13,6 +13,7 @@ userName: string | undefined;
 
   constructor(private authService: AuthService, private router: Router) {}
 
+
   async ngOnInit() {
 
     this.authService.observeAuthState(user => {

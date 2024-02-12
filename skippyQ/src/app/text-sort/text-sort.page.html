@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/waste-sorter"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-title size="large">Text Sort</ion-title>
+  </ion-header>
+  
+  <ion-searchbar (ionChange)="search($event)"></ion-searchbar>
+
+  <ion-list class="recycleInfo" *ngFor="let info of recycleInfo">
+    <ion-item>
+      <ion-icon slot="end" *ngIf="isAdmin" name="create-outline" [routerLink]="['/edit-recycle-info', info.category]"></ion-icon>
+      <img class="img" src="{{info.thumbnail}}">
+          <ion-label [routerLink]="['/recycle-info', info.category]">
+            <h2>{{info.category}}</h2>
+          </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

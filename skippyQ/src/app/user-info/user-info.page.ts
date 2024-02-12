@@ -19,13 +19,12 @@ togglePswd: boolean = false;
 ageranges: string[];
 
 userProfile!: Profile;
-image: string | undefined;
-selectedImageFile: { file: File, fileName: string } | undefined;
+imageUrl: string | undefined;
+newImage: File | undefined;
 
   constructor(private router: Router,
     private authService: AuthService,
-    private validService: ValidatorsService,
-    private toastController: ToastController
+    private validService: ValidatorsService
   ) {
     this.userInfoForm = new FormGroup(
       {
@@ -54,8 +53,8 @@ selectedImageFile: { file: File, fileName: string } | undefined;
       try {
         this.userProfile = await this.authService.getUserProfile(currentUser.email);
         console.log('User Profile:', this.userProfile);
-        this.image = this.userProfile.image;
-        console.log(this.image);
+        this.imageUrl = this.userProfile.imagePath;
+        console.log(this.imageUrl);
         this.userInfoForm.controls['name'].setValue(this.userProfile.name);
         this.userInfoForm.controls['email'].setValue(currentUser.email);
         this.userInfoForm.controls['phone'].setValue(this.userProfile.phoneNumber);
@@ -92,38 +91,25 @@ selectedImageFile: { file: File, fileName: string } | undefined;
         this.userInfoForm.value.name,
         this.userInfoForm.value.password,
         this.userInfoForm.value.ageRange,
-        this.userInfoForm.value.bio,
-        this.userInfoForm.value.shippingAddress
+        this.userInfoForm.value.shippingAddress,
+        this.userInfoForm.value.bio
       );
 
-      if (this.userInfoForm.value.file) {
-        // Assuming 'image' is the correct form control name
-        const selectedImage = this.userInfoForm.value.image;
-        this.authService.uploadProfilePhoto(selectedImage).then((downloadUrl) => {
-          console.log('Image uploaded. Download URL:', downloadUrl);
-  
-          // Add the photoURL to the updatedProfile
-          updatedProfile.image = downloadUrl;
-  
-          // Continue with updating the profile
-          this.authService.updateProfile(updatedProfile).then(() => {
-            console.log('Profile updated successfully');
-            this.validService.presentToast('Profile updated successfully', 'success');
-            this.router.navigate(['/tabs/tab3']);
-          })
-          .catch((error) => {
-            // Handle registration errors
-            console.error('Update Profile error:', error);
-            this.validService.presentToast(error.message, 'danger');
-          });
-        }).catch((error) => {
-          // Handle image upload error
-          console.error('Image upload error:', error);
-          this.validService.presentToast('Error uploading image', 'danger');
-        });
-      } else {
+      // if (this.userInfoForm.value.file) {
+      //     // Continue with updating the profile
+      //     this.authService.updateProfile(updatedProfile, this.newImage).then(() => {
+      //       console.log('Profile updated successfully');
+      //       this.validService.presentToast('Profile updated successfully', 'success');
+      //       this.router.navigate(['/tabs/tab3']);
+      //     })
+      //     .catch((error) => {
+      //       // Handle registration errors
+      //       console.error('Update Profile error:', error);
+      //       this.validService.presentToast(error.message, 'danger');
+      //     });
+      // } else {
         // Continue without updating the image
-        this.authService.updateProfile(updatedProfile).then(() => {
+        this.authService.updateProfile(updatedProfile, this.newImage).then(() => {
           console.log('Profile updated successfully');
           this.validService.presentToast('Profile updated successfully', 'success');
           this.router.navigate(['/tabs/tab3']);
@@ -133,15 +119,15 @@ selectedImageFile: { file: File, fileName: string } | undefined;
           console.error('Update Profile error:', error);
           this.validService.presentToast(error.message, 'danger');
         });
-      }
+      //}
     }
   }
 
+
+  
   onFileChange(event: any) {
-    this.image = event.target.files[0];
+    this.newImage = event.target.files[0];
   }
-  
-  
 
   onTogglePswdChange() {
     this.userInfoForm.controls['password'].setValue(null);

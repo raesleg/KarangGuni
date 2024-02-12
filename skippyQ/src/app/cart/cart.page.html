@@ -20,11 +20,14 @@
     </div>
 
     <div *ngIf="buyercart.length != 0" class="address-container">
-    <strong><ion-item>
-      <ion-button (click)="edit()" fill="clear" color="dark">
-        <ion-icon name="create-outline"></ion-icon>
-      </ion-button>
-      {{shippingAddress}}</ion-item></strong>
+    <strong>
+      <ion-item>
+        Your Address: {{shippingAddress}}
+        <ion-button (click)="edit()" fill="clear" color="dark">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </strong>
     <strong><ion-item>{{getShipping()}} ITEM | {{getSubTotal() | currency}}</ion-item></strong>
     <ion-item-divider class="custom-divider"></ion-item-divider>
     </div>

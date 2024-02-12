@@ -19,6 +19,34 @@ const routes: Routes = [
     loadChildren: () => import('./user-info/user-info.module').then( m => m.UserInfoPageModule)
   },
   {
+    path: 'rewards',
+    loadChildren: () => import('./rewards/rewards.module').then( m => m.RewardsPageModule)
+  },
+  {
+    path: 'waste-sorter',
+    loadChildren: () => import('./waste-sorter/waste-sorter.module').then( m => m.WasteSorterPageModule)
+  },
+  {
+    path: 'image-sort',
+    loadChildren: () => import('./image-sort/image-sort.module').then( m => m.ImageSortPageModule)
+  },
+  {
+    path: 'text-sort',
+    loadChildren: () => import('./text-sort/text-sort.module').then( m => m.TextSortPageModule)
+  },
+  {
+    path: 'recycle-info/:id',
+    loadChildren: () => import('./recycle-info/recycle-info.module').then( m => m.RecycleInfoPageModule)
+  },
+  {
+    path: 'edit-recycle-info/:id',
+    loadChildren: () => import('./edit-recycle-info/edit-recycle-info.module').then( m => m.EditRecycleInfoPageModule)
+  },
+  {
+    path: 'recycle-examples',
+    loadChildren: () => import('./recycle-examples/recycle-examples.module').then( m => m.RecycleExamplesPageModule)
+  },
+  {
     path: 'seller',
     loadChildren: () => import('./seller/seller.module').then( m => m.SellerPageModule)
   },
@@ -45,8 +73,7 @@ const routes: Routes = [
   {
     path: 'notif',
     loadChildren: () => import('./notif/notif.module').then( m => m.NotifPageModule)
-  },     
-
+  }
 ];
 @NgModule({
   imports: [

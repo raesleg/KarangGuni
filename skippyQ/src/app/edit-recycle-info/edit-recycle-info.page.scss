@@ -1,0 +1,20 @@
+.field-ctn {
+    margin: 50px 0px;
+
+    .add-btn {
+        // right: 0;
+        // position: absolute;
+        margin-right: 20px;
+    }
+
+    .input-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px; /* Adjust as needed */
+    }
+
+    ion-input {
+        flex: 1; /* Takes up remaining space in the container */
+        margin-right: 10px; /* Adjust as needed */
+    }
+}
