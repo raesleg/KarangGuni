@@ -88,12 +88,18 @@ export class AuthService {
     }
   }
 
-  // anna's code
-  async updateShippingAddress(email: string, newShippingAddress : string) {
+  async updateShippingAddress(email: string, newShippingAddress: string) {
     try {
-      // Check if the document exists
-      const profileDoc = await this.profileRef.doc(email).get();
-  
+      // Update the shipping address directly
+      await this.profileRef.doc(email).update({
+        shippingAddress: newShippingAddress
+      });
+    } catch (error) {
+      console.error('Error updating shipping address:', error);
+      throw error;
+    }
+  }
+
   async updateProfile(profile: Profile, file: File | undefined) {
     try {
       const currentUser = await this.getCurrentUser();
@@ -112,10 +118,6 @@ export class AuthService {
         // Add bio to updatedProfile only if it's defined
         if (profile.bio !== undefined) {
           updatedProfile.bio = profile.bio;
-        }
-        // Add shippingAddress to updatedProfile only if it's defined
-        if (profile.shippingAddress !== undefined) {
-          updatedProfile.shippingAddress = profile.shippingAddress;
         }
 
         if (file) {

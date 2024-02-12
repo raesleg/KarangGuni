@@ -46,7 +46,7 @@ const routes: Routes = [
     path: 'recycle-examples',
     loadChildren: () => import('./recycle-examples/recycle-examples.module').then( m => m.RecycleExamplesPageModule)
   },
-
+  {
     path: 'seller',
     loadChildren: () => import('./seller/seller.module').then( m => m.SellerPageModule)
   },

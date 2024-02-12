@@ -34,6 +34,7 @@ export class CartPage implements OnInit {
     try {
       const profile = await this.authService.getUserProfile(this.user);
       if (profile) {
+        console.log(profile)
         this.shippingAddress = profile.shippingAddress;
         this.buyeruserid = profile.userID;
         this.buyeruserName = profile.name;

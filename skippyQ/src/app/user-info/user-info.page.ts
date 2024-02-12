@@ -91,8 +91,8 @@ newImage: File | undefined;
         this.userInfoForm.value.name,
         this.userInfoForm.value.password,
         this.userInfoForm.value.ageRange,
-        this.userInfoForm.value.bio,
-        this.userInfoForm.value.shippingAddress
+        this.userInfoForm.value.shippingAddress,
+        this.userInfoForm.value.bio
       );
 
       // if (this.userInfoForm.value.file) {
