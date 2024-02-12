@@ -1,47 +1,101 @@
+ion-content {
+    position: relative;
+}
+
 .top-ctn {
-    // padding-bottom: 30px;
-    // box-shadow: 0px 0px 40px -17px;
-    // border-bottom-left-radius: 30px;
-    // border-bottom-right-radius: 30px;
-    
-    ion-avatar {
-        width: 180px; 
-        height: 180px; 
-        margin: 20px auto;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    }
-
-    h3{
-        margin: auto;
-    }
-
+    margin: 20px 0px;
 }
 
-.btn-ctn {
-    background-color: black;
-    padding: 30px;
-    border-radius: 30px 30px 0 0;
-    height: 100%;
-    width: 100vw;
-    position: fixed;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    margin-top: 80px;
-
-        ion-label {
-            //border: black solid;
-            padding: 20px;
-            border-radius: 20px;
-            background-color: white;
-            margin-top: 50px;
-            font-size: x-large;
-            text-align: center;
-
-            ion-icon {
-                margin-right: 20px;
-            }
-        }
-    
-
+h3{
+    margin: auto;
+    color: #97A97C;
 }
+
+.full-body-avatar {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+}
+
+.head-avatar {
+    position: absolute;
+    top: 10%; /* Adjust the top position as a percentage of the full-body avatar height */
+    left: 33%;
+    transform: translateX(-50%);
+    width: 20%; /* Adjust the width of the head-avatar as a percentage of the full-body avatar width */
+    height: 20%; //padding-top: 20%; /* Maintain aspect ratio */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Optional: Add a shadow for a raised effect */
+}
+
+/* Media query for adjusting styles on smaller screens */
+@media screen and (max-width: 600px) {
+    .head-avatar {
+        top: 0%;
+        width: 40%;
+        height: 35%;
+    }
+}
+
+ion-col {
+    position: relative;
+}
+
+.item-container {
+    text-align: center;
+    background-color: #f0f0f0; /* Customize the background color */
+    border-radius: 10px; /* Customize the border radius */
+    width: fit-content;
+    padding: 12px; /* Add padding for better appearance */
+    overflow: hidden; /* Clip overflow for the shadow effect */
+    
+    /* Add shadow for 3D effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    /* Add perspective to create a 3D effect */
+    perspective: 1000px;
+
+    /* Apply a transform to the card to create a 3D effect */
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.item-container ion-label {
+    display: block;
+    white-space: nowrap; /* Prevent text from wrapping to the next line */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis (...) for truncated text */
+}
+
+.item-container ion-icon {
+    margin-top: 10px; /* Adjust margin as needed */
+    color: #97A97C;
+}
+
+
+
+// .btn-ctn {
+//     background-color: black;
+//     padding: 30px;
+//     border-radius: 30px 30px 0 0;
+//     height: 100%;
+//     width: 100vw;
+//     position: fixed;
+//     left: 0;
+//     display: flex;
+//     flex-direction: column;
+//     margin-top: 80px;
+
+//         ion-label {
+//             //border: black solid;
+//             padding: 20px;
+//             border-radius: 20px;
+//             background-color: white;
+//             margin-top: 50px;
+//             font-size: x-large;
+//             text-align: center;
+
+//             ion-icon {
+//                 margin-right: 20px;
+//             }
+//         }
+//}

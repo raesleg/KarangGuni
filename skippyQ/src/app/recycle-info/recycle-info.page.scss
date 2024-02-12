@@ -1,0 +1,60 @@
+/* src/app/slideshow/slideshow.component.css */
+/* Container for the slideshow */
+.slideshow-container {
+    max-width: 800px;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    margin: 30px 0px;
+
+      /* Style for the slide image */
+    .slideshow-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px; /* Add rounded corners to the images */
+        transition: opacity 0.8s ease-in-out; /* Smooth transition effect for opacity */
+        display: inline-block;
+    }
+    .next-btn {
+        right: 16px;
+        position: absolute;
+    }
+
+    .prev-btn {
+        left: 16px;
+        position: absolute;
+    }
+}
+
+.example-ctn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 20%;
+    margin: 10px;
+    padding: 15px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+        margin-bottom: 5px;
+    }
+
+    h6 {
+        margin: 0px;
+    }
+}
+
+.types-ctn {
+    background: rgb(168, 203, 181);
+}
+
+.notOk-ctn {
+    background: rgb(201, 95, 95);
+}

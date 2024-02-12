@@ -1,0 +1,49 @@
+
+.select-btn {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    
+    ion-button {
+        margin: 50px 0px;
+    }
+}
+
+/* your-component.component.scss */
+
+.live-ctn {
+display: flex;
+flex-direction: column;
+align-items: center;
+height: 100vh; /* Set the height to the full viewport height */
+
+    .cam-ctn {
+        position: relative;
+        // border: 2px solid #000; /* Set border color to black or your desired color */
+        // background-color: #000;
+        // color: white;
+        // border-radius: 10px; /* Set border radius for rounded corners */
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%; /* Set the desired width for the camera container */
+        max-width: 400px; /* Set a maximum width for responsiveness */
+        margin: 20px auto; /* Center the container using auto margins */
+    }
+
+    #webcamContainer {
+        width: 100%; /* Make the webcam container fill the parent container */
+        height: auto; /* Auto-adjust height to maintain aspect ratio */
+    }
+
+    .cam-btn {
+        position: absolute;
+        bottom: 10px; /* Adjust the distance from the bottom as needed */
+    }
+
+    #labelContainer {
+        margin-top: 10px; /* Adjust margin between camera feed and label container */
+    }
+    
+}

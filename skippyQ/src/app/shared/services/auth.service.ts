@@ -135,6 +135,22 @@ export class AuthService {
     return storageRef.put(image).then(() => storageRef.getDownloadURL());
   }
   
-  
+  getUserRoleByEmail(email: string): Promise<boolean | null> {
+    //const currentUser = this.getCurrentUser();
+    const usersCollection = firebase.firestore().collection('profile');
+
+    return usersCollection.doc(email).get().then((doc) => {
+      if (doc.exists) {
+        const userRole = doc.get('isAdmin');
+        return userRole;
+      } else {
+        console.log('User not found in the "users" collection');
+        return null;
+      }
+    }).catch((error) => {
+      console.error('Error getting user role:', error);
+      return null;
+    });
+  }
   
 }

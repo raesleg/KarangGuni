@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/text-sort"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-title size="large">Edit {{category}}</ion-title>
+  </ion-header>
+
+  <form [formGroup]="recycleInfoForm">
+    <div class="field-ctn">
+      <h3>Disclaimer</h3>
+      <div formArrayName="disclaimer">
+        <div *ngFor="let control of disclaimerFormArray.controls; let i = index" class="input-container">
+          <ion-input formControlName="{{ i }}"></ion-input>
+          <ion-icon name="trash-outline" (click)="removeItem('disclaimer', i)"></ion-icon>
+        </div>
+        <ion-icon class="add-btn" name="add" (click)="addItem('disclaimer')"></ion-icon>
+      </div>
+    </div>
+  
+    <div class="field-ctn">
+      <h3>Types</h3>
+      <div formArrayName="types">
+        <div *ngFor="let control of typesFormArray.controls; let i = index" class="input-container">
+          <ion-input formControlName="{{ i }}"></ion-input>
+          <ion-icon name="trash-outline" (click)="removeItem('types', i)"></ion-icon>
+        </div>
+        <ion-icon class="add-btn" name="add" (click)="addItem('types')"></ion-icon>
+      </div>
+    </div>
+  
+    <div class="field-ctn">
+      <h3>Not Ok</h3>
+      <div formArrayName="notOk">
+        <div *ngFor="let control of notOkFormArray.controls; let i = index" class="input-container">
+          <ion-input formControlName="{{ i }}"></ion-input>
+          <ion-icon name="trash-outline" (click)="removeItem('notOk', i)"></ion-icon>
+        </div>
+        <ion-icon class="add-btn" name="add" (click)="addItem('notOk')"></ion-icon>
+      </div>
+    </div>
+  
+    <!-- <div class="field-ctn">
+      <h3>Images</h3>
+      <div formArrayName="images">
+        <div *ngFor="let control of imagesFormArray.controls; let i = index" class="file-input-container">
+          <input type="file" (change)="onFileSelected($event, i)" accept="image/*" multiple />
+          <ion-icon name="trash-outline" (click)="removeItem('images', i)"></ion-icon>
+          <div *ngFor="let img of selectedImages[i]">
+            <img [src]="img" alt="Selected Image" />
+          </div>
+        </div>
+        <button type="button" (click)="addItem('images')">Add Image</button>
+      </div>
+    </div> -->
+  
+    <div>
+      <ion-button type="submit" (click)="update()">Update</ion-button>
+    </div>
+  </form>
+  
+</ion-content>
