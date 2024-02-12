@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase';
 import { Event } from '../shared/services/models/event';
 import { FirebaseGroupsService } from '../shared/services/firebase-groups.service';
-import { NavController } from '@ionic/angular';
+import { ActionSheetController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-eventsapproval',
@@ -14,7 +16,12 @@ export class EventsapprovalPage implements OnInit {
   filteredEvents: Event[] = [];
   selectedStatusFilter: string | null = null;
 
-  constructor(private groupService: FirebaseGroupsService, private navCtrl: NavController) {
+  constructor(
+    private groupService: FirebaseGroupsService,
+    private actionSheetCtrl: ActionSheetController,
+    private authService: AuthService,
+    private router: Router
+    ) {
     this.groupService.getEvents().subscribe(data =>{this.events =data; 
       });
   }
@@ -49,10 +56,41 @@ export class EventsapprovalPage implements OnInit {
   console.log('Filtered Events after filtering:', this.filteredEvents);
   }
 
-
   deleteEvent(eventId: string) {
     this.groupService.deleteE(eventId);
-    
   }
+
+  canDismissLogOut = async () => {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Are you sure to Log Out?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'confirm',
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    actionSheet.present();
+
+    const { role } = await actionSheet.onWillDismiss();
+
+    return role === 'confirm';
+  };
+
+  logout() {
+    this.canDismissLogOut().then((confirmed) => {
+      if (confirmed) {
+        console.log('cleared')
+        this.authService.logout();
+        this.router.navigate(['login']);
+          }
+    });
+  }
+
 
 }

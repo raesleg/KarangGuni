@@ -5,6 +5,9 @@ import { Comment } from '../shared/services/models/comment';
 import { FirebasePostService } from '../shared/services/firebase-post.service';
 import { FirebaseCommentService } from '../shared/services/firebase-comment.service';
 import { UserService } from '../shared/services/user.service'; // Import UserService
+import { ActionSheetController } from '@ionic/angular';
+import { AuthService } from '../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-communityhub',
@@ -21,7 +24,11 @@ export class CommunityHubPage implements OnInit {
   constructor(
     private postService: FirebasePostService, 
     private commentService: FirebaseCommentService,
-    private userService: UserService // Inject UserService
+    private userService: UserService,
+    private actionSheetCtrl: ActionSheetController,
+    private authService: AuthService,
+    private router: Router
+
   ) {
     this.addCommentForm = new FormGroup({
       comment_description: new FormControl('')
@@ -112,4 +119,37 @@ export class CommunityHubPage implements OnInit {
       this.loadAllPosts(); // Assuming you have a method to load all posts
     }
   }
+
+  canDismissLogOut = async () => {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Are you sure to Log Out?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'confirm',
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    actionSheet.present();
+
+    const { role } = await actionSheet.onWillDismiss();
+
+    return role === 'confirm';
+  };
+
+  logout() {
+    this.canDismissLogOut().then((confirmed) => {
+      if (confirmed) {
+        console.log('cleared')
+        this.authService.logout();
+        this.router.navigate(['login']);
+          }
+    });
+  }
+
 }

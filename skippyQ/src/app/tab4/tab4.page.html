@@ -1,9 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Discover</ion-title>
+    <ion-item>
+      <img src="assets/logo.png" width="70" height="50" style="margin: 10px 0px 0px 0px"/>
+    </ion-item>
     <ion-buttons slot="end">
-      <ion-button color="primary" [routerLink]="['/add-group']">  <ion-icon slot="icon-only" name="add"></ion-icon>  </ion-button>
-      </ion-buttons>
+      <ion-button color="primary" [routerLink]="['/add-group']">  <ion-icon slot="icon-only" name="add"></ion-icon></ion-button>
+      <ion-button color="primary" (click)="logout()">
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

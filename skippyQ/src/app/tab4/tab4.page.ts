@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { ModalController, AlertController } from '@ionic/angular';
+import { ModalController, AlertController, ActionSheetController } from '@ionic/angular';
 import { GroupService } from '../shared/services/group.service';
 import { Group } from '../shared/services/models/group';
 import { FirebaseGroupsService } from '../shared/services/firebase-groups.service';
+import { AuthService } from '../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab4',
@@ -13,8 +15,13 @@ export class Tab4Page {
   groups: Group[] =[];
   isAdministrator = false;
 
-  constructor(private groupService: FirebaseGroupsService,private modalController: ModalController, private alertCtrl:AlertController) {
-    //this.groups = this.groupService.getGroups();
+  constructor(
+    private groupService: FirebaseGroupsService,
+    private alertCtrl:AlertController,
+    private actionSheetCtrl: ActionSheetController,
+    private authService: AuthService,
+    private router: Router
+    ) {
 
    this.groupService.getGroups().subscribe(data =>{this.groups =data; });
    }
@@ -57,6 +64,38 @@ export class Tab4Page {
       } else {
         this.groups = allGroups;
       }
+    });
+  }
+
+  canDismissLogOut = async () => {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Are you sure to Log Out?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'confirm',
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    actionSheet.present();
+
+    const { role } = await actionSheet.onWillDismiss();
+
+    return role === 'confirm';
+  };
+
+  logout() {
+    this.canDismissLogOut().then((confirmed) => {
+      if (confirmed) {
+        console.log('cleared')
+        this.authService.logout();
+        this.router.navigate(['login']);
+          }
     });
   }
 
