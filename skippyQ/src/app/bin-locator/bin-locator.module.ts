@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { QRCodeModule } from 'angularx-qrcode';
+
 import { IonicModule } from '@ionic/angular';
 
-import { QrcodePageRoutingModule } from './qrcode-routing.module';
+import { BinLocatorPageRoutingModule } from './bin-locator-routing.module';
 
-import { QrcodePage } from './qrcode.page';
+import { BinLocatorPage } from './bin-locator.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    QrcodePageRoutingModule,
-    QRCodeModule
+    BinLocatorPageRoutingModule
   ],
-  declarations: [QrcodePage]
+  declarations: [BinLocatorPage]
 })
-export class QrcodePageModule {}
+export class BinLocatorPageModule {}

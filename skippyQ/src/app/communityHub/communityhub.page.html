@@ -1,0 +1,134 @@
+<ion-content>
+
+  <div class="search-and-segment">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10.5">
+          <ion-searchbar placeholder="Search"></ion-searchbar>
+        </ion-col>
+        <ion-col size="1.5">
+          <ion-button color="primary" [routerLink]="['/add-post']">
+            <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)" mode="md">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="my-posts">
+        <ion-label>My Posts</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div *ngIf="segment === 'all'">
+    <ion-list>
+      <!-- Loop through each post -->
+      <ion-card *ngFor="let post of posts" class="custom-ion-card">
+        <!-- Post Content -->
+        <ion-item lines="none" style="padding: 15px;">
+          <ion-avatar slot="start">
+            <img src="assets/profile.png">
+          </ion-avatar>
+          <ion-label>
+            <h3>{{ post.post_id }}</h3> <!-- Replace with dynamic username if available -->
+            <p>{{ post.datePosted | date: 'dd MMMM yyyy, HH:mm' }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-card-content>
+          {{ post.description }} <!-- Placeholder for the post description -->
+          <ion-img *ngIf="post.imageUrl" [src]="post.imageUrl" style="width: 100px; height: 100px; object-fit: cover;"></ion-img>
+        </ion-card-content>
+  
+        <!-- Toggle Like and Comments Section -->
+        <ion-item lines="none">
+          <ion-buttons slot="start">
+            <ion-button (click)="toggleHeart(post)">
+              <ion-icon slot="icon-only" name="heart" [color]="post.liked ? 'danger' : 'medium'"></ion-icon>
+            </ion-button>
+            <ion-button (click)="toggleComments(post)">
+              <ion-icon slot="icon-only" name="chatbubble-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+  
+        <!-- Comments Container -->
+        <div *ngIf="post.commentsVisible">
+          <ion-item *ngFor="let comment of post.comments" lines="none" class="comment">
+            <ion-avatar slot="start">
+              <img src="assets/profile.png">
+            </ion-avatar>
+            <ion-label>
+              <h3>{{ comment.username }}</h3> <!-- Dynamic commenter's name -->
+              <p>{{ comment.comment_description }}</p>
+            </ion-label>
+          </ion-item>
+          <!-- Comment Form -->
+          <form [formGroup]="addCommentForm" (ngSubmit)="addComment(post)">
+            <ion-item lines="none">
+              <ion-avatar slot="start">
+                <img src="assets/profile.png">
+              </ion-avatar>
+              <ion-input formControlName="comment_description" placeholder="Add Comment..." type="text"></ion-input>
+              <ion-button type="submit" slot="end">Post</ion-button>
+            </ion-item>
+          </form>
+        </div>
+      </ion-card>
+    </ion-list>
+  </div>
+  
+
+  <!-- Segment: My Posts -->
+  <div *ngIf="segment === 'my-posts'">
+      <ion-list>
+        <ion-card *ngFor="let post of myPosts" class="custom-ion-card">
+          <ion-item lines="none" style="padding: 15px;">
+            <ion-avatar slot="start">
+              <img src="assets/profile.png">
+            </ion-avatar>
+            <ion-label>
+              <h3>{{ post.post_id }}</h3>
+              <p>{{ post.datePosted | date: 'dd MMMM yyyy, HH:mm' }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-card-content>
+            {{ post.description }}
+            <ion-img *ngIf="post.imageUrl" [src]="post.imageUrl" style="width: 100%; height: auto; object-fit: cover;"></ion-img>
+          </ion-card-content>
+          <ion-item lines="none">
+            <ion-buttons slot="start">
+              <ion-button (click)="toggleHeart(post)">
+                <ion-icon slot="icon-only" name="heart" [color]="post.liked ? 'danger' : 'medium'"></ion-icon>
+              </ion-button>
+              <ion-button (click)="toggleComments(post)">
+                <ion-icon slot="icon-only" name="chatbubble-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-item>
+          <!-- <div *ngIf="post.commentsVisible">
+            <ion-item *ngFor="let comment of post.comments" lines="none" class="comment">
+              <ion-avatar slot="start">
+                <img src="assets/profile.png">
+              </ion-avatar>
+              <ion-label>
+                <h3>{{ comment.username }}</h3>
+                <p>{{ comment.comment_description }}</p>
+              </ion-label>
+            </ion-item>
+            <form [formGroup]="addCommentForm" (ngSubmit)="addComment(post)">
+              <ion-item lines="none">
+                <ion-avatar slot="start">
+                  <img src="assets/profile.png">
+                </ion-avatar>
+                <ion-input formControlName="comment_description" placeholder="Add Comment..." type="text"></ion-input>
+                <ion-button type="submit" slot="end">Post</ion-button>
+              </ion-item>
+            </form>
+          </div> -->
+        </ion-card>
+      </ion-list>
+  </div>
+</ion-content>

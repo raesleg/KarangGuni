@@ -1,0 +1,196 @@
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px; // Adjust the padding as needed
+}
+
+.welcome-message h1 {
+    font-size: 1.2em; // Adjust this as needed
+    margin: 0; // Adjust or remove as needed
+}
+
+.stats-container {
+    display: flex;
+    align-items: center;
+}
+
+.stats-container ion-icon {
+    font-size: 2em;
+    margin-right: 5px; // Spacing between the notification icon and the points
+}
+
+.points {
+    display: flex;
+    align-items: center;
+    background-color: #FFD700; // Gold background
+    border-radius: 15px;
+    padding: 5px 10px;
+}
+
+ion-icon[name="notifications-outline"] {
+    --ionicon-stroke-width: 32px; // Adjust the icon stroke width as needed
+}
+
+.search-bar-container {
+    padding: 0 15px; // Match the padding of the header content
+}
+
+ion-searchbar {
+    --background: #EFEFEF; // Light grey background
+    --border-radius: 30px; // Rounded corners
+    --padding-start: 5px; // Padding inside the search bar
+    --placeholder-opacity: 0.8; // Placeholder opacity
+    --placeholder-color: #333; // Placeholder text color
+    --icon-color: #333; // Search icon color
+    --clear-icon-color: #333; // Clear icon color
+}
+
+// If you want the search bar to have a shadow as in the image
+ion-searchbar::part(native) {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Adjust the shadow to your liking
+}
+
+.links-container {
+    display: flex;
+    justify-content: space-evenly; // This will distribute space evenly between the items
+    align-items: center;
+    padding: 10px 0; // Add padding on top and bottom for spacing
+}
+
+ion-button {
+    margin: 0; // Remove default margin if any
+}
+
+.dashboard-image-container {
+    text-align: center; // Center the image if container is wider than the image
+    margin-top: 20px; // Space from the clickable links above
+    // Add any additional styling you may need
+}
+
+.dashboard-image-container img {
+    width: 70%; // Adjust the width automatically based on the height to maintain aspect ratio
+    max-width: 100%; // Ensures the image does not exceed the container's width
+    height: 150px; // Set your desired height here
+}
+
+.interest-groups-section {
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+
+        h2 {
+            margin: 0;
+        }
+
+        .view-more-button {
+            --padding-end: 0; // Removes padding to align text to the right
+        }
+    }
+
+    /* ... other styles ... */
+
+    .groups-content {
+        display: flex;
+        justify-content: space-around;
+        padding: 0 15px;
+    }
+
+    .group-item {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; // Align items to the start of the container
+        margin-right: 20px; // Adjust the right margin to create a gap between the items
+        background: #E3C770; // Example background color, adjust as needed
+        border-radius: 20px; // Adjust as needed for desired border-radius
+        overflow: hidden; // Ensures the content fits within the border-radius
+        // ... other styles ...
+    }
+
+
+    .group-item img {
+        flex-shrink: 0; // Prevent the image from being shrunk smaller than its size
+        width: 40%; // Adjust this value to change the image width
+        height: 100%; // Set image height to fill the container
+        object-fit: cover; // Cover the area, cropping the image as needed
+        border-top-left-radius: 20px; // Match the parent's border-radius
+        border-bottom-left-radius: 20px; // Match the parent's border-radius
+    }
+
+    .group-info {
+        /* ... other styles ... */
+        flex-grow: 1; // Allow the text container to fill the rest of the space
+        padding: 10px 20px; // Adjust the padding as needed
+    }
+
+    /* Additional styles to round image corners and fit the group info next to the image */
+    .group-item {
+        flex-direction: row;
+        border-radius: 20px; // Adjust as needed for desired border radius
+    }
+
+    .group-item img {
+        border-top-left-radius: 20px; // Match the parent border-radius
+        border-bottom-left-radius: 20px; // Match the parent border-radius
+    }
+
+    /* Adjust the background color of each group-item here if needed */
+    .group-item:nth-child(1) {
+        background: #E3C770; // First group background color
+    }
+
+    .group-item:nth-child(2) {
+        background: #A3DCEF; // Second group background color
+    }
+
+    .group-item:last-child {
+        margin-right: 0; // Remove margin for the last item
+    }
+
+}
+
+
+.community-hub-section {
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+
+        h2 {
+            margin: 0;
+        }
+
+        .view-more-button {
+            --padding-end: 0; // Removes padding to align text to the right
+        }
+    }
+
+    .community-content {
+        display: flex;
+        justify-content: space-around; // This will space out the community items evenly
+        padding: 0 15px;
+
+        .community-item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 10px;
+            margin-right: 20px;
+            border-radius: 20px; // Adjust based on your design
+            background-color: #F3D250; // Example color, replace with your desired color
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Optional shadow for depth
+
+            .community-info {
+                text-align: center;
+
+                p {
+                    margin: 0;
+                    color: #333; // Adjust text color as needed
+                }
+            }
+        }
+    }
+}

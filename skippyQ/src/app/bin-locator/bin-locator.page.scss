@@ -1,0 +1,134 @@
+.searchbar-container {
+  position: relative; // Container remains relative
+  display: flex; // Use flexbox for alignment
+  align-items: center; // Center items vertically
+  justify-content: space-between; // Push searchbar and button to opposite ends
+  padding: 10px;
+}
+
+.custom-searchbar {
+  flex-grow: 1; // Searchbar takes up available space
+  --border-radius: 20px; // Adjust for rounded corners
+  --background: #fff;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --color: #666;
+  --placeholder-color: #666;
+  --icon-color: #666;
+}
+
+.scanner-container {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+  /* Center the container if you want */
+}
+
+.qr-code-image {
+  display: block;
+  /* To prevent the bottom margin/padding */
+  max-width: 100%;
+  /* Optional: to make image responsive */
+  border: 1px solid gray;
+  /* Optional: to have border around the QR code */
+}
+
+.scan-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: red;
+  /* or any color you prefer */
+  animation: scan-animation 2s linear infinite;
+}
+
+@keyframes scan-animation {
+  0% {
+    bottom: 100%;
+  }
+
+  50% {
+    bottom: 0;
+  }
+
+  100% {
+    bottom: 100%;
+  }
+}
+
+/* Button styling */
+button {
+  background-color: #387ef5;
+  /* A pleasant blue shade */
+  color: white;
+  /* White text color for contrast */
+  padding: 10px 20px;
+  /* Comfortable padding */
+  border: none;
+  /* Remove default border */
+  border-radius: 5px;
+  /* Slightly rounded corners */
+  font-weight: bold;
+  /* Make the text bold */
+  text-transform: uppercase;
+  /* Uppercase text for a more button-like appearance */
+  outline: none;
+  /* Remove focus outline */
+  cursor: pointer;
+  /* Cursor indicates a clickable button */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Soft shadow for depth */
+  margin: 0 5px;
+  /* Spacing between buttons */
+  transition: background-color 0.3s ease;
+  /* Smooth background color transition on hover */
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+button:hover {
+  background-color: #345f8d;
+  /* Darker shade on hover for feedback */
+}
+
+button:active {
+  background-color: #2c507a;
+  /* Even darker on click */
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  /* Smaller shadow to give a pressed effect */
+}
+
+h2 {
+  text-align: center;
+  margin-top: 20px;
+  /* Or any value you prefer */
+}
+
+ion-content>div:not(.searchbar-container) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  /* Adjust this value as needed for spacing */
+}
+
+/* Center the video element */
+video {
+  margin: 20px 0;
+  /* Add top and bottom margin for spacing */
+}
+
+ion-text {
+  font-size: 1.2em;
+  /* Increase font size as desired */
+  text-align: center;
+  /* Center the text if not already centered */
+  display: block;
+  /* Make sure it's a block-level element to apply text-align */
+  margin: 10px 0;
+  /* Add some vertical margin for spacing */
+}

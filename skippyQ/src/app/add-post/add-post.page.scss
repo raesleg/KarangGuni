@@ -1,0 +1,95 @@
+.search-and-segment {
+    padding: 10px;
+    background-color: #fff;
+    /* Adjust the background color as needed */
+
+    ion-grid {
+        --ion-grid-padding: 0;
+        --ion-grid-padding-lg: 0;
+    }
+
+    ion-searchbar {
+        --background: #f0f0f0;
+        /* Search bar background color */
+        --placeholder-color: #999;
+        /* Placeholder text color */
+        --border-radius: 20px;
+        /* Makes the search bar rounded */
+        --padding-start: 5px;
+        /* Adjust padding inside the search bar */
+    }
+
+    ion-segment {
+        --indicator-background: #3880ff;
+        /* Color for the indicator */
+        --indicator-box-shadow: none;
+        /* Removes the box-shadow */
+        --color-checked: #3880ff;
+        /* Text color when segment button is selected */
+        --color: #000;
+        /* Text color of the segment button */
+        --border-radius: 10px;
+        /* Makes the segment buttons rounded */
+        border: 1px solid #3880ff;
+        /* Border color around the segment */
+        margin-top: 10px;
+        /* Space between segment and search bar */
+    }
+
+    // ion-segment-button {
+    //     --background: #FFF;
+    //     /* Background color of the segment button */
+    //     --background-checked: #FFF;
+    //     /* Background color when the button is selected */
+    //     --border-radius: 10px;
+    //     /* Makes the segment buttons rounded */
+    // }
+}
+
+ion-card-header {
+    ion-item {
+      --padding-start: 0;
+      --padding-end: 0;
+      --padding-top: 0;
+      --padding-bottom: 0;
+      align-items: center;
+  
+      ion-avatar {
+        --border-radius: 50%;
+        width: 40px; // Adjust width as necessary
+        height: 40px; // Adjust height as necessary
+        overflow: hidden;
+        img {
+          max-width: 100%;
+        }
+      }
+  
+      ion-label {
+        h2 {
+          font-weight: bold;
+          margin: 0;
+        }
+        ion-card-subtitle {
+          font-size: 0.8em;
+          color: #606060; // Darker text for the date
+        }
+      }
+    }
+
+    .post-description {
+      --padding-start: 8px;
+      --padding-end: 8px;
+      --padding-top: 8px;
+      --padding-bottom: 8px;
+      --border-style: solid;
+      --border-width: 1px;
+      --border-color: #dcdcdc; /* Light gray border; you can change the color as needed */
+      --border-radius: 4px; /* Optional: if you want rounded corners */
+    }
+
+
+  }
+  
+  
+  
+  

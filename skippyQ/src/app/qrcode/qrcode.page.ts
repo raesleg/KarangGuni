@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Directive, ElementRef, HostListener } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { ClipboardService } from 'ngx-clipboard';
+//import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-qrcode',
@@ -14,7 +14,7 @@ export class QrcodePage implements OnInit {
   @Input() value: 0;
   contentToCopy: string;
 
-  constructor(private modalController: ModalController, private el: ElementRef, private clipboardService: ClipboardService) {}
+  constructor(private modalController: ModalController) {}
 
   closeModal() {
     this.modalController.dismiss();
@@ -26,11 +26,11 @@ export class QrcodePage implements OnInit {
     }
   }
 
-  copyToClipboard() {
-    if (this.contentToCopy) {
-      this.clipboardService.copy(this.contentToCopy);
-    }
-  }
+  // copyToClipboard() {
+  //   if (this.contentToCopy) {
+  //     this.clipboardService.copy(this.contentToCopy);
+  //   }
+  // }
 
   generateRandomId(): string {
     // Generate a random string (5 characters)

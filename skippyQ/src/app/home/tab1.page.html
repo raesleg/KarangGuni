@@ -1,0 +1,106 @@
+<ion-content>
+
+  <div class="header-content">
+    <div class="welcome-message">
+      <h1>Welcome Back, {{ userName }}!</h1>
+    </div>
+    <div class="stats-container">
+      <ion-icon name="notifications-outline"></ion-icon>
+      <div class="points">
+        <ion-icon name="medal-outline"></ion-icon>
+        <span>{{ points }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-bar-container">
+    <ion-searchbar placeholder="Search"></ion-searchbar>
+  </div>
+
+  <!-- Links Container -->
+  <div class="links-container">
+    <ion-button fill="clear" expand="block" [routerLink]="['/waste-sorter']">Waste Sorter</ion-button>
+    <ion-button fill="clear" expand="block" [routerLink]="['/bin-locator']">Bin Locations</ion-button>
+    <ion-button fill="clear" expand="block">Pick-Up</ion-button>
+  </div>
+
+  <!-- Dashboard Image Container -->
+  <div class="dashboard-image-container">
+    <img src="../assets/dashboard.png" alt="Dashboard">
+  </div>
+
+  <!-- Interest Groups Section -->
+  <div class="interest-groups-section">
+    <div class="section-header">
+      <h2>Interest Groups</h2>
+      <ion-button fill="clear" class="view-more-button" [routerLink]="['/tabs/tab4']">
+        View More >>
+      </ion-button>
+    </div>
+
+    <div class="groups-content">
+      <!-- Use let i = index to define a local index variable within *ngFor -->
+      <div class="group-item" *ngFor="let group of interestGroups; let i = index"
+        [style.backgroundColor]="i % 2 === 0 ? '#E3C770' : '#A3DCEF'">
+        <img [src]="group.image" [alt]="group.name">
+        <div class="group-info">
+          <h3>{{ group.name }}</h3>
+          <p>{{ group.about }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Community Hub Section -->
+  <div class="community-hub-section">
+    <div class="section-header">
+      <h2>Community Hub</h2>
+      <ion-button fill="clear" class="view-more-button" [routerLink]="['/tabs/tab7']">
+        View More >>
+      </ion-button>
+    </div>
+
+    <!-- Community Content -->
+    <div class="community-content">
+      <!-- Community Item 1 -->
+      <div class="community-item" style="background-color: #F3D250;">
+        <div class="community-info">
+          <p>I have scheduled a pick-up service on 4th December to collect recyclables at my house, anyone wants ...</p>
+        </div>
+      </div>
+
+      <!-- Community Item 2 -->
+      <div class="community-item" style="background-color: #88BBD6;">
+        <div class="community-info">
+          <p>Has anyone seen the situation at the Blue Bin? It's overflowing and should really do something about it...
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vouchers Section -->
+    <div class="interest-groups-section">
+      <div class="section-header">
+        <h2>Vouchers</h2>
+        <ion-button fill="clear" class="view-more-button" routerLink="/vouchers">
+          View More >>
+        </ion-button>
+      </div>
+
+      <div class="groups-content">
+        <div class="group-item" *ngFor="let voucher of vouchers; let i = index"
+          [style.backgroundColor]="i % 2 === 0 ? '#E3C770' : '#A3DCEF'">
+          <!-- Call getImagePath method to dynamically set the image path -->
+          <img [src]="getImagePath(voucher)" [alt]="voucher.brand">
+          <div class="group-info">
+            <h3>{{ voucher.brand }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

@@ -101,7 +101,15 @@ const routes: Routes = [
   {
     path: 'eventsapproval',
     loadChildren: () => import('./eventsapproval/eventsapproval.module').then( m => m.EventsapprovalPageModule)
-  }
+  },
+  {
+    path: 'add-post',
+    loadChildren: () => import('./add-post/add-post.module').then( m => m.AddPostPageModule)
+  },
+  {
+    path: 'bin-locator',
+    loadChildren: () => import('./bin-locator/bin-locator.module').then( m => m.BinLocatorPageModule)
+  },
 
 ];
 @NgModule({

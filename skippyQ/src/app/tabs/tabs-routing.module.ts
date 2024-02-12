@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        loadChildren: () => import('../home/tab1.module').then(m => m.Tab1PageModule)
       },
       {
         path: 'tab2',
@@ -34,6 +34,10 @@ const routes: Routes = [
       {
         path: 'eventsapproval',
         loadChildren: () => import('../eventsapproval/eventsapproval.module').then(m => m.EventsapprovalPageModule)
+      },
+      {
+        path: 'tab7',
+        loadChildren: () => import('../communityHub/communityhub.module').then(m => m.CommunityHubPageModule)
       },
       {
         path: '',

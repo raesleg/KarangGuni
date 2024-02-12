@@ -1,0 +1,125 @@
+.search-and-segment {
+    padding: 10px;
+    background-color: #fff;
+    /* Adjust the background color as needed */
+
+    ion-grid {
+        --ion-grid-padding: 0;
+        --ion-grid-padding-lg: 0;
+    }
+
+    ion-searchbar {
+        --background: #f0f0f0;
+        /* Search bar background color */
+        --placeholder-color: #999;
+        /* Placeholder text color */
+        --border-radius: 20px;
+        /* Makes the search bar rounded */
+        --padding-start: 5px;
+        /* Adjust padding inside the search bar */
+    }
+
+    ion-segment {
+        --indicator-background: #3880ff;
+        /* Color for the indicator */
+        --indicator-box-shadow: none;
+        /* Removes the box-shadow */
+        --color-checked: #3880ff;
+        /* Text color when segment button is selected */
+        --color: #000;
+        /* Text color of the segment button */
+        --border-radius: 10px;
+        /* Makes the segment buttons rounded */
+        border: 1px solid #3880ff;
+        /* Border color around the segment */
+        margin-top: 10px;
+        /* Space between segment and search bar */
+    }
+
+    ion-segment-button {
+        --background: #FFF;
+        /* Background color of the segment button */
+        --background-checked: #FFF;
+        /* Background color when the button is selected */
+        --border-radius: 10px;
+        /* Makes the segment buttons rounded */
+    }
+}
+
+ion-card {
+    box-shadow: none; // Removes the card shadow
+    border-radius: 0; // Removes the border radius from the card
+    margin-bottom: 16px; // Adds space between the cards
+    border: 1px solid #d7d7d7; // Adds a light border around the entire card
+
+    ion-item {
+        --background: #fff; // Set the background of the item to match card
+        --padding-start: 0;
+        --inner-padding-end: 0;
+        --padding-end: 0;
+        display: flex;
+        align-items: center;
+        --border-color: #e0e0e0; // Set the color of the item's border
+
+        &:first-child {
+            --border-color: transparent; // Removes the border for the first item
+        }
+    }
+
+    ion-avatar {
+        --ion-avatar-width: 40px; // Set your desired avatar size
+        --ion-avatar-height: 40px;
+        margin-right: 10px;
+    }
+
+    h2,
+    p {
+        margin: 0;
+    }
+
+    .date {
+        color: #999;
+        font-size: 0.8em; // Smaller text for the date
+    }
+
+    ion-buttons {
+        display: flex;
+    }
+
+    ion-button {
+        --padding-start: 0; // Removes padding from the buttons
+        --padding-end: 0;
+    }
+
+    // Styles for the comments item
+    .comment-item {
+        display: flex;
+        align-items: center;
+
+        ion-icon {
+            margin-right: 5px; // Space between icon and text
+            font-size: 1.2em; // If you need to resize the icon
+        }
+    }
+
+    &:not(:last-child) {
+        border-bottom: 1px solid #d7d7d7; // Adds a border between the cards
+    }
+}
+
+// Additional styles for the comments link
+ion-item p {
+    color: var(--ion-color-primary);
+    font-size: 0.8em;
+}
+
+// Adjust this color to match the theme of your app
+ion-label p {
+    color: #606060; // Darker text for better readability
+}
+
+ion-label p {
+    display: flex;
+    align-items: center; // This will center the text with the icon vertically
+    margin: 0; // Reset margin for consistency
+}
