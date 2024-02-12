@@ -61,7 +61,7 @@
             </ion-label>
             <ion-label>
               <h3>{{voucher.pointsRequired}}pts</h3>
-              <ion-button>Use</ion-button>
+              <ion-button (click)="useVoucher(voucher.voucherID, voucher.brand, voucher.value)">Use</ion-button>
             </ion-label>
       </ion-item>
     </ion-list>

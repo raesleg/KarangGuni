@@ -5,7 +5,8 @@ import { VoucherService } from '../shared/services/voucher.service';
 import { Reward } from '../shared/services/models/reward';
 import { AuthService } from '../shared/services/auth.service';
 import { ValidatorsService } from '../shared/services/validators.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
+import { QrcodePage } from '../qrcode/qrcode.page';
 
 @Component({
   selector: 'app-rewards',
@@ -20,7 +21,7 @@ myVouchers: Voucher[]=[];
 
   constructor(private authService: AuthService, private rewardService: RewardService, 
     private voucherService: VoucherService, private validatorService: ValidatorsService,
-    private alertController: AlertController) { }
+    private alertController: AlertController, private modalController: ModalController) { }
 
   async ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
@@ -77,6 +78,20 @@ myVouchers: Voucher[]=[];
   
   }
 
+  async useVoucher(voucherID: string, brand: string, value: number){
+      const modal = await this.modalController.create({
+        component: QrcodePage, 
+        componentProps: {
+          id: voucherID,
+          brand: brand, // Pass your data to the modal component
+          value: value
+        },
+        cssClass: 'custom-modal-class', // Add a custom class for styling
+      });
+  
+      return await modal.present();
+  }
+
   refresh($event: { target: { complete: () => void; }; }) {
     $event.target.complete();
     this.ngOnInit();
@@ -85,4 +100,5 @@ myVouchers: Voucher[]=[];
   segmentChanged(event: any) {
     this.segment = event.detail.value;
   }
+  
 }

@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Create New Group</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="addGroupForm" (ngSubmit)="create()">
+    <ion-item>
+      <ion-input formControlName="photo" type="file"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>About</ion-label>
+      <ion-input formControlName="about"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" color="secondary" type="submit">Create</ion-button>
+  </form>
+</ion-content>

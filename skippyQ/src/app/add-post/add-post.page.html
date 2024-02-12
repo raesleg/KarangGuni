@@ -1,0 +1,74 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>addPost</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content [fullscreen]="true">
+  <div class="search-and-segment">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="10.5">
+          <ion-searchbar placeholder="Search"></ion-searchbar>
+        </ion-col>
+        <ion-col size="1.5">
+          <ion-button color="primary" [routerLink]="['/add-post']">
+            <ion-icon slot="icon-only" name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!-- <ion-segment [(ngModel)]="segment" mode="md">
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="my-posts">
+        <ion-label>My Posts</ion-label>
+      </ion-segment-button>
+    </ion-segment> -->
+  </div>
+
+  <form [formGroup]="addPostForm">
+    <ion-card>
+      <ion-card-header>
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img src="../assets/profile.png" />
+          </ion-avatar>
+          <ion-label>
+            <h2>Username: {{ username }}</h2>
+            <!-- <ion-input formControlName="username"></ion-input> -->
+            <ion-card-subtitle>{{ currentDate | date: 'd MMMM yyyy \'at\' HH:mm' }}</ion-card-subtitle>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">What's on your mind today?</ion-label>
+          <ion-input class="post-description" type="text" formControlName="description"></ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="stacked">Upload Image or Take a Photo</ion-label>
+          <input type="file" accept="image/*" (change)="onImageSelected($event)">
+        </ion-item>
+        <ion-item lines="none">
+          <!-- ... other items ... -->
+          <ion-button (click)="startCamera()">Start Camera</ion-button>
+          <ion-button (click)="stopCamera()" *ngIf="cameraStarted">Stop Camera</ion-button>
+        </ion-item>
+        
+        <!-- Video element to display the camera feed -->
+        <video #videoElement id="videoElement" autoplay [hidden]="!cameraStarted"></video>
+        
+        <!-- Add this img tag to display the captured image preview -->
+        <img *ngIf="capturedImage" [src]="capturedImage" alt="Captured image preview"/>
+        
+        <ion-item lines="none" *ngIf="cameraStarted">
+          <ion-button (click)="captureImage()">Capture Image</ion-button>
+        </ion-item>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button expand="block" type="submit" (click)=add()>Post</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </form>
+
+</ion-content>

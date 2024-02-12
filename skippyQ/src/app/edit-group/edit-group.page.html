@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Edit Group</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="editGroupForm" (ngSubmit)="update()">
+    <ion-item>
+      <ion-label>Group Name</ion-label>
+      <ion-input formControlName="name"></ion-input>
+      <ion-label *ngIf="editGroupForm.controls['name'].errors && submitted"
+      color="danger">
+      Name is required </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>About</ion-label>
+      <ion-input formControlName="about"></ion-input>
+      <ion-label *ngIf="editGroupForm.controls['about'].errors && submitted"
+      color="danger">
+      Please put a description to your group </ion-label>
+    </ion-item>
+    <ion-button expand="block" color="secondary" type="submit">Update</ion-button>
+  </form>
+  
+  <img [src]=groupImage alt="" class="image-card">
+
+</ion-content>

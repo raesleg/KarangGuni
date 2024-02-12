@@ -73,7 +73,44 @@ const routes: Routes = [
   {
     path: 'notif',
     loadChildren: () => import('./notif/notif.module').then( m => m.NotifPageModule)
-  }
+  },
+  {
+    path: 'qrcode',
+    loadChildren: () => import('./qrcode/qrcode.module').then( m => m.QrcodePageModule)
+  },
+  {
+    path: 'tab4',
+    loadChildren: () => import('./tab4/tab4.module').then( m => m.Tab4PageModule)
+  },
+  {
+    path: 'edit-group/:id',
+    loadChildren: () => import('./edit-group/edit-group.module').then(m => m.EditGroupPageModule)
+  },
+  {
+    path: 'add-group',
+    loadChildren: () => import('./add-group/add-group.module').then( m => m.AddGroupPageModule)
+  },
+  {
+    path: 'view-group/:id',
+    loadChildren: () => import('./view-group/view-group.module').then( m => m.ViewGroupPageModule)
+  },
+  {
+    path: 'add-events/:id',
+    loadChildren: () => import('./add-events/add-events.module').then( m => m.AddEventsPageModule)
+  },
+  {
+    path: 'eventsapproval',
+    loadChildren: () => import('./eventsapproval/eventsapproval.module').then( m => m.EventsapprovalPageModule)
+  },
+  {
+    path: 'add-post',
+    loadChildren: () => import('./add-post/add-post.module').then( m => m.AddPostPageModule)
+  },
+  {
+    path: 'bin-locator',
+    loadChildren: () => import('./bin-locator/bin-locator.module').then( m => m.BinLocatorPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

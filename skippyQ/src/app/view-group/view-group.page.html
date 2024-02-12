@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>{{grpname}}</ion-title>
+    <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
+  <ion-icon *ngIf="isCreator" slot="end" name="pencil" [routerLink]="['/edit-group',groupId]">
+  </ion-icon>
+ 
+  
+  
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  <img [src]=groupImage alt =" " class="image-card">
+<ion-item>
+  <ion-label>About:</ion-label>
+  <ion-label color="medium">{{grpabt}}</ion-label>
+</ion-item>
+<h1><u>Events</u></h1>
+<ion-list *ngFor="let event of events">
+  <ion-item *ngIf="event.Pgroup === groupId && event.status== 'approved' " >
+    <ion-label >
+      <h2>{{event.name}}</h2>
+     </ion-label>
+     <ion-label>
+      <h3>{{event.about}}</h3>
+     </ion-label>
+     <ion-label>
+      <p>Date:  {{event.date}}</p>
+      </ion-label>
+      <ion-label>
+      <p>Location: {{event.location}}</p>
+    </ion-label>
+    
+  </ion-item>
+  
+</ion-list>
+
+<ion-button *ngIf="isNotMember" (click)="joinGroup()" >Join Group</ion-button>
+<ion-button *ngIf="isCreator" [routerLink]="['/add-events',groupId]">Add events</ion-button>
+
+  <ion-card *ngIf="group">
+    <ion-card-header>
+      Group Members
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let member of members">
+          {{member}}
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

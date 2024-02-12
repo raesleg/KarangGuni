@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { QRCodeModule } from 'angularx-qrcode';
 import { IonicModule } from '@ionic/angular';
 
-import { RewardsPageRoutingModule } from './rewards-routing.module';
+import { QrcodePageRoutingModule } from './qrcode-routing.module';
 
-import { RewardsPage } from './rewards.page';
+import { QrcodePage } from './qrcode.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RewardsPageRoutingModule
+    QrcodePageRoutingModule,
+    QRCodeModule
   ],
-  declarations: [RewardsPage]
+  declarations: [QrcodePage]
 })
-export class RewardsPageModule {}
+export class QrcodePageModule {}

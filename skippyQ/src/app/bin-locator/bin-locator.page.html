@@ -1,0 +1,54 @@
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-title size="large">Waste Sorter</ion-title>
+  </ion-header>
+  
+  <div class="searchbar-container">
+    <ion-searchbar class="custom-searchbar" placeholder="Search"></ion-searchbar>
+  </div>
+
+  <h2>Scan the QR Codes on the Bins to know all the Locations of all Bins !</h2>
+
+  <div>
+
+    Video element to display the camera feed
+    <video #videoElement autoplay width="300" height="200" style="border: 1px solid gray" *ngIf="cameraStarted"></video>
+
+    <!-- Buttons to interact with the camera -->
+    <button (click)="startCamera()">Scan QR Code with Camera</button>
+    <button (click)="stopCamera()" *ngIf="cameraStarted">Stop Camera</button>
+
+    <!-- File input for uploading QR code -->
+    <!-- <input type="file" #fileInput style="display: none;" (change)="onFileChange($event)" accept="image/*">
+    <button (click)="fileInput.click()">Upload QR Code</button>
+    <button (click)="stopScanning()" *ngIf="isScanning">Stop Scanning</button> -->
+
+    <!-- Container for QR code scanning animation -->
+    <!-- <div *ngIf="qrCodeImageSrc" class="scanner-container">
+      <img [src]="qrCodeImageSrc" class="qr-code-image">
+      <div class="scan-line"></div>
+    </div> -->
+
+    <!-- This example assumes you want to display an image, PDF, or text -->
+    <!-- <div *ngIf="qrResultString"> -->
+      <!-- If the result is an image URL -->
+      <!-- <img *ngIf="isImageFile(qrResultString)" [src]="qrResultString" class="scanned-image"> -->
+
+      <!-- If the result is a PDF -->
+      <!-- <object *ngIf="isPdfFile(qrResultString)" type="application/pdf" [data]="qrResultString" width="300"
+        height="200"></object> -->
+
+      <!-- If the result is text -->
+      <!-- <ion-text *ngIf="isTextFile(qrResultString)">
+        <p>Follow our Link Here: {{ qrResultString }}</p>
+      </ion-text>
+    </div> -->
+
+  </div>
+
+</ion-content>
