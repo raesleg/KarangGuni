@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>eventsapproval</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">eventsapproval</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-segment [(ngModel)]="selectedStatusFilter" (ionChange)="filterEvents()">
+    <ion-segment-button value="all">All</ion-segment-button>
+    <ion-segment-button value="approved">Approved</ion-segment-button>
+    <ion-segment-button value="pending">Pending</ion-segment-button>
+    <ion-segment-button value="rejected">Rejected</ion-segment-button>
+  </ion-segment>
+  <ion-list  *ngFor="let event of (filteredEvents || events) ">
+    <ng-container [style.border]="'1px solid blue'" *ngIf="selectedStatusFilter === 'all'  || event.status === selectedStatusFilter">
+    <ion-item>
+      
+      <ion-icon slot="start" name="checkmark-circle" *ngIf="event.status == 'approved'" color="success"></ion-icon>
+      <ion-icon slot="start" name="cloud-circle" *ngIf="event.status == 'pending'" color="warning"></ion-icon>
+      <ion-icon slot="start" name="close-circle" *ngIf="event.status == 'rejected'" color="danger"></ion-icon>
+
+      <ion-label >
+      
+        <h2>Name: {{event.name}}</h2>
+       </ion-label>
+       <ion-label>
+        <h5>{{event.about}}</h5>
+       </ion-label>
+       <ion-label>
+        <p>Date:  {{event.date}}</p>
+        </ion-label>
+        <ion-label>
+        <p>Location: {{event.location}}</p>
+      </ion-label>
+      <ion-button fill="outline" color="success" *ngIf="event.status == 'pending'" (click)="approveEvent(event.id)"> APPROVE </ion-button>
+      <ion-button fill="outline" color="danger" *ngIf="event.status == 'pending'" (click)="rejectEvent(event.id)"> REJECT </ion-button>
+      <ion-button fill="outline" color="warning" *ngIf="event.status =='approved' || event.status == 'rejected'" (click)="pendEvent(event.id)"> Undo </ion-button>
+      <ion-button fill="outline" color="tertiary" *ngIf="event.status == 'rejected'" (click)="deleteEvent(event.id)">DELETE</ion-button>
+   
+    </ion-item>
+  </ng-container>
+  </ion-list>
+</ion-content>

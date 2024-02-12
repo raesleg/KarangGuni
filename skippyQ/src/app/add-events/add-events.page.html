@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Create New Events</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="addEventForm" (ngSubmit)="createE()">
+  
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>About</ion-label>
+      <ion-input formControlName="about"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-input formControlName="date"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Location</ion-label>
+      <ion-input formControlName="location"></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" color="secondary" type="submit">Create</ion-button>
+  </form>
+  
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">addGroup</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+ 
+</ion-content>
