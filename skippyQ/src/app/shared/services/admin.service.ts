@@ -11,7 +11,7 @@ import { Trans } from './models/trans';
 export class AdminService {
 
   private profileRef = firebase.firestore().collection('profile');
-  private productsRef = firebase.firestore().collection("products") // reading products collection in db to store it as a property
+  private productsRef = firebase.firestore().collection("products");
   private bannedRef = firebase.firestore().collection("banned");
 
   constructor() { }
@@ -94,56 +94,23 @@ export class AdminService {
       let trans = new Trans(doc.data()!['create_time'], doc.data()!['currency'], doc.data()!['amount'], doc.data()!['buyeruserid'], doc!['id']);
       // Read subcollection '/loans/<id>/items'
       return firebase.firestore().collection('transaction/' + id + '/products').get().then(collection => {
-
-      //   let dbitems = await firebase.firestore().collection('transaction/' + doc.id + '/products').get();
-      //   let productIds = dbitems.docs.map(itemDoc => itemDoc.id);
-      //   trans.productIds = productIds; 
-        
-      //   console.log(trans)
-      //   console.log(productIds)
-      // } catch (error) {
-      //   console.error('Error processing document:', error);
-      // }
-
         collection.forEach(doc => {
             // Assuming each document in the subcollection has an 'id' property
             let productId = doc.id;
-    
             // Add the product ID to the trans object
             trans.productIds.push(productId);
           });
-    
           // Return the trans object with product IDs
           return trans;      
         });
     });
   }
 
-  // getTransbyBuyer(buyeruserid: string): Observable<any> {
-  //   // Use a query to find documents with the specified buyeruserid
-  //   const query = this.profileRef.where('buyeruserid', '==', buyeruserid);
-  
-  //   // Return an observable
-  //   return new Observable((observer) => {
-  //     query.get().then((querySnapshot) => {
-  //       const trans = [];
-  //       querySnapshot.forEach((doc) => {
-  //         const transData = doc.data() as { buyeruserid: string };
-  //         trans.push(transData);
-  //       });
-  //       observer.next(trans);
-  //     }).catch((error) => {
-  //       observer.error(error);
-  //     });
-  //   });
-  // }
-
   async Banned(p: Profile, reasons: string, Banned_By: string){
     try {
 
       const BannedDocRef = this.bannedRef.doc(p.userID);
 
-      // Set the data for the "transaction" document
       await BannedDocRef.set({
         isAdmin: p.isAdmin,
         email: p.email,
@@ -172,7 +139,6 @@ export class AdminService {
   deleteListing(p: Product) {
 
     this.productsRef.get().then((querySnapshot) => {
-      // Iterate through the documents and delete each one
       querySnapshot.forEach((doc) => {
         console.log(p.id)
         const productRef = this.productsRef.doc(p.id)
@@ -188,9 +154,7 @@ export class AdminService {
   }
 
   getUserProfile(userID: string): Observable<any> {
-    // Use a query to find documents with the specified buyeruserid
     const query = this.profileRef.where('userID', '==', userID);
-  
     // Return an observable
     return new Observable((observer) => {
       query.get().then((querySnapshot) => {

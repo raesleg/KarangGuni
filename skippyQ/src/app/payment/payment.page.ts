@@ -87,19 +87,14 @@ export class PaymentPage implements OnInit {
             ]
           })
         },
-        // onApprove: (data: any, actions: any, item: Product) => {
         onApprove: (data: any, actions: any, item: Product) => {
           return actions.order.capture().then(async (details : any) =>{
-          // return actions.order.capture().then(async (details : any, item: Product) =>{
-            console.log(details)
-            console.log(item)
             if (details.status === 'COMPLETED'){
               this.paymentService.transactionID = details.id;
               this.transactionId = this.paymentService.transactionID
               this.create_time = details.create_time
               console.log(this.create_time)
               console.log('trans id', this.transactionId)
-              console.log('user', this.user)
               console.log('buyeridpayment', this.buyeruserid)
 
               this.productService.addtoTrans(this.create_time, 'SGD', this.amount, this.buyeruserid, this.transactionId, this.buyercart)
@@ -110,7 +105,7 @@ export class PaymentPage implements OnInit {
                 console.log('trans2', this.transactionId)
                 let alert = await this.alertCtrl.create({
                   header: 'Transaction is successful.',
-                  message: this.transactionId, //template strings
+                  message: this.transactionId,
                   buttons: ['OK']
                 });
                 alert.present().then(() => {

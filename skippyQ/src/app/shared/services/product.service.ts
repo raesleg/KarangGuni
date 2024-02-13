@@ -12,7 +12,7 @@ import * as moment from 'moment-timezone';
 })
 export class ProductService {
 
-  private productsRef = firebase.firestore().collection("products") // reading products collection in db to store it as a property
+  private productsRef = firebase.firestore().collection("products");
   private cartsRef = firebase.firestore().collection("cart");
   private transRef = firebase.firestore().collection("transaction");
 

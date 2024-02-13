@@ -155,11 +155,6 @@ export class CartPage implements OnInit {
       {
         text: 'OK',
         handler: async (data) => {
-          // Combine the input values into a single string
-          // const streetName = data.streetName || '';
-          // const unitNo = data.unitNo || '';
-          // const postalCode = data.postalCode || '';
-
           const streetName = data.streetName?.trim();
           const unitNo = data.unitNo?.trim();
           const postalCode = data.postalCode?.trim();

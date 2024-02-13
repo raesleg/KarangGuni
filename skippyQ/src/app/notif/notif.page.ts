@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../shared/services/product.service';
 import { AuthService } from '../shared/services/auth.service';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController} from '@ionic/angular';
 import { Product } from '../shared/services/models/product';
 import { AdminService } from '../shared/services/admin.service';
 import { Profile } from '../shared/services/models/profile';
@@ -27,12 +27,9 @@ export class NotifPage implements OnInit {
     private authService: AuthService,
     private modalCtrl: ModalController,
     private adminService: AdminService
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
-
     this.authService.observeAuthState(user => {
       if (user && user.email) {
         // If a user is logged in, get the user profile
@@ -43,24 +40,15 @@ export class NotifPage implements OnInit {
 
             this.productService.getProducts()
             .subscribe(data => {
-              // this.notification = data.filter(item => item.selleruserid === this.selleruserid && item.status == "Sold" && item.isShipped !== "True");
               this.sold = data.filter(item => item.selleruserid === this.selleruserid && item.status == "Sold");
 
             this.sold.forEach(product => {
               if (product.buyeruserid) {
                 // Access the buyeruserid of each sold product
                 this.buyeruserid = product.buyeruserid;
-                console.log(this.buyeruserid);
-
-                // Now you can use this.buyeruserid in other parts of your code
                 this.adminService.getUserProfile(this.buyeruserid).subscribe((buyprofile) => {
                   if (buyprofile) {
-                    // this.profile = profile;
-                    // console.log(profile[0]);
-                    // console.log(profile);
-                    // console.log(profile[0].ageRange);
                     this.buyprofiles.push(buyprofile)
-                    // this.unopenedNotifCount += this.notification.length;
                     console.log(this.buyprofiles)
                   } else {
                     console.log('Failed to return profile');
@@ -92,6 +80,4 @@ export class NotifPage implements OnInit {
   close() {
     this.modalCtrl.dismiss();
   }
-
-
 }

@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
   <form [formGroup]="addGroupForm" (ngSubmit)="create()">
     <ion-item>
-      <ion-input formControlName="photo" type="file"></ion-input>
+      <ion-input formControlName="photo" type="file" (change)="handleFileInput($event)"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Name</ion-label>
@@ -21,4 +21,12 @@
 
     <ion-button expand="block" color="secondary" type="submit">Create</ion-button>
   </form>
+  
+  <ion-header collapse="condense">
+    <ion-toolbar>
+    
+    </ion-toolbar>
+  </ion-header>
+  
+ 
 </ion-content>

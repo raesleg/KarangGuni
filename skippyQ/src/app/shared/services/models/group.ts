@@ -1,14 +1,14 @@
 export class Group {
     name: string;
     about: string;
-   image: string;
+   image: any;
    imagePath!: string;
    id: string;
    creator: string;
    members:string[];
    constructor(name: string,
     about: string,
-    image: string,
+    image: any,
     id?: string,
     creator?: string,
     members?:string[]) {
