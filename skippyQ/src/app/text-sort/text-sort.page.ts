@@ -37,7 +37,6 @@ isAdmin: boolean = false;
   search(event) {
     const query = event.target.value.toLowerCase();
 
-    // Update recycleInfo based on the search query
     this.recycleInfo = this.recycleInfo.filter((info) =>
       info.category.toLowerCase().includes(query) ||
       info.types.some((item) => item.toLowerCase().includes(query))

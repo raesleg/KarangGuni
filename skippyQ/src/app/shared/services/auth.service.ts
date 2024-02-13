@@ -50,9 +50,7 @@ export class AuthService {
         return data;
       } else {
         console.log(`User with email ${email} not found in the "profile" collection`);
-        // Returning an empty Profile object
-        // return {} as Profile;
-        // Alternatively, you can throw an error
+        
         throw new Error(`Account does not exist`);
       }
     } catch (error) {
@@ -65,13 +63,13 @@ export class AuthService {
 
   async register(profile: Profile) {
     try {
-      // Step 1: Create user in Firebase Authentication
+      //Create user in Firebase Authentication
       const userCredential = await firebase.auth().createUserWithEmailAndPassword(
         profile.email,
         profile.password
       );
   
-      // Step 2: Save additional user details in Firestore
+      //Save additional user details in db
       this.profileRef.doc(profile.email).set ( {
         userID: userCredential.user?.uid,
         isAdmin: profile.isAdmin,
@@ -115,6 +113,7 @@ export class AuthService {
           phoneNumber: profile.phoneNumber,
           ageRange: profile.ageRange
         };
+
         // Add bio to updatedProfile only if it's defined
         if (profile.bio !== undefined) {
           updatedProfile.bio = profile.bio;
@@ -153,7 +152,6 @@ export class AuthService {
   }
   
   getUserRoleByEmail(email: string): Promise<boolean | null> {
-    //const currentUser = this.getCurrentUser();
     const usersCollection = firebase.firestore().collection('profile');
 
     return usersCollection.doc(email).get().then((doc) => {

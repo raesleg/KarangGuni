@@ -95,7 +95,6 @@ recycleInfoRef = firebase.firestore().collection('recycleInfo');
   updateRecycleInfo(id: string, updatedInfo: RecycleInfo): Promise<void> {
     const infoRef = this.recycleInfoRef.doc(id);
 
-    // Update the document with the new data
     return infoRef.update(updatedInfo).then(() => {
       console.log(`Recycle Info with ID ${id} updated successfully.`);
     }).catch((error) => {

@@ -16,7 +16,7 @@ imageUrl: string | undefined;
     this.authService.observeAuthState(currentUser => {
       if (currentUser && currentUser.email) {
         this.authService.getUserProfile(currentUser.email).then((profile) => {
-          // Use the retrieved profile to get the name
+          // Use the retrieved profile to get the name and image
           if (profile) {
             this.userName = profile.name;
             console.log('User Name:', this.userName);

@@ -16,13 +16,6 @@
     <h6>Voucher ID: {{ id }}</h6>
   </ion-item>
 
-  <!-- Show copy code if the brand is "Grab"
-  <ion-item *ngIf="brand === 'Grab'" >
-    Promo Code: 
-    <div class="copyCode" (click)="copyToClipboard()">{{ contentToCopy }}</div>
-  </ion-item> -->
-
-  <!-- Show QR code if the brand is not "Grab" -->
   <ion-item>
     <qrcode [qrdata]="id" [width]="230" [errorCorrectionLevel]="'M'"></qrcode>
   </ion-item>

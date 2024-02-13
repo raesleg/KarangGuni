@@ -95,19 +95,6 @@ newImage: File | undefined;
         this.userInfoForm.value.bio
       );
 
-      // if (this.userInfoForm.value.file) {
-      //     // Continue with updating the profile
-      //     this.authService.updateProfile(updatedProfile, this.newImage).then(() => {
-      //       console.log('Profile updated successfully');
-      //       this.validService.presentToast('Profile updated successfully', 'success');
-      //       this.router.navigate(['/tabs/tab3']);
-      //     })
-      //     .catch((error) => {
-      //       // Handle registration errors
-      //       console.error('Update Profile error:', error);
-      //       this.validService.presentToast(error.message, 'danger');
-      //     });
-      // } else {
         // Continue without updating the image
         this.authService.updateProfile(updatedProfile, this.newImage).then(() => {
           console.log('Profile updated successfully');

@@ -26,19 +26,11 @@ export class QrcodePage implements OnInit {
     }
   }
 
-  // copyToClipboard() {
-  //   if (this.contentToCopy) {
-  //     this.clipboardService.copy(this.contentToCopy);
-  //   }
-  // }
-
   generateRandomId(): string {
     // Generate a random string (5 characters)
     const randomString = Math.random().toString(36).substr(2, 5);
 
-    // Get the current timestamp
     const timestamp = Date.now();
-
     // Combine timestamp and random string to create the ID
     const randomId = `${timestamp}${randomString}`;
 

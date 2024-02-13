@@ -83,7 +83,6 @@
         Please confirm your password
       </ion-text>
     </ion-item>
-    <!-- Error message for weak password -->
     <ion-text *ngIf="userInfoForm.get('password')?.hasError('weakPassword')" color="danger" class="ion-text-wrap">
       Password is too weak. Password must have at least: <br>
       &bull; 8 characters<br>
@@ -92,7 +91,6 @@
       &bull; 1 uppercase letter<br>
       &bull; 1 lowercase letter<br>
     </ion-text>
-    <!-- Error message for password mismatch -->
     <ion-text *ngIf="userInfoForm.hasError('passwordMismatch') && userInfoForm.get('cfmpassword')?.dirty" color="danger">
       Passwords do not match.
     </ion-text>

@@ -76,7 +76,6 @@ export class RegisterPage implements OnInit {
       )
 
       this.authService.register(newProfile).then((userCredential) => {
-          // Extract UID from the userCredential
           const uid = userCredential.user?.uid;
 
           // Create empty reward doc for new user w their email

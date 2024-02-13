@@ -83,10 +83,10 @@ myVouchers: Voucher[]=[];
         component: QrcodePage, 
         componentProps: {
           id: voucherID,
-          brand: brand, // Pass your data to the modal component
+          brand: brand,
           value: value
         },
-        cssClass: 'custom-modal-class', // Add a custom class for styling
+        cssClass: 'custom-modal-class',
       });
   
       return await modal.present();

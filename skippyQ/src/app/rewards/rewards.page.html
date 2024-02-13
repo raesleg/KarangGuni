@@ -34,7 +34,6 @@
   </ion-segment>
 
   <div *ngIf="segment === 'allVouchers'">
-    <!-- All post Card-->
     <ion-list class="vouchers" *ngFor="let voucher of vouchers">
       <ion-item>
         <img class="img" src="{{voucher.image}}">
@@ -51,7 +50,6 @@
   </div>
 
   <div *ngIf="segment === 'myVouchers'">
-    <!-- All post Card-->
     <ion-list class="vouchers" *ngFor="let voucher of myVouchers">
       <ion-item>
         <img class="img" src="{{voucher.image}}">

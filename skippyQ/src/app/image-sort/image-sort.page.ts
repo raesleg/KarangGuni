@@ -69,11 +69,10 @@ export class ImageSortPage implements OnInit {
 
   async takePhoto(source: CameraSource) {
     if (source === CameraSource.Camera) {
-      // Initialize the webcam when using the camera
+      // Initialize the webcam
       await this.startCamera();
       this.isLiveCtnSelected = true;
     } else {
-      // Use the Capacitor Camera API for non-camera sources
       const options = {
         quality: 100,
         allowEditing: false,
@@ -88,7 +87,6 @@ export class ImageSortPage implements OnInit {
         this.img = imageData;
         this.predictFile();
       } else {
-        // Handle case where the user cancels the camera action
       }
     }
   }
@@ -110,34 +108,32 @@ export class ImageSortPage implements OnInit {
     this.maxPredictions = this.liveModel.getTotalClasses();
 
     // Convenience function to setup a webcam
-    const flip = true; // whether to flip the webcam
-    this.webcam = new tmImage.Webcam(350, 400, flip); // width, height, flip
+    const flip = true;
+    this.webcam = new tmImage.Webcam(350, 400, flip);
     await this.webcam.setup(); // request access to the webcam
     await this.webcam.play();
     window.requestAnimationFrame(() => this.loop());
 
     // append elements to the DOM
     this.webcamContainer.nativeElement.appendChild(this.webcam.canvas);
-    for (let i = 0; i < this.maxPredictions; i++) { // and class labels
+    for (let i = 0; i < this.maxPredictions; i++) { 
       this.labelContainer.nativeElement.appendChild(document.createElement("div"));
     }
   }
 
   loop() {
-    this.webcam.update(); // update the webcam frame
+    this.webcam.update();
     this.predictLive();
     window.requestAnimationFrame(() => this.loop());
   }
 
   // run the webcam image through the image model
   async predictLive() {
-    // predict can take in an image, video, or canvas HTML element
     if (!this.liveModel || !this.webcam) {
       console.error('Model or webcam not initialized.');
       return;
     }
 
-    // predict can take in an image, video, or canvas HTML element
     const prediction = await this.liveModel.predict(this.webcam.canvas);
     if (!this.labelContainer) {
       console.error('Label container not found.');
@@ -155,11 +151,8 @@ export class ImageSortPage implements OnInit {
 
   async capturePrediction() {
     if (this.currentPrediction) {
-      // Navigate to another page with the captured prediction
-      // You should replace 'your-other-page' with the actual route/path of the other page
       this.router.navigate(['/recycle-info/', this.currentPrediction]);
     } else {
-      // Handle the case where there is no prediction available
       console.error('No prediction available.');
     }
   }
@@ -172,13 +165,11 @@ export class ImageSortPage implements OnInit {
 
   async predictFile() {
     try {
-      // Ensure the model is loaded
       if (!this.fileModel) {
         console.error('Model not loaded.');
         return;
       }
   
-      // Load the image
       const img = new Image();
       img.src = this.img;
   
@@ -187,25 +178,23 @@ export class ImageSortPage implements OnInit {
         img.onload = () => resolve();
       });
   
-      // Resize the image to match the expected input size of your model
+      // Resize image to match the expected input size of model
       const resizedImg = this.resizeImage(img, 224, 224);
   
       // Preprocess the image and convert it to a tensor
       const tensor = tf.browser.fromPixels(resizedImg).toFloat().expandDims();
       console.log('Resized Image Shape:', resizedImg.width, resizedImg.height);
       console.log('Tensor Shape:', tensor.shape);
-      // Normalize the pixel values to the range [0, 1]
       tensor.div(tf.scalar(255));
   
-      // Make the prediction using the model
+      // Make the prediction
       const prediction = this.fileModel.predict(tensor) as tf.Tensor;
       const probabilities = prediction.dataSync() as Float32Array;
   
-      // Display or use the prediction probabilities as needed
       console.log('Prediction Probabilities:', probabilities);
   
       const maxProbabilityIndex = probabilities.indexOf(Math.max(...probabilities));
-      this.currentPrediction = maxProbabilityIndex + 1; // Assuming class indexing starts from 1
+      this.currentPrediction = maxProbabilityIndex + 1;
       console.log(`Predicted Class: ${this.currentPrediction}`);
 
       if (this.classLabels && Array.isArray(this.classLabels)) {
